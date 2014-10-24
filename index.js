@@ -2,7 +2,8 @@ $(document).ready(function(){
 	
 	$("#grid").sortable()
 
-	$("#bot_menu").hide()
+	// $("#bot_menu").hide()
+	$(".bot_menu").hide()
 
 	$(".menu_item").click(function(){
 		$(this).siblings().removeClass("active_menu")
@@ -44,15 +45,17 @@ $(document).ready(function(){
     	}
     });
 
-	$("#top_menu li").on("click", function(){
+	// $("#top_menu li").on("click", function(){
+	$(".top_menu").on("click", function(){
 		onPoint = true
 		cat = $(this).attr("id")
 		addPointData(cat)
 
-		$("#Agriculture_menu").hide()
-		$("#Health_menu").hide()
-		$("#Education_menu").hide()
-
+		// $("#Agriculture_menu").hide()
+		// $("#Health_menu").hide()
+		// $("#Education_menu").hide()
+		$(".bot_menu").hide()
+		
 		$("#"+cat+"_menu").show()
 	})
 
