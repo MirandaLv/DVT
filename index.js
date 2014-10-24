@@ -1,9 +1,7 @@
-// ++
-// ++ js for leafletProject.php
-// ++
-
 $(document).ready(function(){
 	
+	$("#grid").sortable()
+
 	$("#bot_menu").hide()
 
 	$(".menu_item").click(function(){
@@ -18,7 +16,7 @@ $(document).ready(function(){
 		min:2001,
 		max:2013,
 		step: 1,
-		values: [2005, 2010]
+		values: [2001, 2013]
 	});
  
  	
@@ -42,17 +40,9 @@ $(document).ready(function(){
 	        var start_year = $("#slider").dragslider("values")[0]
 	    	var end_year = $("#slider").dragslider("values")[1]
 	        if (onExtract){ prepExtract("nepal")}
+	        buildCharts(start_year, end_year, geojsonPoints, geojsonExtract)
     	}
     });
-
-
-
-	var map
-	var tiles
-	var cat
-
-	mapInit()
-
 
 	$("#top_menu li").on("click", function(){
 		onPoint = true
@@ -70,6 +60,9 @@ $(document).ready(function(){
 		onExtract = true
   
 		prepExtract("nepal")
+		buildCharts($("#slider").dragslider("values")[0], $("#slider").dragslider("values")[1], geojsonPoints, geojsonExtract)
+
+		$("#charts").show()
 	})
 
 
@@ -95,11 +88,17 @@ $(document).ready(function(){
 
 	}
 
+	var map
+	var tiles
+	var cat
+
+	mapInit()
+
 	function mapInit(){
 
 		L.mapbox.accessToken = 'pk.eyJ1Ijoic2dvb2RtIiwiYSI6InotZ3EzZFkifQ.s306QpxfiAngAwxzRi2gWg'
 
-		map = L.mapbox.map('map')
+		map = L.mapbox.map('map', { })
 
 		tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 					attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap contributors</a>'
@@ -108,18 +107,21 @@ $(document).ready(function(){
 		map.setView([0,0], 1);
 
 		map.options.maxZoom = 11
+		map.scrollWheelZoom.disable();
+		map.dragging.disable();
 
+		$("#Agriculture").trigger("click")
+		$("#ndvi").trigger("click")
 	}
 
 	var allCountryBounds = { global:{_northEast:{lat:90, lng:180}, _southWest:{lat:-90, lng:-180}} }
-	// console.log(countryBounds)
-	addCountry("nepal", "../data/source/nepal_country.geojson")
+	// addCountry("nepal", "../data/source/nepal_country.geojson")
 
 	function addCountry(country, file){
 
-		var geojsonFeature = readJSON(file)
+		var geojsonCountry = readJSON(file)
 		
-		var countryLayer = L.geoJson(geojsonFeature, {style: style}).addTo(map);
+		var countryLayer = L.geoJson(geojsonCountry, {style: style}).addTo(map);
 		var countryBounds = countryLayer.getBounds()
 		map.fitBounds( countryBounds )
 
@@ -143,6 +145,7 @@ $(document).ready(function(){
 
 	// var myLayer
 	var geojson
+	var geojsonExtract 
 	var info
 	var legend
 	function addGeoExtract(country, file){
@@ -154,7 +157,7 @@ $(document).ready(function(){
 		}
 
 
-		var geojsonFeature = readJSON(file)
+		geojsonExtract = readJSON(file)
 		
 
 		function getColor(d) { 
@@ -213,7 +216,7 @@ $(document).ready(function(){
 		    });
 		}
 
-		geojson = L.geoJson(geojsonFeature, {
+		geojson = L.geoJson(geojsonExtract, {
 		    style: style,
 		    onEachFeature: onEachFeature
 		})
@@ -278,6 +281,7 @@ $(document).ready(function(){
 
 	//GEOJSON
 	var markers
+	var geojsonPoints
 	function addPointData(cat){
 
 		if (map.hasLayer(markers)){
@@ -292,11 +296,13 @@ $(document).ready(function(){
 	        async: false,
 	        success: function(geojsonContents) {
 				
+				geojsonPoints = geojsonContents
+
 				markers = new L.MarkerClusterGroup({
 					disableClusteringAtZoom: 10//8
 				});
 
-				var geoJsonLayer = L.geoJson(geojsonContents, {
+				var geojsonLayer = L.geoJson(geojsonContents, {
 					onEachFeature: function (feature, layer) {
 						var a = feature.properties
 						var popup = "<b>"+a.placename+"</b>";
@@ -333,7 +339,7 @@ $(document).ready(function(){
 				    }
 				});
 
-				markers.addLayer(geoJsonLayer);
+				markers.addLayer(geojsonLayer);
 				map.addLayer(markers);
 
 
