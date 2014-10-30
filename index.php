@@ -59,35 +59,35 @@
     <div id="options_container">
         <div id="options">   
 
-            <div class="row">
+            <div id="menu" class="row">
 
-              <div id="Agriculture" class="top_menu col-md-8">
+              <div id="Agriculture" class="top_menu col-md-12">
                 Agriculture
-                <div id="Agriculture_menu" class="bot_menu row">
-                  <div id="ndvi" class="col-md-6"><span>Potential Agricultural Productivity (2001)</span></div>
-                  <div class="col-md-6"><span class="temp">Agricultural Productivity Gap</span></div>
-                  <div class="col-md-6"><span class="temp">Rural Income</span></div>
-                  <div class="col-md-6"><span class="temp">Distance to City</span></div>
+                <div id="Agriculture_menu" class="bot_menu row row-md-height">
+                  <div id="ndvi" class="col-md-3 col-md-height"><span>Potential Agricultural Productivity (2001)</span></div>
+                  <div class="col-md-3 col-md-height"><span class="temp">Agricultural Productivity Gap</span></div>
+                  <div class="col-md-3 col-md-height"><span class="temp">Rural Income</span></div>
+                  <div class="col-md-3 col-md-height"><span class="temp">Distance to City</span></div>
                 </div>
               </div>
 
-              <div id="Health" class="top_menu col-md-8">
+              <div id="Health" class="top_menu col-md-12">
                 Health
-                <div id="Health_menu" class="bot_menu row">
-                  <div class="col-md-6"><span class="temp">Distance to Existing Health Project</span></div>
-                  <div class="col-md-6"><span class="temp">Disease Prevalence</span></div>
-                  <div class="col-md-6"><span class="temp">Distance to City</span></div>
-                  <div class="col-md-6"><span class="temp">Water Security</span></div>
+                <div id="Health_menu" class="bot_menu row row-md-height">
+                  <div class="col-md-3 col-md-height"><span class="temp">Distance to Existing Health Project</span></div>
+                  <div class="col-md-3 col-md-height"><span class="temp">Disease Prevalence</span></div>
+                  <div class="col-md-3 col-md-height"><span class="temp">Distance to City</span></div>
+                  <div class="col-md-3 col-md-height"><span class="temp">Water Security</span></div>
                 </div>
               </div>
 
-              <div id="Education" class="top_menu col-md-8">
+              <div id="Education" class="top_menu col-md-12">
                 Education
-                <div id="Education_menu" class="bot_menu row">
-                  <div class="col-md-6"><span class="temp">Literacy</span></div>
-                  <div class="col-md-6"><span class="temp">Income</span></div>
-                  <div class="col-md-6"><span class="temp">% Female</span></div>
-                  <div class="col-md-6"><span class="temp">% Unemployed</span></div>
+                <div id="Education_menu" class="bot_menu row row-md-height">
+                  <div class="col-md-3 col-md-height"><span class="temp">Literacy</span></div>
+                  <div class="col-md-3 col-md-height"><span class="temp">Income</span></div>
+                  <div class="col-md-3 col-md-height"><span class="temp">% Female</span></div>
+                  <div class="col-md-3 col-md-height"><span class="temp">% Unemployed</span></div>
                 </div>
               </div>
 
