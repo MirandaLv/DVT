@@ -1,5 +1,97 @@
 $(document).ready(function(){
 	
+	$("#content").hide()
+
+	var margin = {top: 0, left: 0, bottom: 0, right: 0},
+	   width = parseInt(d3.select('#container').style('width')),
+	   width = width - margin.left - margin.right,
+	   mapRatio = .448,
+	   height = width * mapRatio;
+
+	var projection = d3.geo.equirectangular()
+		.scale(width / 6.2)
+		.translate([ width / 2, width / 3.7]);
+
+	var path = d3.geo.path()
+	    .projection(projection);
+
+	var svg = d3.select("#container").append("svg")
+	    .attr("width", width)
+	    .attr("height", height);
+
+	queue()
+	    .defer(d3.json, "data/d3-world.json")
+	    .defer(d3.tsv, "data/world-country-names.tsv")
+	    .await(ready);
+
+	    
+
+	function ready(error, world, names) {
+		   // TRANSLATE FROM TOPOJSON, ADD TITLE AND GEOMETRY
+		   var countries = topojson.feature(world, world.objects.countries).features;
+		   countries.forEach(function(d) {
+		      d.name = names.filter(function(n) { return d.id == n.id; })[0].name;
+		   });
+		   var country = svg.selectAll(".mmcountry").data(countries);
+		   country.enter().insert("path").attr("class", function(d, i) {
+		     return countrySpecific(d, i);
+		   })
+		   .attr("title", function(d, i) {
+		     return d.name;
+		   })
+		   .attr("d", path);
+		   
+		   a = d3.selectAll(".countrySelected");
+		   
+		   a.on("click", function(){
+		       var sel_country = $(this).attr("title")
+			   console.log( sel_country )
+
+			   $("#container").hide()
+			   $("#content").fadeIn("slow")
+			   mapInit()
+
+		   })
+
+		   // a.on("mouseover", function(d) {
+		   //   d3.selectAll("[title=" + this.title + "]").classed("countryActive",true);
+		   // });
+		   
+		   // a.on("mouseout", function(d) {
+		   //   d3.selectAll("[title=" + this.title + "]").classed("countryActive",false);
+		   // });
+
+	}
+	 
+	//check if country is active (do we have data for it)
+	function countrySpecific(d, i) {
+	   if (d.name == 'Bolivia' || d.name=='Uganda' || d.name=='Kenya' || d.name == 'Malawi' || d.name == 'Haiti' ||d.name == 'Honduras' ||d.name == 'Nepal') return 'mmcountry countrySelected';
+	   else return 'mmcountry';
+	}
+
+
+
+	var $selected
+	$(".overlay_button").click(function(){
+		$("body").css("overflow","hidden")
+		$("#overlay").show()
+		// $("#overlay").toggleClass("overlay_active")
+		$selected = $(this).parent().parent()
+		$selected.addClass("overlay_content")
+
+		mapControlToggle(1)
+		map.invalidateSize();
+
+	})
+
+	$("#overlay").click(function(){
+		$("body").css("overflow","auto")
+		$("#overlay").hide()
+		$selected.removeClass("overlay_content")
+		mapControlToggle(0)
+		map.invalidateSize();
+	})
+
 	$("#grid").sortable()
 
 	// $("#bot_menu").hide()
@@ -95,7 +187,7 @@ $(document).ready(function(){
 	var tiles
 	var cat
 
-	mapInit()
+	// mapInit()
 
 	function mapInit(){
 
@@ -110,12 +202,36 @@ $(document).ready(function(){
 		map.setView([0,0], 1);
 
 		map.options.maxZoom = 11
-		map.scrollWheelZoom.disable();
-		map.dragging.disable();
+		mapControlToggle(0)
 
 		$("#Agriculture").trigger("click")
 		$("#ndvi").trigger("click")
 	}
+
+	function mapControlToggle(state){
+		if (state == 1){
+			map.scrollWheelZoom.enable();
+			map.dragging.enable();
+			map.doubleClickZoom.enable()
+		} else {
+			map.scrollWheelZoom.disable();
+			map.dragging.disable();
+			map.doubleClickZoom.disable()
+		}
+	}
+
+	// function refreshMaps(){
+	// 	map.invalidateSize();
+	// 	// $(".grid_map").each(function(){
+
+	// 	// })
+	// }
+
+	// function refreshCharts(){
+	// 	$(".grid_chart").each(function(){
+	// 		$(this).highcharts().redraw()
+	// 	})
+	// }
 
 	var allCountryBounds = { global:{_northEast:{lat:90, lng:180}, _southWest:{lat:-90, lng:-180}} }
 	// addCountry("nepal", "../data/source/nepal_country.geojson")
@@ -282,7 +398,6 @@ $(document).ready(function(){
 
 
 
-	//GEOJSON
 	var markers
 	var geojsonPoints
 	function addPointData(cat){
@@ -362,6 +477,7 @@ $(document).ready(function(){
 	    })
 	    return request.responseJSON
 	};
+
 
 
 })

@@ -2,11 +2,11 @@
 
 function buildCharts(start, end, points, extract){
 
-	console.log(start +" "+ end)
+	// console.log(start +" "+ end)
 
-	console.log(points.features.length)
+	// console.log(points.features.length)
 
-	console.log(extract.features.length)
+	// console.log(extract.features.length)
 
 	$("#info").html("Between " + start + " and " + end + " there are projects at " + points.features.length + " sites, across " + extract.features.length + " districts.")
 	$("#info").css("background-color","#00b159")
