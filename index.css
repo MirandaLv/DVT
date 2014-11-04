@@ -179,7 +179,7 @@ body {
                     margin-bottom: 0;
                 }
 
-                [class*="col-"] {
+                 #options [class*="col-"] {
                     padding-top: 15px;
                     padding-bottom: 15px;
                     background-color: #eee;
@@ -266,26 +266,157 @@ body {
 
 
 
+
+/*---------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------*/
+
+
+#container_head{
+    margin: 10px;
+    color:black;
+}
+
+    .container_head_variable{
+        color:red;
+    }
+
 #container {
     margin:10px 12.5%;
     border:2px solid #000;
     border-radius: 5px;
-    width:75%;  
+    /*width: 800px;*/
     overflow:hidden;
     background: #F0F8FF;
+    position:relative;
 }
 
-.mmcountry {
-  fill: #dfdfdf;
-  stroke: #d4d4cd;
-  stroke-width: .5px;
-  stroke-linejoin: round; }
+    @media (min-width: 375px) {
+        #container, #container_head, #container_foot{
+            width: 325px;
+            margin: 10px auto;
+        }
+    }
 
-.countrySelected {
-  fill: #83A41C; }
+    @media (min-width: 850px) {
+        #container, #container_head, #container_foot{
+            width:800px;
+            margin: 10px auto;
+        }
+    }
 
-.countrySelected:hover {
-  fill: #0000FF;
-  stroke: #000000;
-  stroke-width: 1;
-  stroke-linejoin: round; }
+    @media (min-width: 1250px) {
+        #container, #container_head, #container_foot{
+            width:1150px;
+            margin: 10px auto;
+        }
+    }
+
+    .mmcountry {
+      fill: #dfdfdf;
+      stroke: #d4d4cd;
+      stroke-width: .5px;
+      stroke-linejoin: round; }
+
+    .countrySelected {
+      fill: #83A41C; }
+
+    .countrySelected:hover {
+      fill: #0000FF;
+      stroke: #000000;
+      stroke-width: 1;
+      stroke-linejoin: round; }
+
+
+    .mminfo {
+    color: #222;
+    font-size: 1.2em;
+    width: 170px;
+    height: 64px;
+    padding: 12px 15px 13px 15px;
+    background: rgba(0,255,0,0.5);
+    position: absolute;
+    line-height: 26px;
+    }
+    .mmtitle {
+    font-family: 'Gotham-Bold';
+    font-size: 1.2em;
+    color: #81a33b; 
+    clear: both;
+    }
+    .mmactivities {
+    font-family: 'Gotham-Book';
+    font-size: 0.75em;
+    color: #333333; 
+    padding-top: 3px;
+    float: left;
+    }
+
+#container_foot {
+    /*margin: 0px -5px;*/
+
+}
+    #container_foot div div{
+        padding: 0px 1px;
+    }
+
+    #container_foot div div div{
+        /*padding: 0px 5px;*/
+        margin:1px;
+        color: black;
+        height: 100px;
+        background-color: rgba(255,255,255,1);
+        border: 2px solid rgba(0,0,0,1);
+        border-radius: 5px;
+    }
+
+/*#container_foot .row {margin: 0px}*/
+/*#container_foot [class*="col-"] {margin-left: -7.5px; margin-right: 10px; padding: 0 10px;}*/
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 992px) {
+  .featurette-heading {
+    margin-top: 120px;
+  }
+}

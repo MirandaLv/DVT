@@ -19,12 +19,50 @@ $(document).ready(function(){
 	    .attr("width", width)
 	    .attr("height", height);
 
+
+	// CONSTRUCT THE STYLE of the STATIC COUNTRY INFOBOXES
+	var tt_Uganda = d3.select("#container").append("div").attr("class", "mminfo bottom").attr("id","tt_Uganda").attr("title", "Uganda");
+	var tt_Nepal = d3.select("#container").append("div").attr("class", "mminfo top").attr("id","tt_Nepal").attr("title", "Nepal");
+	var tt_Malawi = d3.select("#container").append("div").attr("class", "mminfo right").attr("id","tt_Malawi").attr("title", "Malawi");
+
+	// PLACE THEM ON THE MAP RELATIVE TO THE MAP SIZE, THEN POPULATE THEM
+	tt_Nepal.attr("style", "left:" + width/1.44 + "px;top:" + height/2.26 + "px").html("<div class='mmtitle'><a href='#Nepal'>NEPAL</a></div><div class='mmactivities'>Nepal Activities</div>");
+	tt_Malawi.attr("style", "left:" + width/2.05 + "px;top:" + height/1.56 + "px").html("<div class='mmtitle'><a href='#Malawi'>MALAWI</a></div><div class='mmactivities'>Malawi Activities</div>");
+	tt_Uganda.attr("style", "left:" + width/1.84 + "px;top:" + height/2.1 + "px").html("<div class='mmtitle'><a href='#Uganda'>UGANDA</a></div><div class='mmactivities'>Uganda Activities</div>");
+	
+
 	queue()
 	    .defer(d3.json, "data/d3-world.json")
 	    .defer(d3.tsv, "data/world-country-names.tsv")
 	    .await(ready);
 
-	    
+	d3.select(window).on("resize", sizeChange);
+	
+	function sizeChange(){
+		// d3.select("svg").attr("transform", "scale(" + $("#container").width()/0 + ")");
+	    // $("svg").height($("#container").width()*0.448);
+
+	    // adjust things when the window size changes
+	    width = parseInt(d3.select('#container').style('width'));
+	    width = width - margin.left - margin.right;
+	    height = width * mapRatio;
+
+	    // update projection
+	    projection
+	        .translate([width / 2, width / 3.7])
+	        .scale(width /6.2);
+
+	    // resize the map container
+	    svg
+	        .style('width', width + 'px')
+	        .style('height', height + 'px');
+
+	    // resize the map
+	    svg.selectAll('.mmcountry').attr('d', path);
+	    // d3.selectAll('svg').attr('d', path);
+
+	}
+  
 
 	function ready(error, world, names) {
 		   // TRANSLATE FROM TOPOJSON, ADD TITLE AND GEOMETRY
@@ -47,7 +85,7 @@ $(document).ready(function(){
 		       var sel_country = $(this).attr("title")
 			   console.log( sel_country )
 
-			   $("#container").hide()
+			   $("#frontpage").hide()
 			   $("#content").fadeIn("slow")
 			   mapInit()
 
@@ -65,10 +103,14 @@ $(document).ready(function(){
 	 
 	//check if country is active (do we have data for it)
 	function countrySpecific(d, i) {
-	   if (d.name == 'Bolivia' || d.name=='Uganda' || d.name=='Kenya' || d.name == 'Malawi' || d.name == 'Haiti' ||d.name == 'Honduras' ||d.name == 'Nepal') return 'mmcountry countrySelected';
+	   if (d.name=='Uganda' || d.name == 'Malawi' || d.name == 'Nepal') return 'mmcountry countrySelected';
 	   else return 'mmcountry';
 	}
 
+	$("#temp_reset").on("click", function(){
+	   $("#frontpage").show()
+	   $("#content").hide()
+	})
 
 
 	var $selected
