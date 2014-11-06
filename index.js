@@ -1,9 +1,87 @@
 $(document).ready(function(){
+
+//-------------------------------------------------------------------------------------------------
+// home
+//-------------------------------------------------------------------------------------------------
 	
 	$("#content").hide()
 
+	var aid_fund = {
+		"agricultural": {
+			"2001": Math.random() * 10000000,
+			"2002": Math.random() * 10000000,
+			"2003": Math.random() * 10000000,
+			"2004": Math.random() * 10000000,
+			"2005": Math.random() * 10000000,
+			"2006": Math.random() * 10000000,
+			"2007": Math.random() * 10000000,
+			"2008": Math.random() * 10000000,
+			"2009": Math.random() * 10000000,
+			"2010": Math.random() * 10000000,
+			"2011": Math.random() * 10000000,
+			"2012": Math.random() * 10000000,
+			"2013": Math.random() * 10000000
+		},
+		"educational": {
+			"2001": Math.random() * 10000000,
+			"2002": Math.random() * 10000000,
+			"2003": Math.random() * 10000000,
+			"2004": Math.random() * 10000000,
+			"2005": Math.random() * 10000000,
+			"2006": Math.random() * 10000000,
+			"2007": Math.random() * 10000000,
+			"2008": Math.random() * 10000000,
+			"2009": Math.random() * 10000000,
+			"2010": Math.random() * 10000000,
+			"2011": Math.random() * 10000000,
+			"2012": Math.random() * 10000000,
+			"2013": Math.random() * 10000000
+		},
+		"social": {
+			"2001": Math.random() * 10000000,
+			"2002": Math.random() * 10000000,
+			"2003": Math.random() * 10000000,
+			"2004": Math.random() * 10000000,
+			"2005": Math.random() * 10000000,
+			"2006": Math.random() * 10000000,
+			"2007": Math.random() * 10000000,
+			"2008": Math.random() * 10000000,
+			"2009": Math.random() * 10000000,
+			"2010": Math.random() * 10000000,
+			"2011": Math.random() * 10000000,
+			"2012": Math.random() * 10000000,
+			"2013": Math.random() * 10000000
+		}
+	}
+
+
+	// natural form
+	 $("#container_head select").on("change", function(){
+	 	var start = parseInt($("#container_head_option_2").val())
+	 	var end = parseInt($("#container_head_option_3").val())
+	 	if (start > end){
+	 		end = parseInt($("#container_head_option_2").val())
+	 		start = parseInt($("#container_head_option_3").val())
+	 	}
+	 	var type = $("#container_head_option_1").val()
+	 	var total = 0
+	 	console.log(start)
+	 	for (var i=start; i<=end; i++){
+	 		total += aid_fund[type][i]
+	 	}
+
+	 	total = Math.floor(total).toLocaleString()
+	 	$("#variable1").text("$"+total)
+
+	 	var percent = Math.floor(Math.random() * 100)
+	 	$("#variable2").text(percent + "%")
+
+	 })
+	 $("#container_head_option_1").change()
+
+	// d3 map
 	var margin = {top: 0, left: 0, bottom: 0, right: 0},
-	   width = parseInt(d3.select('#container').style('width')),
+	   width = parseInt(d3.select('#container_mid').style('width')),
 	   width = width - margin.left - margin.right,
 	   mapRatio = .448,
 	   height = width * mapRatio;
@@ -15,20 +93,20 @@ $(document).ready(function(){
 	var path = d3.geo.path()
 	    .projection(projection);
 
-	var svg = d3.select("#container").append("svg")
+	var svg = d3.select("#container_mid").append("svg")
 	    .attr("width", width)
 	    .attr("height", height);
 
 
 	// CONSTRUCT THE STYLE of the STATIC COUNTRY INFOBOXES
-	var tt_Uganda = d3.select("#container").append("div").attr("class", "mminfo bottom").attr("id","tt_Uganda").attr("title", "Uganda");
-	var tt_Nepal = d3.select("#container").append("div").attr("class", "mminfo top").attr("id","tt_Nepal").attr("title", "Nepal");
-	var tt_Malawi = d3.select("#container").append("div").attr("class", "mminfo right").attr("id","tt_Malawi").attr("title", "Malawi");
+	var tt_Uganda = d3.select("#container_mid").append("div").attr("class", "mminfo").attr("id","tt_Uganda").attr("title", "Uganda");
+	var tt_Nepal = d3.select("#container_mid").append("div").attr("class", "mminfo").attr("id","tt_Nepal").attr("title", "Nepal");
+	var tt_Malawi = d3.select("#container_mid").append("div").attr("class", "mminfo").attr("id","tt_Malawi").attr("title", "Malawi");
 
 	// PLACE THEM ON THE MAP RELATIVE TO THE MAP SIZE, THEN POPULATE THEM
-	tt_Nepal.attr("style", "left:" + width/1.44 + "px;top:" + height/2.26 + "px").html("<div class='mmtitle'><a href='#Nepal'>NEPAL</a></div><div class='mmactivities'>Nepal Activities</div>");
-	tt_Malawi.attr("style", "left:" + width/2.05 + "px;top:" + height/1.56 + "px").html("<div class='mmtitle'><a href='#Malawi'>MALAWI</a></div><div class='mmactivities'>Malawi Activities</div>");
-	tt_Uganda.attr("style", "left:" + width/1.84 + "px;top:" + height/2.1 + "px").html("<div class='mmtitle'><a href='#Uganda'>UGANDA</a></div><div class='mmactivities'>Uganda Activities</div>");
+	tt_Nepal.attr("style", "left:" + width/1.35 + "px;top:" + height/2.26 + "px").html("<div class='mmtitle'><a href='#Nepal'>NEPAL</a></div>");
+	tt_Malawi.attr("style", "left:" + width/1.67 + "px;top:" + height/1.4 + "px").html("<div class='mmtitle'><a href='#Malawi'>MALAWI</a></div>");
+	tt_Uganda.attr("style", "left:" + width/2.15 + "px;top:" + height/2.2 + "px").html("<div class='mmtitle'><a href='#Uganda'>UGANDA</a></div>");
 	
 
 	queue()
@@ -39,8 +117,8 @@ $(document).ready(function(){
 	d3.select(window).on("resize", sizeChange);
 	
 	function sizeChange(){
-		// d3.select("svg").attr("transform", "scale(" + $("#container").width()/0 + ")");
-	    // $("svg").height($("#container").width()*0.448);
+		// d3.select("svg").attr("transform", "scale(" + $("#container_mid").width()/0 + ")");
+	    // $("svg").height($("#container_mid").width()*0.448);
 
 	    // adjust things when the window size changes
 	    width = parseInt(d3.select('#container').style('width'));
@@ -60,6 +138,10 @@ $(document).ready(function(){
 	    // resize the map
 	    svg.selectAll('.mmcountry').attr('d', path);
 	    // d3.selectAll('svg').attr('d', path);
+
+		// tt_Nepal.attr("style", "left:" + width/1.35 + "px;top:" + height/2.26 + "px").html("<div class='mmtitle'><a href='#Nepal'>NEPAL</a></div>");
+		// tt_Malawi.attr("style", "left:" + width/1.67 + "px;top:" + height/1.4 + "px").html("<div class='mmtitle'><a href='#Malawi'>MALAWI</a></div>");
+		// tt_Uganda.attr("style", "left:" + width/2.15 + "px;top:" + height/2.2 + "px").html("<div class='mmtitle'><a href='#Uganda'>UGANDA</a></div>");
 
 	}
   
@@ -88,6 +170,7 @@ $(document).ready(function(){
 			   $("#frontpage").hide()
 			   $("#content").fadeIn("slow")
 			   mapInit()
+			   $(window).trigger('resize')
 
 		   })
 
@@ -107,11 +190,17 @@ $(document).ready(function(){
 	   else return 'mmcountry';
 	}
 
+
+	// return to home
 	$("#temp_reset").on("click", function(){
 	   $("#frontpage").show()
 	   $("#content").hide()
+	   $(window).trigger('resize')
 	})
 
+//-------------------------------------------------------------------------------------------------
+// grid
+//-------------------------------------------------------------------------------------------------
 
 	var $selected
 	$(".overlay_button").click(function(){

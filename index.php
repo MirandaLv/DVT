@@ -3,119 +3,124 @@
 
 <head>
    <meta charset="UTF-8">
-   <title>leafletProject</title> 
+   <title>AidData R&D - v.Alpha</title> 
 
 
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
 
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
 
-   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet' />
-
-
+   <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css'/>
 
    <link rel="stylesheet" href="../libs/MarkerCluster/MarkerCluster.css" />
    <link rel="stylesheet" href="../libs/MarkerCluster/MarkerCluster.Default.css" />
 
- 
-
    <link rel="stylesheet" href="index.css?<?php echo filectime('index.css') ?>" />   
-   <link rel="stylesheet" href="d3map.css?<?php echo filectime('d3map.css') ?>" />   
+   <link rel="stylesheet" href="grid.css?<?php echo filectime('grid.css') ?>" />   
     
+   <link rel="stylesheet" href="jcarousel.css?<?php echo filectime('jcarousel.css') ?>" />   
 
 </head>
 
 <body>
 
-  <!-- Static navbar -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">AidData Header/Logo</a>
-        </div>
-        <!-- <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">Default</a></li>
-            <li class="active"><a href="./">Static top</a></li>
-            <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-          </ul>
-        </div> --><!--/.nav-collapse -->
-      </div>
-    </nav>
+<!-- 
+    <div id="header">
+      <a id="header_logo_left" href="http://aiddata.org/"><img src="../imgs/ACDP logo transparent large.png"> </a>
+      <a id="header_logo_right" href="http://www.usaid.gov/GlobalDevLab"><img src="../imgs/US Global Dev Lab transparent logo.png"> </a>
+    </div>
+ -->
 
 
+<!-- ==================================================================================================== -->
 
 
-
-
-      <!-- Marketing messaging and featurettes
-      ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
 
       <div id="frontpage" class="container marketing">
 
 
         <div id="container_head">
-          <span>There was </span>
-          <span class="container_head_variable">$6 billion</span>
-          <span> of </span>
-          <select id="continer_head_option_1" >
-              <option value="0">agricultural</option>
-              <option value="1">educational</option>
-              <option value="2">social</option>               
-          </select>
-          <span> aid across the world between </span>
-          <select id="container_head_option_2" >
-              <option value="1999">1999</option>
-              <option value="2000">2000</option> 
-              <option value="2001">2001</option>
-              <option value="2002">2002</option>
-              <option value="2003">2003</option>   
-              <option value="2004">2004</option>             
-          </select>
-          <span> and </span>
-          <select id="container_head_option_3" >
-              <option value="2005">2005</option>
-              <option value="2006">2006</option> 
-              <option value="2007">2007</option>
-              <option value="2008">2008</option>
-              <option value="2009">2009</option>               
-          </select>
-          <span> text text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text  text </span>
-        </div>
-        <div id="container"></div>
-        <div id="container_foot" class="container">
-          <div class="row">
-            <div class="col-md-4"><div>Nepal <br> Nepal Info</div></div>
-            <div class="col-md-4"><div>Nepal <br> Nepal Info</div></div>
-            <div class="col-md-4"><div>Nepal <br> Nepal Info</div></div>
+          <div class="form">
+            <span>There was </span>
+            <span id="variable1" class="variable"></span>
+            <span> of </span>
+            <select id="container_head_option_1" >
+                <option value="agricultural">agricultural</option>
+                <option value="educational">educational</option>
+                <option value="social">social</option>               
+            </select>
+            <span> aid across the world between </span>
+            <select id="container_head_option_2" >
+                <option selected value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>   
+                <option value="2004">2004</option>    
+                <option value="2005">2005</option>
+                <option value="2006">2006</option> 
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>     
+                <option value="2010">2010</option> 
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>                         
+            </select>
+            <span> and </span>
+            <select id="container_head_option_3" >
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>   
+                <option value="2004">2004</option>    
+                <option value="2005">2005</option>
+                <option value="2006">2006</option> 
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>     
+                <option value="2010">2010</option> 
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option selected value="2013">2013</option>             
+            </select>
+            <span>. Projects in </span>
+            <select id="container_head_option_4" >
+                <option value="income">low income</option>
+                <option value="literacy">low literacy</option>               
+            </select>
+            <span> areas received </span>
+            <span id="variable2" class="variable"></span>
+            <span> of that aid.</span>
+
           </div>
         </div>
 
+        <!-- ================================================== -->
+
+        <div id="container_mid"></div>
+
+        <!-- ================================================== -->
+
+         <div id="container_foot" class="wrapper">
+            <div class="jcarousel-wrapper">
+                <div class="jcarousel">
+                    <ul>
+                        <li><div><span>Nepal</span> <p>Info</p> </div></li>
+                        <li><div><span>Malawi</span> <p>Info</p> </div></li>
+                        <li><div><span>Uganda</span> <p>Info</p> </div></li>
+                        <li><div><span>Other</span> <p>Info</p> </div></li>
+
+                    </ul>
+                </div>
+
+                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+                <p class="jcarousel-pagination"></p>
+            </div>
+        </div>
+
+        <!-- ================================================== -->
 
         <hr class="featurette-divider">
 
@@ -141,6 +146,8 @@
           </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
 
+
+        <!-- ================================================== -->
 
         <!-- START THE FEATURETTES -->
 
@@ -187,9 +194,11 @@
     </div>
 
 
+<!--==================================================================================================== -->
 
 
    <div id="content">
+
       <div id="grid_container">
          <ul id="grid">
             <li class="grid_container grid_map grid-2-1">
@@ -202,6 +211,8 @@
             <li class="grid_container grid-1-1"><div id="info"></div></li>
          </ul>       
       </div> 
+
+      <!-- ================================================== -->
 
       <div id="options_container">
          <div id="options">   
@@ -261,10 +272,11 @@
    </div>
 
 
+<!--==================================================================================================== -->
 
 
     <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+    <div id="footer" class="navbar navbar-default navbar-fixed-bottom" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -273,7 +285,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">AidData Development</a>
+          <a id="footer_aiddata_logo" class="navbar-brand" href="http://aiddata.org/"><img src="../imgs/ACDP logo transparent large.png"> </a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -311,6 +323,7 @@
     </div>
  
 
+<!--==================================================================================================== -->
 
 
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -344,14 +357,13 @@
    <!--<script src="../libs/topojson.js"></script>-->
    <script src="http://d3js.org/queue.v1.min.js"></script>
 
-   <script src="d3map.js"></script>
+   <script src="../libs/jquery.jcarousel.min.js"></script>
+
    <script src="grid.js"></script>     
    <script src="charts.js"></script>
+   <script src="jcarousel.js"></script> 
 
    <script src="index.js"></script> 
-
-
-
 
 
 </body>
