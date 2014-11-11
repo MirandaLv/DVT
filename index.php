@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html> 
 
 <head>
    <meta charset="UTF-8">
    <title>AidData R&D - v.Alpha</title> 
 
+   <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
 
    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
 
@@ -18,8 +23,9 @@
 
    <link rel="stylesheet" href="index.css?<?php echo filectime('index.css') ?>" />   
    <link rel="stylesheet" href="grid.css?<?php echo filectime('grid.css') ?>" />   
-    
    <link rel="stylesheet" href="jcarousel.css?<?php echo filectime('jcarousel.css') ?>" />   
+
+
 
 </head>
 
@@ -34,95 +40,119 @@
 
 
 <!-- ==================================================================================================== -->
+      <div id="intro">
+        <div id="intro_form_container" class="intro_container">
+          <div id="intro_form">
+            <div class="form">
+              <span>There was </span>
+              <span id="variable1" class="variable"></span>
+              <span> of </span>
+              <select id="intro_form_option_1" >
+                  <option value="agricultural">agricultural</option>
+                  <option value="educational">educational</option>
+                  <option value="social">social</option>               
+              </select>
+              <span> aid across the world between </span>
+              <select id="intro_form_option_2" >
+                  <option selected value="2001">2001</option>
+                  <option value="2002">2002</option>
+                  <option value="2003">2003</option>   
+                  <option value="2004">2004</option>    
+                  <option value="2005">2005</option>
+                  <option value="2006">2006</option> 
+                  <option value="2007">2007</option>
+                  <option value="2008">2008</option>
+                  <option value="2009">2009</option>     
+                  <option value="2010">2010</option> 
+                  <option value="2011">2011</option>
+                  <option value="2012">2012</option>
+                  <option value="2013">2013</option>                         
+              </select>
+              <span> and </span>
+              <select id="intro_form_option_3" >
+                  <option value="2001">2001</option>
+                  <option value="2002">2002</option>
+                  <option value="2003">2003</option>   
+                  <option value="2004">2004</option>    
+                  <option value="2005">2005</option>
+                  <option value="2006">2006</option> 
+                  <option value="2007">2007</option>
+                  <option value="2008">2008</option>
+                  <option value="2009">2009</option>     
+                  <option value="2010">2010</option> 
+                  <option value="2011">2011</option>
+                  <option value="2012">2012</option>
+                  <option selected value="2013">2013</option>             
+              </select>
+              <span>. Projects in </span>
+              <select id="intro_form_option_4" >
+                  <option value="income">low income</option>
+                  <option value="literacy">low literacy</option>               
+              </select>
+              <span> areas received </span>
+              <span id="variable2" class="variable"></span>
+              <span> of that aid.</span>
 
-
-      <!-- Wrap the rest of the page in another container to center all the content. -->
-
-      <div id="frontpage" class="container marketing">
-
-
-        <div id="container_head">
-          <div class="form">
-            <span>There was </span>
-            <span id="variable1" class="variable"></span>
-            <span> of </span>
-            <select id="container_head_option_1" >
-                <option value="agricultural">agricultural</option>
-                <option value="educational">educational</option>
-                <option value="social">social</option>               
-            </select>
-            <span> aid across the world between </span>
-            <select id="container_head_option_2" >
-                <option selected value="2001">2001</option>
-                <option value="2002">2002</option>
-                <option value="2003">2003</option>   
-                <option value="2004">2004</option>    
-                <option value="2005">2005</option>
-                <option value="2006">2006</option> 
-                <option value="2007">2007</option>
-                <option value="2008">2008</option>
-                <option value="2009">2009</option>     
-                <option value="2010">2010</option> 
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>                         
-            </select>
-            <span> and </span>
-            <select id="container_head_option_3" >
-                <option value="2001">2001</option>
-                <option value="2002">2002</option>
-                <option value="2003">2003</option>   
-                <option value="2004">2004</option>    
-                <option value="2005">2005</option>
-                <option value="2006">2006</option> 
-                <option value="2007">2007</option>
-                <option value="2008">2008</option>
-                <option value="2009">2009</option>     
-                <option value="2010">2010</option> 
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option selected value="2013">2013</option>             
-            </select>
-            <span>. Projects in </span>
-            <select id="container_head_option_4" >
-                <option value="income">low income</option>
-                <option value="literacy">low literacy</option>               
-            </select>
-            <span> areas received </span>
-            <span id="variable2" class="variable"></span>
-            <span> of that aid.</span>
-
+            </div>
           </div>
         </div>
 
-        <!-- ================================================== -->
-
-        <div id="container_mid"></div>
-
-        <!-- ================================================== -->
-
-         <div id="container_foot" class="wrapper">
-            <div class="jcarousel-wrapper">
-                <div class="jcarousel">
-                    <ul>
-                        <li><div><span>Nepal</span> <p>Info</p> </div></li>
-                        <li><div><span>Malawi</span> <p>Info</p> </div></li>
-                        <li><div><span>Uganda</span> <p>Info</p> </div></li>
-                        <li><div><span>Other</span> <p>Info</p> </div></li>
-
-                    </ul>
-                </div>
-
-                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
-
-                <p class="jcarousel-pagination"></p>
-            </div>
+          <!-- ================================================== -->
+        <div id="intro_map_container" class="intro_container">
+          <div id="intro_map"></div>
         </div>
 
+          <!-- ================================================== -->
+        <div id="intro_tabs_container" class="intro_container">
+          <div id="intro_tabs" class="container">
+            <div class="row">
+              <div class="col-xs-3 jcarousel-tab-container jcarousel-tab-active" ><div id="jcarousel-general" class="jcarousel-tab" > All </div></div>
+              <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-country" class="jcarousel-tab" > Countries </div></div>
+              <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-tool" class="jcarousel-tab" > Tools </div></div>
+              <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-alert" class="jcarousel-tab" > Alerts </div></div>
+            </div>
+            
+          </div>
+        </div>
+          <!-- ================================================== -->
+
+        <div id="intro_carousel_container" class="intro_container">
+           <div id="intro_carousel" class="wrapper">
+              <div class="jcarousel-wrapper">
+                  <div class="jcarousel">
+                      <ul>
+                         <!--  <li class="jcarousel-country"><div><span>Nepal</span> <p>Info</p> </div></li>
+                          <li class="jcarousel-country"><div><span>Malawi</span> <p>Info</p> </div></li>
+                          <li class="jcarousel-country"><div><span>Uganda</span> <p>Info</p> </div></li>
+                          <li class="jcarousel-tool"><div><span>Data Extraction Tool</span> <p>Info</p> </div></li>
+                          <li class="jcarousel-tool"><div><span>Famine Analysis</span> <p>Info</p> </div></li>
+                          <li class="jcarousel-tool"><div><span>Rapid Visualization Tool</span> <p>Info</p> </div></li>
+                          <li class="jcarousel-tool"><div><span>Other Tool</span> <p>Info</p> </div></li>
+                          <li class="jcarousel-alert"><div><span>Alert: Famine</span> <p>Info</p> </div></li>
+                          <li class="jcarousel-alert"><div><span>Alert: Violence Outbreak</span> <p>Info</p> </div></li>
+                          <li class="jcarousel-alert"><div><span>Alert: Natural Disaster</span> <p>Info</p> </div></li> -->
+                          <!-- ADD ADDITIONAL ITEMS TO CAROUSEL HERE -->
+                      </ul>
+                  </div>
+
+                  <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                  <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+                  <p class="jcarousel-pagination"></p>
+              </div>
+          </div>
+        </div>
+
+      </div> <!-- /#intro -->
+
         <!-- ================================================== -->
 
-        <hr class="featurette-divider">
+
+      <!-- Wrap the rest of the page in another container to center all the content. -->
+      <div id="frontpage" class="container marketing">
+
+
+<!--         <hr class="featurette-divider"> -->
 
         <!-- Three columns of text below the carousel -->
         <div class="row">
@@ -191,13 +221,15 @@
 
         <!-- /END THE FEATURETTES -->
 
-    </div>
+    </div> <!-- /#frontpage -->
 
 
 <!--==================================================================================================== -->
 
 
    <div id="content">
+
+      <div id="grid_back">Return to Home</div>
 
       <div id="grid_container">
          <ul id="grid">
@@ -274,9 +306,19 @@
 
 <!--==================================================================================================== -->
 
+    <div id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">CONTACT INFO</div>
+          <div class="col-md-4">PARTNERS</div>
+          <div class="col-md-4">SOCIAL MEDIA</div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- Fixed navbar -->
-    <div id="footer" class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+    <div id="navbar" class="navbar navbar-default navbar-fixed-bottom" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -285,18 +327,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a id="footer_aiddata_logo" class="navbar-brand" href="http://aiddata.org/"><img src="../imgs/ACDP logo transparent large.png"> </a>
+          <a id="navbar_aiddata_logo" class="navbar-brand" href="http://aiddata.org/"><img src="../imgs/ACDP logo transparent large.png"> </a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 
-            <li class="active"><a href="http://128.239.119.254/aiddata/Home">Home</a></li>
-            <li><a href="http://128.239.119.254/aiddata/DET/www/det.php">DET</a></li>
-            <li><a href="http://128.239.119.254/aiddata/DVT/leaflet_05">DVT</a></li>
-            <li><a href="http://128.239.119.254/aiddata/DVT2/www">DVT2</a></li>
+            <li class="active"><a href="http://128.239.119.254/aiddata/DVT2/www">Home</a></li>
+
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Full List <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                   <li class="dropdown-header">Data Access</li>
                   <li><a href="http://128.239.119.254/aiddata/DET/www/det.php">DET</a></li>
@@ -309,6 +349,53 @@
                   <li class="dropdown-header">Visualizations</li>
                   <li><a href="http://128.239.119.254/aiddata/DVT/leaflet_05">DVT</a></li>
                   <li><a href="http://128.239.119.254/aiddata/DVT2/www">DVT2</a></li>
+                  <li><a href="http://128.239.119.254/aiddata/grid/www">Grid</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Media <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li class="dropdown-header">Papers</li>
+                  <li><a href="#">Paper About Stuff. Author</a></li>
+                  <li><a href="#">Paper About Stuff. Author</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Articles</li>
+                  <li><a href="#">Article on Site. Author</a></li>
+                  <li><a href="#">Article on Site. Author</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Other</li>
+                  <li><a href="#">Blog Post About Things</a></li>
+                  <li><a href="#">Link to Event</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li class="dropdown-header">Research</li>
+                  <li><a href="#">Evaluating the Impact of Open Aid Data</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Technical</li>
+                  <li><a href="#">Using Super Computers to Analyze Geospatial Data</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Outreach</li>
+                  <li><a href="#">New Data Collection Methods</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Alerts <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Current Alerts</a></li>
+                  <li><a href="#">Current Warnings</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Previous Alerts</a></li>
+                  <li><a href="#">Previous Warnings</a></li>
+                  <li><a href="#">Overview of Previous Events</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">How Alerts are Generated</a></li>
+                  <li><a href="#">Get Raw Data</a></li>
               </ul>
             </li>
 
@@ -320,7 +407,7 @@
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-    </div>
+    </div> <!-- /#navbar -->
  
 
 <!--==================================================================================================== -->

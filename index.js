@@ -56,16 +56,16 @@ $(document).ready(function(){
 
 
 	// natural form
-	 $("#container_head select").on("change", function(){
-	 	var start = parseInt($("#container_head_option_2").val())
-	 	var end = parseInt($("#container_head_option_3").val())
+	 $("#intro_form select").on("change", function(){
+	 	var start = parseInt($("#intro_form_option_2").val())
+	 	var end = parseInt($("#intro_form_option_3").val())
 	 	if (start > end){
-	 		end = parseInt($("#container_head_option_2").val())
-	 		start = parseInt($("#container_head_option_3").val())
+	 		end = parseInt($("#intro_form_option_2").val())
+	 		start = parseInt($("#intro_form_option_3").val())
 	 	}
-	 	var type = $("#container_head_option_1").val()
+	 	var type = $("#intro_form_option_1").val()
 	 	var total = 0
-	 	console.log(start)
+	 	// console.log(start)
 	 	for (var i=start; i<=end; i++){
 	 		total += aid_fund[type][i]
 	 	}
@@ -77,11 +77,12 @@ $(document).ready(function(){
 	 	$("#variable2").text(percent + "%")
 
 	 })
-	 $("#container_head_option_1").change()
+	 $("#intro_form_option_1").change()
+
 
 	// d3 map
 	var margin = {top: 0, left: 0, bottom: 0, right: 0},
-	   width = parseInt(d3.select('#container_mid').style('width')),
+	   width = parseInt(d3.select('#intro_map').style('width')),
 	   width = width - margin.left - margin.right,
 	   mapRatio = .448,
 	   height = width * mapRatio;
@@ -93,21 +94,29 @@ $(document).ready(function(){
 	var path = d3.geo.path()
 	    .projection(projection);
 
-	var svg = d3.select("#container_mid").append("svg")
+	var svg = d3.select("#intro_map").append("svg")
 	    .attr("width", width)
 	    .attr("height", height);
 
 
 	// CONSTRUCT THE STYLE of the STATIC COUNTRY INFOBOXES
-	var tt_Uganda = d3.select("#container_mid").append("div").attr("class", "mminfo").attr("id","tt_Uganda").attr("title", "Uganda");
-	var tt_Nepal = d3.select("#container_mid").append("div").attr("class", "mminfo").attr("id","tt_Nepal").attr("title", "Nepal");
-	var tt_Malawi = d3.select("#container_mid").append("div").attr("class", "mminfo").attr("id","tt_Malawi").attr("title", "Malawi");
+	var info_Uganda
+	var info_Nepal 
+	var info_Malawi
+
+	var line_Uganda 
+	var line_Nepal 
+	var line_Malawi 
+
+	info_Uganda = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Uganda").attr("title", "Uganda");
+	info_Nepal = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Nepal").attr("title", "Nepal");
+	info_Malawi = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Malawi").attr("title", "Malawi");
 
 	// PLACE THEM ON THE MAP RELATIVE TO THE MAP SIZE, THEN POPULATE THEM
-	tt_Nepal.attr("style", "left:" + width/1.35 + "px;top:" + height/2.26 + "px").html("<div class='mmtitle'><a href='#Nepal'>NEPAL</a></div>");
-	tt_Malawi.attr("style", "left:" + width/1.67 + "px;top:" + height/1.4 + "px").html("<div class='mmtitle'><a href='#Malawi'>MALAWI</a></div>");
-	tt_Uganda.attr("style", "left:" + width/2.15 + "px;top:" + height/2.2 + "px").html("<div class='mmtitle'><a href='#Uganda'>UGANDA</a></div>");
-	
+	info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div>");
+	info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;").html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div>");
+	info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;").html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div>");
+
 
 	queue()
 	    .defer(d3.json, "data/d3-world.json")
@@ -117,11 +126,11 @@ $(document).ready(function(){
 	d3.select(window).on("resize", sizeChange);
 	
 	function sizeChange(){
-		// d3.select("svg").attr("transform", "scale(" + $("#container_mid").width()/0 + ")");
-	    // $("svg").height($("#container_mid").width()*0.448);
+		// d3.select("svg").attr("transform", "scale(" + $("#intro_map").width()/0 + ")");
+	    // $("svg").height($("#intro_map").width()*0.448);
 
 	    // adjust things when the window size changes
-	    width = parseInt(d3.select('#container').style('width'));
+	    width = parseInt(d3.select('#intro_map').style('width'));
 	    width = width - margin.left - margin.right;
 	    height = width * mapRatio;
 
@@ -130,18 +139,30 @@ $(document).ready(function(){
 	        .translate([width / 2, width / 3.7])
 	        .scale(width /6.2);
 
+	    path = d3.geo.path()
+	    	.projection(projection);
+
 	    // resize the map container
 	    svg
 	        .style('width', width + 'px')
 	        .style('height', height + 'px');
 
 	    // resize the map
-	    svg.selectAll('.mmcountry').attr('d', path);
+	    svg.selectAll('.map_country').attr('d', path);
 	    // d3.selectAll('svg').attr('d', path);
 
-		// tt_Nepal.attr("style", "left:" + width/1.35 + "px;top:" + height/2.26 + "px").html("<div class='mmtitle'><a href='#Nepal'>NEPAL</a></div>");
-		// tt_Malawi.attr("style", "left:" + width/1.67 + "px;top:" + height/1.4 + "px").html("<div class='mmtitle'><a href='#Malawi'>MALAWI</a></div>");
-		// tt_Uganda.attr("style", "left:" + width/2.15 + "px;top:" + height/2.2 + "px").html("<div class='mmtitle'><a href='#Uganda'>UGANDA</a></div>");
+
+		info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div>");
+		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;").html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div>");
+		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;").html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div>");
+
+		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
+		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9).attr("stroke", "black").attr("stroke-width", "1")
+		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3).attr("stroke", "black").attr("stroke-width", "1")
+
+		// info_Uganda.attr("cx",width/1.5).attr("cy",height/2).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
+		// info_Nepal.attr("cx",width/1.2).attr("cy",height/2.9).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
+		// info_Malawi.attr("cx",width/1.45).attr("cy",height/1.3).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
 
 	}
   
@@ -149,10 +170,13 @@ $(document).ready(function(){
 	function ready(error, world, names) {
 		   // TRANSLATE FROM TOPOJSON, ADD TITLE AND GEOMETRY
 		   var countries = topojson.feature(world, world.objects.countries).features;
+
 		   countries.forEach(function(d) {
 		      d.name = names.filter(function(n) { return d.id == n.id; })[0].name;
 		   });
-		   var country = svg.selectAll(".mmcountry").data(countries);
+
+		   var country = svg.selectAll(".map_country").data(countries);
+
 		   country.enter().insert("path").attr("class", function(d, i) {
 		     return countrySpecific(d, i);
 		   })
@@ -161,16 +185,18 @@ $(document).ready(function(){
 		   })
 		   .attr("d", path);
 		   
-		   a = d3.selectAll(".countrySelected");
+		   a = d3.selectAll(".map_countrySelected");
 		   
 		   a.on("click", function(){
 		       var sel_country = $(this).attr("title")
-			   console.log( sel_country )
-
-			   $("#frontpage").hide()
-			   $("#content").fadeIn("slow")
-			   mapInit()
-			   $(window).trigger('resize')
+			   // console.log( sel_country )
+			   if (sel_country == "Nepal"){
+				   $("#intro").hide()
+				   $("#frontpage").hide()
+				   $("#content").fadeIn("slow")
+				   mapInit()
+				   $(window).trigger('resize')
+				}
 
 		   })
 
@@ -182,17 +208,88 @@ $(document).ready(function(){
 		   //   d3.selectAll("[title=" + this.title + "]").classed("countryActive",false);
 		   // });
 
+			a.on("mouseenter", function(){
+				var title = $(this).attr("title")
+				$(".map_info").each(function(){
+					if ($(this).attr("title")==title){
+						var updateClass = $(this).attr("class") + " map_info_hover"
+						$(this).attr("class", updateClass)
+					}
+				})
+			})
+
+			a.on("mouseleave", function(){
+				var title = $(this).attr("title")
+				$(".map_info").each(function(){
+					if ($(this).attr("title")==title){
+						$(this).attr("class", "map_info")
+					}
+				})
+			})
+	
+
+			line_Uganda = svg.append("line").attr("id","line_Uganda").attr("class", "map_line")
+			line_Nepal = svg.append("line").attr("id","line_Nepal").attr("class", "map_line")
+			line_Malawi = svg.append("line").attr("id","line_Malawi").attr("class", "map_line")
+
+			// info_Uganda = svg.append("circle").attr("id","info_Uganda").attr("class","map_info").attr("title","Uganda")
+			// info_Nepal = svg.append("circle").attr("id","info_Nepal").attr("class","map_info").attr("title","Nepal")
+			// info_Malawi = svg.append("circle").attr("id","info_Malawi").attr("class","map_info").attr("title","Malawi")
+
+
+			line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
+			line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9).attr("stroke", "black").attr("stroke-width", "1")
+			line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3).attr("stroke", "black").attr("stroke-width", "1")
+
+			// info_Uganda.attr("cx",width/1.5).attr("cy",height/2).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
+			// info_Nepal.attr("cx",width/1.2).attr("cy",height/2.9).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
+			// info_Malawi.attr("cx",width/1.45).attr("cy",height/1.3).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
+
+
 	}
 	 
 	//check if country is active (do we have data for it)
 	function countrySpecific(d, i) {
-	   if (d.name=='Uganda' || d.name == 'Malawi' || d.name == 'Nepal') return 'mmcountry countrySelected';
-	   else return 'mmcountry';
+	   if (d.name=='Uganda' || d.name == 'Malawi' || d.name == 'Nepal') return 'map_country map_countrySelected';
+	   else return 'map_country';
 	}
 
+	//link map info popups to map elements
+	$(".map_info").hover(
+		function(){
+			var title = $(this).attr("title")
+			$(".map_countrySelected").each(function(){
+				if ($(this).attr("title")==title){
+					var updateClass = $(this).attr("class") + " map_countrySelected_hover"
+					$(this).attr("class", updateClass)
+				}
+			})
+		}, function(){
+			var title = $(this).attr("title")
+			$(".map_countrySelected").each(function(){
+				if ($(this).attr("title")==title){
+					$(this).attr("class", "map_country map_countrySelected")
+				}
+			})
+		}
+	)
+
+	 $(".map_info").on("click", function(){
+       var sel_country = $(this).attr("title")
+	   // console.log( sel_country )
+	   if (sel_country == "Nepal"){
+		   $("#intro").hide()
+		   $("#frontpage").hide()
+		   $("#content").fadeIn("slow")
+		   mapInit()
+		   $(window).trigger('resize')
+		}
+
+   })
 
 	// return to home
-	$("#temp_reset").on("click", function(){
+	$("#grid_back").on("click", function(){
+	   $("#intro").show()
 	   $("#frontpage").show()
 	   $("#content").hide()
 	   $(window).trigger('resize')
