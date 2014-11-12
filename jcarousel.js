@@ -154,7 +154,7 @@ $(function() {
                 for (var key in data_info){
                     data_html += "<span><b>"+key+"</b>: "+data_info[key]+"</span>"
                 }
-                $(".jcarousel ul").append('<li class="jcarousel-'+carousel_items[i].type+'"><div class="jcarousel-content"><span><a class="jcarousel-title" href="'+carousel_items[i].link+'">'+carousel_items[i].title+'</a></span> <div class="jcarousel-data">'+data_html+'</div> </div></li>')
+                $(".jcarousel ul").append('<li class="jcarousel-'+carousel_items[i].type+'"><div class="jcarousel-content"><span><a class="jcarousel-title" title="'+carousel_items[i].title+'" href="'+carousel_items[i].link+'">'+carousel_items[i].title+'</a></span> <div class="jcarousel-data">'+data_html+'</div> </div></li>')
             } 
         }
     }

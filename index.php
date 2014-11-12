@@ -231,31 +231,35 @@
 
       <div id="grid_back">Return to Home</div>
 
-      <div id="grid_header">
-        <div id="grid_logo"><div></div></div>
-        <div id="grid_title">Nepal</div>
-        <div id="grid_form">
-          <div class="form">
-              <span>There is </span>
-              <span id="grid_variable1" class="variable">$-</span>
-              <span> of recorded</span>
-              <select id="grid_form_option_1" >
-                  <option value="agricultural">agricultural</option>
-                  <option value="educational">educational</option>
-                  <option value="social">social</option>               
-              </select>
-              <span> aid in </span>
-              <span id="grid_country">Nepal</span>
-              <span> in the past 5 years.</span>
-              <span><!-- . --> Projects in </span>
-              <select id="grid_form_option_4" >
-                  <option value="income">low income</option>
-                  <option value="literacy">low literacy</option>               
-              </select>
-              <span> areas received </span>
-              <span id="grid_variable2" class="variable">-%</span>
-              <span> of that aid.</span>
+      <div id="grid_header" class="container">
+        <div class="row">
+          <div class="col-sm-5">
+            <div id="grid_logo"><div></div></div>
+            <div id="grid_title">Nepal</div>
+          </div>
+          <div id="grid_form" class="col-sm-7">
+            <div class="form">
+                <span>There is </span>
+                <span id="grid_variable1" class="variable">$-</span>
+                <span> of recorded</span>
+                <select id="grid_form_option_1" >
+                    <option value="agricultural">agricultural</option>
+                    <option value="educational">educational</option>
+                    <option value="social">social</option>               
+                </select>
+                <span> aid in </span>
+                <span id="grid_country">Nepal</span>
+                <span> in the past 5 years.</span>
+                <span><!-- . --> Projects in </span>
+                <select id="grid_form_option_4" >
+                    <option value="income">low income</option>
+                    <option value="literacy">low literacy</option>               
+                </select>
+                <span> areas received </span>
+                <span id="grid_variable2" class="variable">-%</span>
+                <span> of that aid.</span>
 
+              </div>
             </div>
           </div>
       </div>
