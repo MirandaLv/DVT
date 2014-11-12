@@ -43,7 +43,7 @@
 
     .jcarousel-tab-active #jcarousel-general{
         color: white;
-        background: rgb(100,100,100);
+        background: rgb(150,150,150);
     }
 
     .jcarousel-tab-active #jcarousel-country{
@@ -53,7 +53,7 @@
 
     .jcarousel-tab-active #jcarousel-tool{
         color: white;
-        background: rgb(48,108,128); /*blue*/        
+        background: rgb(44,155,200); /*blue*/        
     }
 
     .jcarousel-tab-active #jcarousel-alert{
@@ -64,7 +64,7 @@
 
 /*tab border*/
 #jcarousel-general{
-    border-bottom: 5px solid rgb(100,100,100);
+    border-bottom: 5px solid rgb(150,150,150);
 }
 
 #jcarousel-country{
@@ -72,7 +72,7 @@
 }
 
 #jcarousel-tool{
-    border-bottom: 5px solid rgb(48,108,128); /*blue*/
+    border-bottom: 5px solid rgb(44,155,200); /*blue*/
 }
 
 #jcarousel-alert{
@@ -191,9 +191,9 @@
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
     border-radius: 30px;
-    -webkit-box-shadow: 0 0 4px #000; /*#F0EFE7;*/
-    -moz-box-shadow: 0 0 4px #000; /*#F0EFE7;*/
-    box-shadow: 0 0 4px #000; /*#F0EFE7;*/
+    -webkit-box-shadow: 0 0 4px rgb(150,150,150); /*#F0EFE7;*/
+    -moz-box-shadow: 0 0 4px rgb(150,150,150); /*#F0EFE7;*/
+    box-shadow: 0 0 4px rgb(150,150,150); /*#F0EFE7;*/
 }
 
 .jcarousel-control-prev {
@@ -251,7 +251,7 @@
         color: #fff;
         opacity: 1;
 
-        -webkit-box-shadow: 0 0 2px #000; /*#F0EFE7;*/
-        -moz-box-shadow: 0 0 2px #000; /*#F0EFE7;*/
-        box-shadow: 0 0 2px #000; /*#F0EFE7;*/
+        -webkit-box-shadow: 0 0 2px rgb(150,150,150); /*#F0EFE7;*/
+        -moz-box-shadow: 0 0 2px rgb(150,150,150); /*#F0EFE7;*/
+        box-shadow: 0 0 2px rgb(150,150,150); /*#F0EFE7;*/
     }

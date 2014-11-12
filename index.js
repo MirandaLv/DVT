@@ -71,10 +71,10 @@ $(document).ready(function(){
 	 	}
 
 	 	total = Math.floor(total).toLocaleString()
-	 	$("#variable1").text("$"+total)
+	 	$("#intro_variable1").text("$"+total)
 
 	 	var percent = Math.floor(Math.random() * 100)
-	 	$("#variable2").text(percent + "%")
+	 	$("#intro_variable2").text(percent + "%")
 
 	 })
 	 $("#intro_form_option_1").change()
@@ -113,9 +113,9 @@ $(document).ready(function(){
 	info_Malawi = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Malawi").attr("title", "Malawi");
 
 	// PLACE THEM ON THE MAP RELATIVE TO THE MAP SIZE, THEN POPULATE THEM
-	info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div>");
-	info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;").html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div>");
-	info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;").html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div>");
+	info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
+	info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;").html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
+	info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;").html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
 
 
 	queue()
@@ -152,9 +152,9 @@ $(document).ready(function(){
 	    // d3.selectAll('svg').attr('d', path);
 
 
-		info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div>");
-		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;").html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div>");
-		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;").html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div>");
+		info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")//.html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
+		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")//.html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
+		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")//.html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
 
 		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
 		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9).attr("stroke", "black").attr("stroke-width", "1")
@@ -190,13 +190,15 @@ $(document).ready(function(){
 		   a.on("click", function(){
 		       var sel_country = $(this).attr("title")
 			   // console.log( sel_country )
-			   if (sel_country == "Nepal"){
-				   $("#intro").hide()
-				   $("#frontpage").hide()
-				   $("#content").fadeIn("slow")
-				   mapInit()
-				   $(window).trigger('resize')
-				}
+		   	   mapClick(sel_country)
+
+			 //   if (sel_country == "Nepal"){
+				//    $("#intro").hide()
+				//    $("#frontpage").hide()
+				//    $("#content").fadeIn("slow")
+				//    mapInit()
+				//    $(window).trigger('resize')
+				// }
 
 		   })
 
@@ -277,15 +279,28 @@ $(document).ready(function(){
 	 $(".map_info").on("click", function(){
        var sel_country = $(this).attr("title")
 	   // console.log( sel_country )
-	   if (sel_country == "Nepal"){
+	   mapClick(sel_country)
+	 //   if (sel_country == "Nepal"){
+		//    $("#intro").hide()
+		//    $("#frontpage").hide()
+		//    $("#content").fadeIn("slow")
+		//    mapInit()
+		//    $(window).trigger('resize')
+		// }
+
+   })
+
+	function mapClick(country){
+	   if (country == "Nepal"){
 		   $("#intro").hide()
 		   $("#frontpage").hide()
 		   $("#content").fadeIn("slow")
 		   mapInit()
 		   $(window).trigger('resize')
-		}
 
-   })
+		   $("#grid_logo div").css("background-image","url('../imgs/"+country.toLowerCase()+"-outline.png')")
+		}
+	}
 
 	// return to home
 	$("#grid_back").on("click", function(){
@@ -294,6 +309,100 @@ $(document).ready(function(){
 	   $("#content").hide()
 	   $(window).trigger('resize')
 	})
+
+
+	var colors = Highcharts.getOptions().colors,
+        categories = ['% Aid in Low Literacy Areas', '% Aid in Other Areas'],
+        data = [{
+            y: 60,
+            color: colors[0]
+        }, {
+            y: 40,
+            color: colors[1]
+        }],
+        browserData = [];
+
+
+    // Build the data arrays
+    for (var i = 0; i < data.length; i += 1) {
+
+        // add browser data
+        browserData.push({
+            name: categories[i],
+            y: data[i].y,
+            color: data[i].color
+        });
+    }
+
+    var chart_options = {
+        chart: {
+            type: 'pie',
+            backgroundColor: 'rgba(0,0,0,0)',
+            margin: [0, 0, 0, 0],
+	        spacingTop: 0,
+	        spacingBottom: 0,
+	        spacingLeft: 0,
+	        spacingRight: 0,
+	        events: {
+	        	click: function(){
+	        		$(this.container).trigger('click');
+	        	}
+	        }
+        },
+        title: {
+            text: ''
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+        },
+        plotOptions: {
+            pie: {
+                shadow: false,
+                center: ['50%', '50%'],
+                borderWidth: '0px',
+                events: {
+                	click: function(){
+                		$(this.chart.container).trigger('click');
+                	}
+                }
+            },
+            series:{
+            	states: {
+                	hover: {
+                    	enabled: false
+                	}
+                }
+            }
+        },
+        tooltip: {
+        	pointFormat: '<b>{point.y}</b>',
+            valueSuffix: '%',
+            positioner: function () {
+                return { x: -30, y: -60 };
+            },
+        },
+        series: [ {
+            name: 'Data',
+            data: browserData,
+            size: '220%',
+            innerSize: '200%',
+            dataLabels: {
+                enabled: false,
+            }
+        }],
+        exporting:{
+        	enabled:false
+        },
+        credits:{
+        	enabled:false
+        }
+    }
+
+    $('#chart_Uganda').highcharts(chart_options)
+    $('#chart_Nepal').highcharts(chart_options)
+    $('#chart_Malawi').highcharts(chart_options)
 
 //-------------------------------------------------------------------------------------------------
 // grid

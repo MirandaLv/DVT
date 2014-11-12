@@ -44,16 +44,16 @@
         <div id="intro_form_container" class="intro_container">
           <div id="intro_form">
             <div class="form">
-              <span>There was </span>
-              <span id="variable1" class="variable"></span>
-              <span> of </span>
+              <span>There is </span>
+              <span id="intro_variable1" class="variable">$-</span>
+              <span> of recorded</span>
               <select id="intro_form_option_1" >
                   <option value="agricultural">agricultural</option>
                   <option value="educational">educational</option>
                   <option value="social">social</option>               
               </select>
-              <span> aid across the world between </span>
-              <select id="intro_form_option_2" >
+              <span> aid in these countries in the past 5 years.</span>
+              <select id="intro_form_option_2" style="display:none">
                   <option selected value="2001">2001</option>
                   <option value="2002">2002</option>
                   <option value="2003">2003</option>   
@@ -68,8 +68,8 @@
                   <option value="2012">2012</option>
                   <option value="2013">2013</option>                         
               </select>
-              <span> and </span>
-              <select id="intro_form_option_3" >
+              <span  style="display:none"> and </span>
+              <select id="intro_form_option_3"  style="display:none">
                   <option value="2001">2001</option>
                   <option value="2002">2002</option>
                   <option value="2003">2003</option>   
@@ -84,13 +84,13 @@
                   <option value="2012">2012</option>
                   <option selected value="2013">2013</option>             
               </select>
-              <span>. Projects in </span>
+              <span><!-- . --> Projects in </span>
               <select id="intro_form_option_4" >
                   <option value="income">low income</option>
                   <option value="literacy">low literacy</option>               
               </select>
               <span> areas received </span>
-              <span id="variable2" class="variable"></span>
+              <span id="intro_variable2" class="variable">-%</span>
               <span> of that aid.</span>
 
             </div>
@@ -230,6 +230,35 @@
    <div id="content">
 
       <div id="grid_back">Return to Home</div>
+
+      <div id="grid_header">
+        <div id="grid_logo"><div></div></div>
+        <div id="grid_title">Nepal</div>
+        <div id="grid_form">
+          <div class="form">
+              <span>There is </span>
+              <span id="grid_variable1" class="variable">$-</span>
+              <span> of recorded</span>
+              <select id="grid_form_option_1" >
+                  <option value="agricultural">agricultural</option>
+                  <option value="educational">educational</option>
+                  <option value="social">social</option>               
+              </select>
+              <span> aid in </span>
+              <span id="grid_country">Nepal</span>
+              <span> in the past 5 years.</span>
+              <span><!-- . --> Projects in </span>
+              <select id="grid_form_option_4" >
+                  <option value="income">low income</option>
+                  <option value="literacy">low literacy</option>               
+              </select>
+              <span> areas received </span>
+              <span id="grid_variable2" class="variable">-%</span>
+              <span> of that aid.</span>
+
+            </div>
+          </div>
+      </div>
 
       <div id="grid_container">
          <ul id="grid">
