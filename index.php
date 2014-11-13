@@ -44,7 +44,7 @@
         <div id="intro_form_container" class="intro_container">
           <div id="intro_form">
             <div class="form">
-              <span>There is </span>
+              <span>In AidData partner countries, there was </span>
               <span id="intro_variable1" class="variable">$-</span>
               <span> of recorded</span>
               <select id="intro_form_option_1" >
@@ -52,7 +52,7 @@
                   <option value="educational">educational</option>
                   <option value="social">social</option>               
               </select>
-              <span> aid in these countries in the past 5 years.</span>
+              <span> aid in the last decade.</span>
               <select id="intro_form_option_2" style="display:none">
                   <option selected value="2001">2001</option>
                   <option value="2002">2002</option>
@@ -157,22 +157,22 @@
         <!-- Three columns of text below the carousel -->
         <div class="row">
           <div class="col-lg-4">
-            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <img class="img-circle" src="../imgs/news_1_head_image.png" alt="Generic placeholder image" style="width: 220px; height: 140px;">
+            <h2>AidData</h2>
+            <p>AidData is a research and innovation lab that seeks to improve development outcomes by making development finance data more accessible and actionable.</p>
+            <p><a class="btn btn-default" href="#news_item_1" role="button">View details &raquo;</a></p>
           </div><!-- /.col-lg-4 -->
           <div class="col-lg-4">
-            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-            <h2>Heading</h2>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <img class="img-circle" src="../imgs/news_2_head_image.png" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+            <h2>Our Data</h2>
+            <p>AidData produces mapped project-level data on $6 trillion in aid from over 90 donor agencies with information on remittances and foreign direct investment.</p>
+            <p><a class="btn btn-default" href="#news_item_2" role="button">View details &raquo;</a></p>
           </div><!-- /.col-lg-4 -->
           <div class="col-lg-4">
-            <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <img class="img-circle" src="../imgs/news_3_head_image.jpg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+            <h2>Get Involved</h2>
+            <p>We are at the cusp of having the data we need to make better choices about how we allocate aid.  We need your ideas to make this a reality.</p>
+            <p><a class="btn btn-default" href="#news_item_3" role="button">View details &raquo;</a></p>
           </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
 
@@ -183,37 +183,65 @@
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div id="news_item_1" class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">News<span class="text-muted">Item 1</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            <h2 class="featurette-heading">AidData<span class="text-muted"></span></h2>
+            <p class="lead">
+              AidData was formed in 2009 from the merger of two programs: Project-Level Aid (PLAID) and 
+              Accessible Information on Development Activities (AiDA). PLAID, begun in 2003, was a joint effort 
+              between the College of William & Mary and Brigham Young University to create a database of 
+              development finance activities for use in the research community. AiDA was established in 2001 by 
+              Development Gateway to serve as a registry of aid activities to improve aid coordination and 
+              effectiveness.
+              <br><br>
+              Today, AidData is a dynamic partnership between three core institutions. Two universities with a 
+              reputation for scholastic excellence, the College of William & Mary and Brigham Young University, 
+              contribute intellectual rigor and access to scholars and students as engines of innovation to look at 
+              development problems in new ways. Development Gateway, a non-profit development organization, 
+              contributes long-standing relationships with ministries of finance in developing countries in designing 
+              aid management systems, and provides products and services to fuel greater development 
+              transparency and effectiveness.
+            </p>
           </div>
           <div class="col-md-5">
-            <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            <img class="featurette-image img-responsive" src="../imgs/news_1_body_image.jpg" alt="Generic placeholder image">
           </div>
         </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div id="news_item_2"class="row featurette">
           <div class="col-md-5">
-            <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            <img class="featurette-image img-responsive" src="../imgs/news_2_body_image.jpg" alt="Generic placeholder image">
           </div>
           <div class="col-md-7">
-            <h2 class="featurette-heading">News<span class="text-muted">Item 2</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            <h2 class="featurette-heading">Our Data<span class="text-muted"></span></h2>
+            <p class="lead">
+              Each year, billions of dollars are spent to improve the lives of citizens in developing 
+              countries. With accessible and relevant data at their fingertips, governments can make 
+              better decisions to plan for their country’s future, citizens can hold their leaders to account
+              for providing public goods, and donors can invest aid dollars to maximize development 
+              results. AidData's research release databases include geocoded data from a variety of country aid 
+              information management systems (AIMS), donor IATI feeds, and open data initiatives like the World 
+              Bank’s Mapping for Results.
+            </p>
           </div>
         </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div id="news_item_3" class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">News<span class="text-muted">Item 3</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            <h2 class="featurette-heading">Get Involved<span class="text-muted"></span></h2>
+            <p class="lead">
+              From primary research to data visualization, student geocoders to professional programmers, a
+              wide variety of users have begun to do incredible things to help change how we map and target 
+              international aid efforts.  We’re just at the start.  Click through to see a variety of challenges we’re 
+              trying to solve today, and get involved.
+            </p>
           </div>
           <div class="col-md-5">
-            <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            <img class="featurette-image img-responsive" src="../imgs/news_3_body_image.jpg" alt="Generic placeholder image">
           </div>
         </div>
 
@@ -233,13 +261,15 @@
 
       <div id="grid_header" class="container">
         <div class="row">
-          <div class="col-sm-5">
+          <div id="grid_banner" class="col-sm-6">
             <div id="grid_logo"><div></div></div>
             <div id="grid_title">Nepal</div>
           </div>
-          <div id="grid_form" class="col-sm-7">
+          <div id="grid_form" class="col-sm-6">
             <div class="form">
-                <span>There is </span>
+                <span>In </span>
+                <span id="grid_country">Nepal</span>
+                <span>, there was </span>
                 <span id="grid_variable1" class="variable">$-</span>
                 <span> of recorded</span>
                 <select id="grid_form_option_1" >
@@ -247,9 +277,7 @@
                     <option value="educational">educational</option>
                     <option value="social">social</option>               
                 </select>
-                <span> aid in </span>
-                <span id="grid_country">Nepal</span>
-                <span> in the past 5 years.</span>
+                <span> aid in the past decade.</span>
                 <span><!-- . --> Projects in </span>
                 <select id="grid_form_option_4" >
                     <option value="income">low income</option>

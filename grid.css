@@ -26,58 +26,69 @@
 
 
 #grid_header{
-    margin:10px 5%;
     height: 200px;
     width:90%;
+    margin:10px 5%;
+    text-align: center;
 }
+    #grid_header>div>div{
+        margin:0 auto;
+        /*min-width: 700px*/
+        /*float:left;*/
+    }
 
     #grid_logo, #grid_title, #grid_form{
-        float: left;
         height: 200px;
+        float: left;
+        display: inline-block;
     }
 
-    #grid_logo{
-        height:200px;
-        width:200px; 
-        border: 3px solid rgb(131,164,28); /*rgba(19,135,255,1);*/
-        background: rgb(246,255,180);
-        color: black;
-        border-radius: 50%;
-
- 
+    #grid_banner{
+        /*min-width: 700px;*/
     }
 
-        #grid_logo div{
-            width:85%;
-            height:85%;       
-            background-size: contain; 
-            background-position: center; 
-            background-repeat: no-repeat;
-            position:relative;
-            left: 7.5%;
-            top: 7.5%;
+        #grid_logo{
+            height:200px;
+            width:200px; 
+            background: rgb(246,255,180);
+            border: 3px solid rgb(131,164,28); /*rgba(19,135,255,1);*/
+            border-radius: 50%;
+            color: black; 
         }
-    
-    #grid_title{
-        /*width: 30%; */
-        padding: 0 50px;
-        font-size: 10em; 
-        text-align: center;
-        vertical-align: center;
-        line-height: 200px;
-        font-family: 'Abel', sans-serif;
-        /*text-shadow: 1px 1px white, -1px -1px white;*/
-        text-decoration: underline;
 
-        -moz-text-decoration-color: green;
-        text-decoration-color: green;
+            #grid_logo div{
+                width:85%;
+                height:85%;       
+                background-size: contain; 
+                background-position: center; 
+                background-repeat: no-repeat;
+                position:relative;
+                left: 7.5%;
+                top: 7.5%;
+            }
+        
+        #grid_title{
+            width: 400px; 
+            padding: 0 50px;
+            font-size: 10em; 
+            text-align: center;
+            vertical-align: center;
+            line-height: 200px;
+            font-family: 'Abel', sans-serif;
+            /*text-shadow: 1px 1px white, -1px -1px white;*/
+            text-decoration: underline;
 
-    }
+            -moz-text-decoration-color: green;
+            text-decoration-color: green;
+
+        }
 
 
     
     #grid_form{
+        width:600px;
         /*width:50%;*/
+        /*min-width: 700px;*/
         margin-top: 2%;
     }
 
@@ -89,15 +100,18 @@
 
 
 #grid_container{
+    /*width:99%;*/
     padding-top: 75px;
     display: block;
 }
 
     #grid{
-        width:100%;
-        margin-left: auto;
-        margin-right: auto;
+        /*width:99%;*/
+        margin: 0 5%;
+        padding: 0;
         list-style-type: none; 
+        text-align: center;
+
     }
 
     .grid-1-1{
