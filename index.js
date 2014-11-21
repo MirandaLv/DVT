@@ -6,78 +6,33 @@ $(document).ready(function(){
 	
 	$("#content").hide()
 
-	var aid_fund = {
-		"agricultural": {
-			"2001": Math.random() * 10000000,
-			"2002": Math.random() * 10000000,
-			"2003": Math.random() * 10000000,
-			"2004": Math.random() * 10000000,
-			"2005": Math.random() * 10000000,
-			"2006": Math.random() * 10000000,
-			"2007": Math.random() * 10000000,
-			"2008": Math.random() * 10000000,
-			"2009": Math.random() * 10000000,
-			"2010": Math.random() * 10000000,
-			"2011": Math.random() * 10000000,
-			"2012": Math.random() * 10000000,
-			"2013": Math.random() * 10000000
-		},
-		"educational": {
-			"2001": Math.random() * 10000000,
-			"2002": Math.random() * 10000000,
-			"2003": Math.random() * 10000000,
-			"2004": Math.random() * 10000000,
-			"2005": Math.random() * 10000000,
-			"2006": Math.random() * 10000000,
-			"2007": Math.random() * 10000000,
-			"2008": Math.random() * 10000000,
-			"2009": Math.random() * 10000000,
-			"2010": Math.random() * 10000000,
-			"2011": Math.random() * 10000000,
-			"2012": Math.random() * 10000000,
-			"2013": Math.random() * 10000000
-		},
-		"social": {
-			"2001": Math.random() * 10000000,
-			"2002": Math.random() * 10000000,
-			"2003": Math.random() * 10000000,
-			"2004": Math.random() * 10000000,
-			"2005": Math.random() * 10000000,
-			"2006": Math.random() * 10000000,
-			"2007": Math.random() * 10000000,
-			"2008": Math.random() * 10000000,
-			"2009": Math.random() * 10000000,
-			"2010": Math.random() * 10000000,
-			"2011": Math.random() * 10000000,
-			"2012": Math.random() * 10000000,
-			"2013": Math.random() * 10000000
-		}
-	}
-
-
 	// natural form
-	 $("#intro_form select").on("change", function(){
-	 	var start = parseInt($("#intro_form_option_2").val())
-	 	var end = parseInt($("#intro_form_option_3").val())
-	 	if (start > end){
-	 		end = parseInt($("#intro_form_option_2").val())
-	 		start = parseInt($("#intro_form_option_3").val())
-	 	}
-	 	var type = $("#intro_form_option_1").val()
-	 	var total = 0
-	 	// console.log(start)
-	 	for (var i=start; i<=end; i++){
-	 		total += aid_fund[type][i]
+	$("#intro_form select").on("change", function(){
+
+	 	var form_data = readJSON('../data/form/form_data.json')
+	 	var type = $('#intro_form_option_1').val()
+	 	var sub = $('#intro_form_option_2').val()
+
+	 	var total = form_data["Global"][type]["total"]
+	 	var percent = form_data["Global"][type][sub]
+	 	
+	 	if (total > Math.pow(10,12)){
+	 		total = String(Math.floor(100* total / Math.pow(10,12)) / 100) + " trillion"
+	 	} else if (total > Math.pow(10,9)){
+	 		total = String(Math.floor(100* total / Math.pow(10,9)) / 100) + " billion"
+	 	} else if (total > Math.pow(10,6)){
+	 		total = String(Math.floor(100* total / Math.pow(10,6)) / 100) + " million"
+	 	} else {
+	 		total = String(Math.floor(100* total / Math.pow(10,3)) / 100) + " thousand"
+
 	 	}
 
-	 	total = Math.floor(total).toLocaleString()
 	 	$("#intro_variable1").text("$"+total)
-
-	 	var percent = Math.floor(Math.random() * 100)
 	 	$("#intro_variable2").text(percent + "%")
 
-	 })
-	 $("#intro_form_option_1").change()
+	 	updateMapChart(form_data, type, sub)
+
+	})
 
 
 	// d3 map
@@ -99,28 +54,29 @@ $(document).ready(function(){
 	    .attr("height", height);
 
 
-	// CONSTRUCT THE STYLE of the STATIC COUNTRY INFOBOXES
-	var info_Uganda
+	// CONSTRUCT THE STYLE OF THE COUNTRY INFOBOXES
+	
+	// var info_Uganda
 	var info_Nepal 
 	var info_Malawi
 
-	var line_Uganda 
+	// var line_Uganda 
 	var line_Nepal 
 	var line_Malawi 
 
-	info_Uganda = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Uganda").attr("title", "Uganda");
+	// info_Uganda = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Uganda").attr("title", "Uganda");
 	info_Nepal = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Nepal").attr("title", "Nepal");
 	info_Malawi = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Malawi").attr("title", "Malawi");
 
 	// PLACE THEM ON THE MAP RELATIVE TO THE MAP SIZE, THEN POPULATE THEM
-	info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
+	// info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
 	info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;").html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
 	info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;").html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
 
 
 	queue()
-	    .defer(d3.json, "data/d3-world.json")
-	    .defer(d3.tsv, "data/world-country-names.tsv")
+	    .defer(d3.json, "../data/world/d3-world.json")
+	    .defer(d3.tsv, "../data/world/world-country-names.tsv")
 	    .await(ready);
 
 	d3.select(window).on("resize", sizeChange);
@@ -152,11 +108,11 @@ $(document).ready(function(){
 	    // d3.selectAll('svg').attr('d', path);
 
 
-		info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")//.html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
+		// info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")//.html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
 		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")//.html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
 		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")//.html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
 
-		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
+		// line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
 		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9).attr("stroke", "black").attr("stroke-width", "1")
 		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3).attr("stroke", "black").attr("stroke-width", "1")
 
@@ -189,26 +145,8 @@ $(document).ready(function(){
 		   
 		   a.on("click", function(){
 		       var sel_country = $(this).attr("title")
-			   // console.log( sel_country )
 		   	   mapClick(sel_country)
-
-			 //   if (sel_country == "Nepal"){
-				//    $("#intro").hide()
-				//    $("#frontpage").hide()
-				//    $("#content").fadeIn("slow")
-				//    mapInit()
-				//    $(window).trigger('resize')
-				// }
-
 		   })
-
-		   // a.on("mouseover", function(d) {
-		   //   d3.selectAll("[title=" + this.title + "]").classed("countryActive",true);
-		   // });
-		   
-		   // a.on("mouseout", function(d) {
-		   //   d3.selectAll("[title=" + this.title + "]").classed("countryActive",false);
-		   // });
 
 			a.on("mouseenter", function(){
 				var title = $(this).attr("title")
@@ -230,7 +168,7 @@ $(document).ready(function(){
 			})
 	
 
-			line_Uganda = svg.append("line").attr("id","line_Uganda").attr("class", "map_line")
+			// line_Uganda = svg.append("line").attr("id","line_Uganda").attr("class", "map_line")
 			line_Nepal = svg.append("line").attr("id","line_Nepal").attr("class", "map_line")
 			line_Malawi = svg.append("line").attr("id","line_Malawi").attr("class", "map_line")
 
@@ -239,7 +177,7 @@ $(document).ready(function(){
 			// info_Malawi = svg.append("circle").attr("id","info_Malawi").attr("class","map_info").attr("title","Malawi")
 
 
-			line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
+			// line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
 			line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9).attr("stroke", "black").attr("stroke-width", "1")
 			line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3).attr("stroke", "black").attr("stroke-width", "1")
 
@@ -252,7 +190,7 @@ $(document).ready(function(){
 	 
 	//check if country is active (do we have data for it)
 	function countrySpecific(d, i) {
-	   if (d.name=='Uganda' || d.name == 'Malawi' || d.name == 'Nepal') return 'map_country map_countrySelected';
+	   if (/*d.name=='Uganda' ||*/ d.name == 'Malawi' || d.name == 'Nepal') return 'map_country map_countrySelected';
 	   else return 'map_country';
 	}
 
@@ -276,19 +214,10 @@ $(document).ready(function(){
 		}
 	)
 
-	 $(".map_info").on("click", function(){
-       var sel_country = $(this).attr("title")
-	   // console.log( sel_country )
-	   mapClick(sel_country)
-	 //   if (sel_country == "Nepal"){
-		//    $("#intro").hide()
-		//    $("#frontpage").hide()
-		//    $("#content").fadeIn("slow")
-		//    mapInit()
-		//    $(window).trigger('resize')
-		// }
-
-   })
+	$(".map_info").on("click", function(){
+    	var sel_country = $(this).attr("title")
+	    mapClick(sel_country)
+    })
 
 	function mapClick(country){
 	   if (country == "Nepal"){
@@ -311,102 +240,149 @@ $(document).ready(function(){
 	})
 
 
-	var colors = Highcharts.getOptions().colors,
-        categories = ['% Aid in Low Literacy Areas', '% Aid in Other Areas'],
-        data = [{
-            y: 60,
-            color: colors[0]
-        }, {
-            y: 40,
-            color: colors[1]
-        }],
-        browserData = [];
+
+	function updateMapChart(form_data, type, sub){
+
+		//Nepal
+		var npl_percent = form_data["Nepal"][type][sub]
+		buildMapChart('#chart_Nepal', npl_percent)
+
+		buildMapChart('#chart_Malawi', 21)
+		// buildMapChart('#chart_Uganda', 16)
+	}
+
+		
+    function buildMapChart(container, percent){
+
+		var colors = Highcharts.getOptions().colors,
+	        categories = ['% aid in '+ $("#intro_form_option_2>option:selected").html() +' areas', '% aid in other areas'],
+	        data = [{
+	            y: percent,
+	            color: colors[0]
+	        }, {
+	            y: 100-percent,
+	            color: colors[1]
+	        }],
+	        browserData = [];
 
 
-    // Build the data arrays
-    for (var i = 0; i < data.length; i += 1) {
+	    // Build the data arrays
+	    for (var i = 0; i < data.length; i += 1) {
 
-        // add browser data
-        browserData.push({
-            name: categories[i],
-            y: data[i].y,
-            color: data[i].color
-        });
-    }
+	        // add browser data
+	        browserData.push({
+	            name: categories[i],
+	            y: data[i].y,
+	            color: data[i].color
+	        });
+	    }
 
-    var chart_options = {
-        chart: {
-            type: 'pie',
-            backgroundColor: 'rgba(0,0,0,0)',
-            margin: [0, 0, 0, 0],
-	        spacingTop: 0,
-	        spacingBottom: 0,
-	        spacingLeft: 0,
-	        spacingRight: 0,
-	        events: {
-	        	click: function(){
-	        		$(this.container).trigger('click');
-	        	}
+	    var chart_options = {
+	        chart: {
+	            type: 'pie',
+	            backgroundColor: 'rgba(0,0,0,0)',
+	            margin: [0, 0, 0, 0],
+		        spacingTop: 0,
+		        spacingBottom: 0,
+		        spacingLeft: 0,
+		        spacingRight: 0,
+		        events: {
+		        	click: function(){
+		        		$(this.container).trigger('click');
+		        	}
+		        }
+	        },
+	        title: {
+	            text: ''
+	        },
+	        yAxis: {
+	            title: {
+	                text: ''
+	            }
+	        },
+	        plotOptions: {
+	            pie: {
+	                shadow: false,
+	                center: ['50%', '50%'],
+	                borderWidth: '0px',
+	                events: {
+	                	click: function(){
+	                		$(this.chart.container).trigger('click');
+	                	}
+	                }
+	            },
+	            series:{
+	            	states: {
+	                	hover: {
+	                    	enabled: false
+	                	}
+	                }
+	            }
+	        },
+	        tooltip: {
+	        	pointFormat: '<b>{point.y}</b>',
+	            valueSuffix: '%',
+	            positioner: function () {
+	                return { x: -30, y: -60 };
+	            },
+	        },
+	        series: [ {
+	            name: 'Data',
+	            data: browserData,
+	            size: '220%',
+	            innerSize: '200%',
+	            dataLabels: {
+	                enabled: false,
+	            }
+	        }],
+	        exporting:{
+	        	enabled:false
+	        },
+	        credits:{
+	        	enabled:false
 	        }
-        },
-        title: {
-            text: ''
-        },
-        yAxis: {
-            title: {
-                text: ''
-            }
-        },
-        plotOptions: {
-            pie: {
-                shadow: false,
-                center: ['50%', '50%'],
-                borderWidth: '0px',
-                events: {
-                	click: function(){
-                		$(this.chart.container).trigger('click');
-                	}
-                }
-            },
-            series:{
-            	states: {
-                	hover: {
-                    	enabled: false
-                	}
-                }
-            }
-        },
-        tooltip: {
-        	pointFormat: '<b>{point.y}</b>',
-            valueSuffix: '%',
-            positioner: function () {
-                return { x: -30, y: -60 };
-            },
-        },
-        series: [ {
-            name: 'Data',
-            data: browserData,
-            size: '220%',
-            innerSize: '200%',
-            dataLabels: {
-                enabled: false,
-            }
-        }],
-        exporting:{
-        	enabled:false
-        },
-        credits:{
-        	enabled:false
-        }
-    }
+	    }
 
-    $('#chart_Uganda').highcharts(chart_options)
-    $('#chart_Nepal').highcharts(chart_options)
-    $('#chart_Malawi').highcharts(chart_options)
+
+	    $(container).highcharts(chart_options)
+
+	}
+
+	$("#intro_form_option_1").change()
+
 
 //-------------------------------------------------------------------------------------------------
 // grid
 //-------------------------------------------------------------------------------------------------
+
+
+	// natural form
+	$("#grid_form select").on("change", function(){
+
+	 	var form_data = readJSON('../data/form/form_data.json')
+	 	var type = $('#grid_form_option_1').val()
+	 	var sub = $('#grid_form_option_2').val()
+
+
+	 	var total = form_data["Nepal"][type]["total"]
+	 	
+	 	if (total > Math.pow(10,12)){
+	 		total = String(Math.floor(100* total / Math.pow(10,12)) / 100) + " trillion"
+	 	} else if (total > Math.pow(10,9)){
+	 		total = String(Math.floor(100* total / (Math.pow(10,9))) / 100) + " billion"
+	 	} else if (total > Math.pow(10,6)){
+	 		total = String(Math.floor(100* total / (Math.pow(10,6))) / 100) + " million"
+	 	} else {
+	 		total = String(Math.floor(100* total / (Math.pow(10,3))) / 100) + " thousand"
+
+	 	}
+	 	$("#grid_variable1").text("$"+total)
+
+	 	var percent = form_data["Nepal"][type][sub].toLocaleString()
+	 	$("#grid_variable2").text(percent + "%")
+
+	})
+
 
 	var $selected
 	$(".overlay_button").click(function(){
@@ -446,7 +422,7 @@ $(document).ready(function(){
 		min:2001,
 		max:2013,
 		step: 1,
-		values: [2001, 2013]
+		values: [2005, 2013] //initial display values
 	});
  
  	
@@ -543,6 +519,8 @@ $(document).ready(function(){
 
 		$("#Agriculture").trigger("click")
 		$("#ndvi").trigger("click")
+		$("#grid_form_option_1").change()
+
 	}
 
 	function mapControlToggle(state){

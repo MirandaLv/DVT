@@ -44,50 +44,23 @@
         <div id="intro_form_container" class="intro_container">
           <div id="intro_form">
             <div class="form">
+            
               <span>In AidData partner countries, there was </span>
               <span id="intro_variable1" class="variable">$-</span>
               <span> of recorded</span>
               <select id="intro_form_option_1" >
-                  <option value="agricultural">agricultural</option>
-                  <option value="educational">educational</option>
-                  <option value="social">social</option>               
+                  <option value="Agriculture">agricultural</option>
+                  <option value="Health">health</option>
+                  <option value="Education">educational</option>  
+                  <option value="Industry">industrial</option>                            
               </select>
               <span> aid in the last decade.</span>
-              <select id="intro_form_option_2" style="display:none">
-                  <option selected value="2001">2001</option>
-                  <option value="2002">2002</option>
-                  <option value="2003">2003</option>   
-                  <option value="2004">2004</option>    
-                  <option value="2005">2005</option>
-                  <option value="2006">2006</option> 
-                  <option value="2007">2007</option>
-                  <option value="2008">2008</option>
-                  <option value="2009">2009</option>     
-                  <option value="2010">2010</option> 
-                  <option value="2011">2011</option>
-                  <option value="2012">2012</option>
-                  <option value="2013">2013</option>                         
-              </select>
-              <span  style="display:none"> and </span>
-              <select id="intro_form_option_3"  style="display:none">
-                  <option value="2001">2001</option>
-                  <option value="2002">2002</option>
-                  <option value="2003">2003</option>   
-                  <option value="2004">2004</option>    
-                  <option value="2005">2005</option>
-                  <option value="2006">2006</option> 
-                  <option value="2007">2007</option>
-                  <option value="2008">2008</option>
-                  <option value="2009">2009</option>     
-                  <option value="2010">2010</option> 
-                  <option value="2011">2011</option>
-                  <option value="2012">2012</option>
-                  <option selected value="2013">2013</option>             
-              </select>
-              <span><!-- . --> Projects in </span>
-              <select id="intro_form_option_4" >
-                  <option value="income">low income</option>
-                  <option value="literacy">low literacy</option>               
+        
+              <span> Projects in </span>
+              <select id="intro_form_option_2" >
+                  <option value="ec_per">low income</option>    
+                  <option value="ag_per">low yield</option>         
+                  <option value="ur_per">urban</option>               
               </select>
               <span> areas received </span>
               <span id="intro_variable2" class="variable">-%</span>
@@ -273,15 +246,18 @@
                 <span id="grid_variable1" class="variable">$-</span>
                 <span> of recorded</span>
                 <select id="grid_form_option_1" >
-                    <option value="agricultural">agricultural</option>
-                    <option value="educational">educational</option>
-                    <option value="social">social</option>               
+                  <option value="Agriculture">agricultural</option>
+                  <option value="Health">health</option>
+                  <option value="Education">educational</option>  
+                  <option value="Industry">industrial</option>              
                 </select>
                 <span> aid in the past decade.</span>
                 <span><!-- . --> Projects in </span>
-                <select id="grid_form_option_4" >
-                    <option value="income">low income</option>
-                    <option value="literacy">low literacy</option>               
+                <select id="grid_form_option_2" >
+                  <option value="ec_per">low income</option>               
+                  <option value="ag_per">low yield</option>
+                  <option value="ec_per">low income</option>               
+                  <option value="ur_per">urban</option>              
                 </select>
                 <span> areas received </span>
                 <span id="grid_variable2" class="variable">-%</span>
@@ -335,6 +311,16 @@
                <div id="Education" class="top_menu col-md-12">
                   Education
                   <div id="Education_menu" class="bot_menu row row-md-height">
+                     <div class="col-md-3 col-md-height"><span class="temp">Literacy</span></div>
+                     <div class="col-md-3 col-md-height"><span class="temp">Income</span></div>
+                     <div class="col-md-3 col-md-height"><span class="temp">% Female</span></div>
+                     <div class="col-md-3 col-md-height"><span class="temp">% Unemployed</span></div>
+                  </div>
+               </div>
+
+                <div id="Industry" class="top_menu col-md-12">
+                  Industry
+                  <div id="Industry_menu" class="bot_menu row row-md-height">
                      <div class="col-md-3 col-md-height"><span class="temp">Literacy</span></div>
                      <div class="col-md-3 col-md-height"><span class="temp">Income</span></div>
                      <div class="col-md-3 col-md-height"><span class="temp">% Female</span></div>
@@ -400,15 +386,16 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                   <li class="dropdown-header">Data Access</li>
-                  <li><a href="http://128.239.119.254/aiddata/DET/www/det.php">DET</a></li>
+                  <li><a href="http://128.239.119.254/aiddata/DET/www/det.php">Data Extraction Tool (DET) </a></li>
                   <li><a href="http://128.239.119.254/aiddata/DET_TEST/www/det.php">DET_TEST</a></li>
+                  <li><a href="http://128.239.119.254/aiddata/PET">Point Extraction Tool (PET)</a></li>
                   <li class="divider"></li>
                   <li class="dropdown-header">Data Upload</li>
-                  <li><a href="http://128.239.119.254/aiddata/DET/AMU/home">AMU for DET</a></li>
+                  <li><a href="http://128.239.119.254/aiddata/DET/AMU/home">Application Management Utility for DET</a></li>
                   <li><a href="http://128.239.119.254/aiddata/DET_TEST/AMU/home">AMU for DET_TEST</a></li>
                   <li class="divider"></li>
                   <li class="dropdown-header">Visualizations</li>
-                  <li><a href="http://128.239.119.254/aiddata/DVT/leaflet_05">DVT</a></li>
+                  <li><a href="http://128.239.119.254/aiddata/DVT/leaflet_05">Data Visualization Tool</a></li>
                   <li><a href="http://128.239.119.254/aiddata/DVT2/www">DVT2</a></li>
                   <li><a href="http://128.239.119.254/aiddata/grid/www">Grid</a></li>
               </ul>

@@ -21,7 +21,12 @@ switch ($_POST['type']) {
 		if (!file_exists($dest)){
 			$source = '/var/www/html/aiddata/DVT2/data/source/NPL_projects.vrt';
 
-			$search = "ad_sector_name = '".$type."' AND (d_".$min." != '0'";
+			if ($type == "Health"){
+				$search = "ad_sector_name LIKE '%Health%' OR ad_sector_name LIKE '%Water Supply and Sanitation%' AND (d_".$min." != '0'";
+			} else {
+				$search = "ad_sector_name LIKE '%".$type."%' AND (d_".$min." != '0'";
+			}
+
 			for ($i=$min+1;$i<=$max;$i++) {
 				$search .= " OR d_".$i." != '0'";
 			}

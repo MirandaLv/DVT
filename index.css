@@ -130,11 +130,27 @@ a:hover{
     }
 
 
-    @media (max-width: 754px){
+/*    @media (max-width: 754px){
         .map_info, .map_line{
             display:none;
         }
     }
+*/
+
+    @media (max-width: 1275px){
+        .map_info{
+            background: rgba(0,0,0,0);
+        }
+
+        .map_image, .map_chart{
+            display:none;
+        }
+
+        .map_title a{
+            left: 0;
+        }
+    }
+
 
     .map_country {
       fill: #dfdfdf;
