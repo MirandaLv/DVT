@@ -228,7 +228,7 @@
 <!--==================================================================================================== -->
 
 
-   <div id="content">
+   <div id="content" style="display:none">
 
       <div id="grid_back">Return to Home</div>
 
