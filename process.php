@@ -17,9 +17,9 @@ switch ($_POST['type']) {
 		$type = $_POST["cat"];
 		$min = $_POST["range_min"];
 		$max = $_POST["range_max"];
-		$dest =  "/var/www/html/aiddata/DVT2/data/point/NPL_projects_".$type."_".$min."_".$max.".geojson";
+		$dest =  "/var/www/html/aiddata/DVT3/data/point/NPL_projects_".$type."_".$min."_".$max.".geojson";
 		if (!file_exists($dest)){
-			$source = '/var/www/html/aiddata/DVT2/data/source/NPL_projects.vrt';
+			$source = '/var/www/html/aiddata/DVT3/data/source/NPL_projects.vrt';
 
 			if ($type == "Health"){
 				$search = "ad_sector_name LIKE '%Health%' OR ad_sector_name LIKE '%Water Supply and Sanitation%' AND (d_".$min." != '0'";
@@ -50,11 +50,11 @@ switch ($_POST['type']) {
 
 		$vars = $start_year ." ". $end_year;
 
-		if ( file_exists("/var/www/html/aiddata/DVT2/data/poly/output_".$start_year."_".$end_year.".geojson") ){
+		if ( file_exists("/var/www/html/aiddata/DVT3/data/poly/output_".$start_year."_".$end_year.".geojson") ){
 			echo "exists";
 
 		} else {
-			exec("/usr/bin/Rscript /var/www/html/aiddata/DVT2/www/rcalc.R $vars"); 
+			exec("/usr/bin/Rscript /var/www/html/aiddata/DVT3/www/rcalc.R $vars"); 
 			echo "created";
 		}
 		break;

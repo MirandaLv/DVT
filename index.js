@@ -53,14 +53,14 @@ $(document).ready(function(){
 	var line_Nepal 
 	var line_Malawi 
 
-	// info_Uganda = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Uganda").attr("title", "Uganda");
-	info_Nepal = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Nepal").attr("title", "Nepal");
-	info_Malawi = d3.select("#intro_map").append("div").attr("class", "map_info").attr("id","info_Malawi").attr("title", "Malawi");
+	// info_Uganda = d3.select("#intro_map").append("div").attr("class", "map_info_container").attr("id","info_Uganda").attr("title", "Uganda");
+	info_Nepal = d3.select("#intro_map").append("div").attr("class", "map_info_container").attr("id","info_Nepal").attr("title", "Nepal");
+	info_Malawi = d3.select("#intro_map").append("div").attr("class", "map_info_container").attr("id","info_Malawi").attr("title", "Malawi");
 
 	// PLACE THEM ON THE MAP RELATIVE TO THE MAP SIZE, THEN POPULATE THEM
-	// info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
-	info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;").html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
-	info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;").html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
+	// info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_info'><div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div></div>");
+	info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;").html("<div class='map_info'><div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div></div>");
+	info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;").html("<div class='map_info'><div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div></div>");
 
 
 	queue()
@@ -138,7 +138,7 @@ $(document).ready(function(){
 		a.on("mouseenter", function(){
 			var title = $(this).attr("title")
 			$(".map_info").each(function(){
-				if ($(this).attr("title")==title){
+				if ($(this).parent().attr("title")==title){
 					var updateClass = $(this).attr("class") + " map_info_hover"
 					$(this).attr("class", updateClass)
 				}
@@ -148,7 +148,7 @@ $(document).ready(function(){
 		a.on("mouseleave", function(){
 			var title = $(this).attr("title")
 			$(".map_info").each(function(){
-				if ($(this).attr("title")==title){
+				if ($(this).parent().attr("title")==title){
 					$(this).attr("class", "map_info")
 				}
 			})
@@ -191,7 +191,7 @@ $(document).ready(function(){
 	//link map info popups to map elements
 	$(".map_info").hover(
 		function(){
-			var title = $(this).attr("title")
+			var title = $(this).parent().attr("title")
 			$(".map_countrySelected").each(function(){
 				if ($(this).attr("title")==title){
 					var updateClass = $(this).attr("class") + " map_countrySelected_hover"
@@ -199,7 +199,7 @@ $(document).ready(function(){
 				}
 			})
 		}, function(){
-			var title = $(this).attr("title")
+			var title = $(this).parent().attr("title")
 			$(".map_countrySelected").each(function(){
 				if ($(this).attr("title")==title){
 					$(this).attr("class", "map_country map_countrySelected")
@@ -210,7 +210,7 @@ $(document).ready(function(){
 
 	// map info clicks
 	$(".map_info").on("click", function(){
-    	var sel_country = $(this).attr("title")
+    	var sel_country = $(this).parent().attr("title")
 	    mapClick(sel_country)
     })
 

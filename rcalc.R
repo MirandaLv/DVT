@@ -8,7 +8,7 @@ readIn <- commandArgs(trailingOnly = TRUE)
 in_startYear <- as.numeric(readIn[1])
 in_endYear <- as.numeric(readIn[2])
 
-setwd("/var/www/html/aiddata/DVT2/data")
+setwd("/var/www/html/aiddata/DVT3/data")
 geojson <- readOGR("source/Leaflet.geojson", "OGRGeoJSON")
 
 
@@ -47,7 +47,7 @@ sd <- (ratio-mean(ratio))/sd(ratio)
 geojson@data["sd"] <- sd
 
 
-setwd("/var/www/html/aiddata/DVT2/data/poly")
+setwd("/var/www/html/aiddata/DVT3/data/poly")
 
 filename <- paste("output",in_startYear,in_endYear,sep="_")
 

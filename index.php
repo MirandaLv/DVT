@@ -379,7 +379,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 
-            <li class="active"><a href="http://128.239.119.254/aiddata/DVT2/www">Home</a></li>
+            <li class="active"><a href="http://128.239.119.254/aiddata/DVT3/www">Home</a></li>
 
 
             <li class="dropdown">
@@ -396,7 +396,7 @@
                   <li class="divider"></li>
                   <li class="dropdown-header">Visualizations</li>
                   <li><a href="http://128.239.119.254/aiddata/DVT/leaflet_05">Data Visualization Tool</a></li>
-                  <li><a href="http://128.239.119.254/aiddata/DVT2/www">DVT2</a></li>
+                  <li><a href="http://128.239.119.254/aiddata/DVT3/www">DVT3</a></li>
                   <li><a href="http://128.239.119.254/aiddata/grid/www">Grid</a></li>
               </ul>
             </li>
