@@ -25,21 +25,10 @@
    <link rel="stylesheet" href="grid.css?<?php echo filectime('grid.css') ?>" />   
    <link rel="stylesheet" href="jcarousel.css?<?php echo filectime('jcarousel.css') ?>" />   
 
-
-
 </head>
 
 <body>
 
-<!-- 
-    <div id="header">
-      <a id="header_logo_left" href="http://aiddata.org/"><img src="../imgs/ACDP logo transparent large.png"> </a>
-      <a id="header_logo_right" href="http://www.usaid.gov/GlobalDevLab"><img src="../imgs/US Global Dev Lab transparent logo.png"> </a>
-    </div>
- -->
-
-
-<!-- ==================================================================================================== -->
       <div id="intro">
         <div id="intro_form_container" class="intro_container">
           <div id="intro_form">
@@ -123,9 +112,6 @@
 
       <!-- Wrap the rest of the page in another container to center all the content. -->
       <div id="frontpage" class="container marketing">
-
-
-<!--         <hr class="featurette-divider"> -->
 
         <!-- Three columns of text below the carousel -->
         <div class="row">
@@ -228,131 +214,72 @@
 <!--==================================================================================================== -->
 
 
-   <div id="content" style="display:none">
+    <div id="content">
 
       <div id="grid_back">Return to Home</div>
 
-      <div id="grid_header" class="container">
-        <div class="row">
-          <div id="grid_banner" class="col-sm-6">
-            <div id="grid_logo"><div></div></div>
-            <div id="grid_title">Nepal</div>
-          </div>
-          <div id="grid_form" class="col-sm-6">
-            <div class="form">
-                <span>In </span>
-                <span id="grid_country">Nepal</span>
-                <span>, there was </span>
-                <span id="grid_variable1" class="variable">$-</span>
-                <span> of recorded</span>
-                <select id="grid_form_option_1" >
-                  <option value="Agriculture">agricultural</option>
-                  <option value="Health">health</option>
-                  <option value="Education">educational</option>  
-                  <option value="Industry">industrial</option>              
-                </select>
-                <span> aid in the past decade.</span>
-                <span><!-- . --> Projects in </span>
-                <select id="grid_form_option_2" >
-                  <option value="ec_per">low income</option>               
-                  <option value="ag_per">low yield</option>
-                  <option value="ec_per">low income</option>               
-                  <option value="ur_per">urban</option>              
-                </select>
-                <span> areas received </span>
-                <span id="grid_variable2" class="variable">-%</span>
-                <span> of that aid.</span>
-
-              </div>
-            </div>
-          </div>
-      </div>
-
       <div id="grid_container">
          <ul id="grid">
-            <li class="grid_container grid_map grid-2-1">
-               <div id="map"><div class="overlay_button"></div></div>
-               <!-- <div id="loading" style="display:none"><img src="../imgs/loading.gif"></div> -->
+            <li class="grid_container">
+                <div id="grid_banner">
+                  <div id="grid_logo"><div></div></div>
+                  <div id="grid_title"></div>
+                </div>
+            </li>
+            <li class="grid_container">          
+              <div id="grid_form">
+                <div class="form">
+                    <span>In </span>
+                    <span id="grid_country"></span>
+                    <span>, there was </span>
+                    <span id="grid_variable1" class="variable">$-</span>
+                    <span> of recorded</span>
+                    <select id="grid_form_option_1" >
+                      <option value="Agriculture">agricultural</option>
+                      <option value="Health">health</option>
+                      <option value="Education">educational</option>  
+                      <option value="Industry">industrial</option>              
+                    </select>
+                    <span> aid in the past decade.</span>
+                    <span> Projects in </span>
+                    <select id="grid_form_option_2" >
+                      <option value="ec_per">low income</option>               
+                      <option value="ag_per">low yield</option>
+                      <option value="ec_per">low income</option>               
+                      <option value="ur_per">urban</option>              
+                    </select>
+                    <span> areas received </span>
+                    <span id="grid_variable2" class="variable">-%</span>
+                    <span> of that aid.</span>
+
+                  </div>
+                </div>
+            </li>
+            <li class="grid_container">
+              <div id="map"><div class="overlay_button"></div></div>
             </li> 
-            <li class="grid_container grid_chart grid-1-1"><div id="chart1"></div></li>
-            <li class="grid_container grid_chart grid-1-1"><div id="chart2"></div></li>
-            <li class="grid_container grid_chart grid-1-1"><div id="chart3"></div></li>
-            <li class="grid_container grid-1-1"><div id="info"></div></li>
+            <li class="grid_container"><div id="chart1"></div></li>
+            <li class="grid_container"><div id="chart2"></div></li>
+            <li class="grid_container"><div id="chart3"></div></li>
+            <li class="grid_container"><div id="info"></div></li>
          </ul>       
       </div> 
 
-      <!-- ================================================== -->
+      <div class="spacer"></div>
 
-      <div id="options_container">
-         <div id="options">   
+    </div>
 
-            <div id="menu" class="row">
-
-               <div id="Agriculture" class="top_menu col-md-12">
-                 Agriculture
-                 <div id="Agriculture_menu" class="bot_menu row row-md-height">
-                   <div id="ndvi" class="col-md-3 col-md-height"><span>Potential Agricultural Productivity (2001)</span></div>
-                   <div class="col-md-3 col-md-height"><span class="temp">Agricultural Productivity Gap</span></div>
-                   <div class="col-md-3 col-md-height"><span class="temp">Rural Income</span></div>
-                   <div class="col-md-3 col-md-height"><span class="temp">Distance to City</span></div>
-                 </div>
-               </div>
-
-               <div id="Health" class="top_menu col-md-12">
-                  Health
-                  <div id="Health_menu" class="bot_menu row row-md-height">
-                     <div class="col-md-3 col-md-height"><span class="temp">Distance to Existing Health Project</span></div>
-                     <div class="col-md-3 col-md-height"><span class="temp">Disease Prevalence</span></div>
-                     <div class="col-md-3 col-md-height"><span class="temp">Distance to City</span></div>
-                     <div class="col-md-3 col-md-height"><span class="temp">Water Security</span></div>
-                  </div>
-               </div>
-
-               <div id="Education" class="top_menu col-md-12">
-                  Education
-                  <div id="Education_menu" class="bot_menu row row-md-height">
-                     <div class="col-md-3 col-md-height"><span class="temp">Literacy</span></div>
-                     <div class="col-md-3 col-md-height"><span class="temp">Income</span></div>
-                     <div class="col-md-3 col-md-height"><span class="temp">% Female</span></div>
-                     <div class="col-md-3 col-md-height"><span class="temp">% Unemployed</span></div>
-                  </div>
-               </div>
-
-                <div id="Industry" class="top_menu col-md-12">
-                  Industry
-                  <div id="Industry_menu" class="bot_menu row row-md-height">
-                     <div class="col-md-3 col-md-height"><span class="temp">Literacy</span></div>
-                     <div class="col-md-3 col-md-height"><span class="temp">Income</span></div>
-                     <div class="col-md-3 col-md-height"><span class="temp">% Female</span></div>
-                     <div class="col-md-3 col-md-height"><span class="temp">% Unemployed</span></div>
-                  </div>
-               </div>
-
-            </div>
+    <!-- ================================================== -->
 
 
-            <div id="slider_container">
-               <div id="slider_top" class="slider_sub">
-                  <div id="slider"></div>
-               </div> 
-               <div id="slider_bot" class="slider_sub">  
-                  <span id="slider_min"></span>
-                  <span id="slider_max"></span>
-                  <span id="slider_value"></span>
-               </div>
-            </div>
-
-         </div>
-      </div>
-   </div>
-
-   <div id="overlay">
+    <div id="overlay">
       <!-- <div id="overlay_content"></div> -->
-   </div>
+    </div>
 
 
 <!--==================================================================================================== -->
 
+  <!--   
     <div id="footer">
       <div class="container">
         <div class="row">
@@ -361,8 +288,9 @@
           <div class="col-md-4">SOCIAL MEDIA</div>
         </div>
       </div>
-    </div>
-
+    </div> 
+    
+ -->
 
     <!-- Fixed navbar -->
     <div id="navbar" class="navbar navbar-default navbar-fixed-bottom" role="navigation">
@@ -475,10 +403,6 @@
 
    <script src="../libs/Leaflet.geoCSV-master/leaflet.geocsv.js"></script>
 
-   <script src="../libs/dragslider.js"></script>
-
-   <script src="../libs/SliderControl.js"></script>
-
    <script src="../libs/MarkerCluster/leaflet.markercluster-src.js"></script>
 
    <script src="../libs/underscoremin.js"></script>
@@ -494,7 +418,6 @@
 
    <script src="../libs/jquery.jcarousel.min.js"></script>
 
-   <script src="grid.js"></script>     
    <script src="charts.js"></script>
    <script src="jcarousel.js"></script> 
 

@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
 //-------------------------------------------------------------------------------------------------
-// home
+// landing page
 //-------------------------------------------------------------------------------------------------
 	
-	// natural form
+	// -- natural form options --
 	$("#intro_form select").on("change", function(){
 
 	 	var form_data = readJSON('../data/form/form_data.json')
@@ -24,7 +24,7 @@ $(document).ready(function(){
 	})
 
 
-	// d3 map
+	// -- d3 map and country info boxes --
 	var margin = {top: 0, left: 0, bottom: 0, right: 0},
 	   width = parseInt(d3.select('#intro_map').style('width')),
 	   width = width - margin.left - margin.right,
@@ -43,42 +43,44 @@ $(document).ready(function(){
 	    .attr("height", height);
 
 
-	// map info
+	// -- map info --
 
-	// var info_Uganda
-	var info_Nepal 
-	var info_Malawi
+	// init map info lines
+	var line_Nepal,	line_Malawi//, line_Uganda 
 
-	// var line_Uganda 
-	var line_Nepal 
-	var line_Malawi 
+	// initialize map info containers
+	var info_Nepal = d3.select("#intro_map").append("div")
+			.attr("class", "map_info_container").attr("id","info_Nepal").attr("title", "Nepal")
+			.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")
+			.html("<div class='map_info'><div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div></div>");
+	
+	var info_Malawi = d3.select("#intro_map").append("div")
+			.attr("class", "map_info_container").attr("id","info_Malawi").attr("title", "Malawi")
+			.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")
+			.html("<div class='map_info'><div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div></div>");
+	
+	// var info_Uganda = d3.select("#intro_map").append("div")
+	// 		.attr("class", "map_info_container").attr("id","info_Uganda").attr("title", "Uganda")
+	// 		.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")
+	// 		.html("<div class='map_info'><div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div></div>");
 
-	// info_Uganda = d3.select("#intro_map").append("div").attr("class", "map_info_container").attr("id","info_Uganda").attr("title", "Uganda");
-	info_Nepal = d3.select("#intro_map").append("div").attr("class", "map_info_container").attr("id","info_Nepal").attr("title", "Nepal");
-	info_Malawi = d3.select("#intro_map").append("div").attr("class", "map_info_container").attr("id","info_Malawi").attr("title", "Malawi");
 
-	// PLACE THEM ON THE MAP RELATIVE TO THE MAP SIZE, THEN POPULATE THEM
-	// info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;").html("<div class='map_info'><div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div></div>");
-	info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;").html("<div class='map_info'><div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div></div>");
-	info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;").html("<div class='map_info'><div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div></div>");
-
-
+	// load countries and names
 	queue()
 	    .defer(d3.json, "../data/world/d3-world.json")
 	    .defer(d3.tsv, "../data/world/world-country-names.tsv")
 	    .await(ready);
 
+	// resize map when window size changes
 	d3.select(window).on("resize", sizeChange);
 	
 	// manage map and map info resizing
 	function sizeChange(){
-		// d3.select("svg").attr("transform", "scale(" + $("#intro_map").width()/0 + ")");
-	    // $("svg").height($("#intro_map").width()*0.448);
 
-	    // adjust things when the window size changes
-	    width = parseInt(d3.select('#intro_map').style('width'));
-	    width = width - margin.left - margin.right;
-	    height = width * mapRatio;
+	    // adjust when the window size changes
+	    width = parseInt(d3.select('#intro_map').style('width'))
+	    width = width - margin.left - margin.right
+	    height = width * mapRatio
 
 	    // update projection
 	    projection
@@ -95,43 +97,39 @@ $(document).ready(function(){
 
 	    // resize the map
 	    svg.selectAll('.map_country').attr('d', path);
-	    // d3.selectAll('svg').attr('d', path);
 
 
-		// info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")//.html("<div class='map_title'><a href='#Uganda'>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
-		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")//.html("<div class='map_title'><a href='#Nepal'>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
-		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")//.html("<div class='map_title'><a href='#Malawi'>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
+	    // update map info box positions
+		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")//.html("<div class='map_title'><a href=''>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
+		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")//.html("<div class='map_title'><a href=''>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
+		// info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")//.html("<div class='map_title'><a href=''>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
 
-		// line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
+		// update map info lines
 		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9).attr("stroke", "black").attr("stroke-width", "1")
 		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3).attr("stroke", "black").attr("stroke-width", "1")
-
-		// info_Uganda.attr("cx",width/1.5).attr("cy",height/2).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
-		// info_Nepal.attr("cx",width/1.2).attr("cy",height/2.9).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
-		// info_Malawi.attr("cx",width/1.45).attr("cy",height/1.3).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
+		// line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
 
 	}
   
-
+	// build map
 	function ready(error, world, names) {
-	   // TRANSLATE FROM TOPOJSON, ADD TITLE AND GEOMETRY
-	   var countries = topojson.feature(world, world.objects.countries).features;
+		var countries = topojson.feature(world, world.objects.countries).features
 
-	   countries.forEach(function(d) {
-	      d.name = names.filter(function(n) { return d.id == n.id; })[0].name;
-	   });
+		countries.forEach(function(d) {
+		  d.name = names.filter(function(n) { return d.id == n.id; })[0].name
+		});
 
-	   var country = svg.selectAll(".map_country").data(countries);
+		var country = svg.selectAll(".map_country").data(countries)
 
-	   country.enter().insert("path").attr("class", function(d, i) {
-	     return countrySpecific(d, i);
-	   })
-	   .attr("title", function(d, i) {
-	     return d.name;
-	   })
-	   .attr("d", path);
+		country.enter().insert("path").attr("class", function(d, i) {
+		 return countrySpecific(d, i)
+		})
+		.attr("title", function(d, i) {
+		 return d.name
+		})
+		.attr("d", path);
 	   
-	   a = d3.selectAll(".map_countrySelected");
+		a = d3.selectAll(".map_countrySelected")
 	   
 
 		//link map elements to map info popups
@@ -160,22 +158,21 @@ $(document).ready(function(){
    	   		mapClick(sel_country)
 	    })
 
-		// line_Uganda = svg.append("line").attr("id","line_Uganda").attr("class", "map_line")
-		line_Nepal = svg.append("line").attr("id","line_Nepal").attr("class", "map_line")
-		line_Malawi = svg.append("line").attr("id","line_Malawi").attr("class", "map_line")
-
-		// info_Uganda = svg.append("circle").attr("id","info_Uganda").attr("class","map_info").attr("title","Uganda")
-		// info_Nepal = svg.append("circle").attr("id","info_Nepal").attr("class","map_info").attr("title","Nepal")
-		// info_Malawi = svg.append("circle").attr("id","info_Malawi").attr("class","map_info").attr("title","Malawi")
-
-
-		// line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
-		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9).attr("stroke", "black").attr("stroke-width", "1")
-		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3).attr("stroke", "black").attr("stroke-width", "1")
-
-		// info_Uganda.attr("cx",width/1.5).attr("cy",height/2).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
-		// info_Nepal.attr("cx",width/1.2).attr("cy",height/2.9).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
-		// info_Malawi.attr("cx",width/1.45).attr("cy",height/1.3).attr("r",30).attr("fill","white").attr("stroke","black").attr("stroke-width",1)
+		line_Nepal = svg.append("line")
+								.attr("id","line_Nepal").attr("class", "map_line")
+								.attr("x1", width/1.34).attr("y1", height/2.3)
+								.attr("x2", width/1.2).attr("y2", height/2.9)
+								.attr("stroke", "black").attr("stroke-width", "1");
+		line_Malawi = svg.append("line")
+								.attr("id","line_Malawi").attr("class", "map_line")
+								.attr("x1", width/1.67).attr("y1", height/1.43)
+								.attr("x2", width/1.45).attr("y2", height/1.3)
+								.attr("stroke", "black").attr("stroke-width", "1");
+		// line_Uganda = svg.append("line").attr("id","line_Uganda")
+		// 						.attr("class", "map_line")
+		// 						.attr("x1", width/1.68).attr("y1", height/1.65)
+		//						.attr("x2", width/1.5).attr("y2", height/2)
+		// 						.attr("stroke", "black").attr("stroke-width", "1");
 
 	}
 	 
@@ -219,12 +216,14 @@ $(document).ready(function(){
 	// manages building and updating of map charts
 	function updateMapChart(form_data, type, sub){
 
-		//Nepal
 		var npl_percent = form_data["Nepal"][type][sub]
 		buildMapChart('#chart_Nepal', npl_percent)
 
-		buildMapChart('#chart_Malawi', 21)
-		// buildMapChart('#chart_Uganda', 16)
+		var mal_percent = 21
+		buildMapChart('#chart_Malawi', mal_percent)
+
+		// var ug_percent = 20
+		// buildMapChart('#chart_Uganda', ug_percent)
 	}
 
 	//builds map charts
@@ -253,6 +252,7 @@ $(document).ready(function(){
 	        });
 	    }
 
+	    //chart obj
 	    var chart_options = {
 	        chart: {
 	            type: 'pie',
@@ -319,28 +319,33 @@ $(document).ready(function(){
 	        }
 	    }
 
+	    //render chart
 	    $(container).highcharts(chart_options)
 	}
 
-	// function that handles switching from landing page to a country page
+	// load country page
+	var grid_country
 	function mapClick(country){
-	    if (country == "Nepal"){
-			$("#intro").hide()
-			$("#frontpage").hide()
-			$("#content").fadeIn("slow")
-			mapInit()
-			$(window).trigger('resize')
 
-			$("#grid_logo div").css("background-image","url('../imgs/"+country.toLowerCase()+"-outline.png')")
-		}
+    	grid_country = country
+		$("#intro").hide()
+		$("#frontpage").hide()
+		$("#content").fadeIn("slow")
+
+		$("#grid_logo div").css("background-image","url('../imgs/"+country.toLowerCase()+"-outline.png')")
+		$("#grid_title, #grid_country").html(grid_country)		
+	
+		mapInit()
+		window.dispatchEvent(new Event('resize'))
+
 	}
 
-	// return to landing page from a country page
+	// return to landing page from country page
 	$("#grid_back").on("click", function(){
+		$("#content").hide()
 		$("#intro").show()
 		$("#frontpage").show()
-		$("#content").hide()
-		$(window).trigger('resize')
+		window.dispatchEvent(new Event('resize'))
 	})
 
 	// init / manual triggers for landing page
@@ -351,26 +356,46 @@ $(document).ready(function(){
 // grid
 //-------------------------------------------------------------------------------------------------
 
+	// init year range
+	var start_year = 2005,
+		end_year = 2013
+
+	//init "grid" style functionallity
+	$("#grid").sortable({
+		// distance:1
+	})
+
 	// natural form
 	$("#grid_form select").on("change", function(){
 
-	 	var form_data = readJSON('../data/form/form_data.json')
+		// get type and subtype
 	 	var type = $('#grid_form_option_1').val()
 	 	var sub = $('#grid_form_option_2').val()
 
+	 	// update form
+	 	var form_data = readJSON('../data/form/form_data.json')
 
-	 	var total = form_data["Nepal"][type]["total"]
+	 	var total = form_data[grid_country][type]["total"]
 	 	
 	 	total = shortNum(total,2)
 
 	 	$("#grid_variable1").text("$"+total)
 
-	 	var percent = form_data["Nepal"][type][sub].toLocaleString()
+	 	var percent = form_data[grid_country][type][sub].toLocaleString()
 	 	$("#grid_variable2").text(percent + "%")
+
+	 	//update map
+	 	// addCountry() 
+	 	buildPolyData(grid_country.toLowerCase())
+		addPointData(type)
+
+		// update charts
+	 	buildCharts(start_year, end_year, geojsonPoints, geojsonExtract)
+ 
 
 	})
 
-
+	// add overlay
 	var $selected
 	$(".overlay_button").click(function(){
 		$("body").css("overflow","hidden")
@@ -384,6 +409,7 @@ $(document).ready(function(){
 
 	})
 
+	// remove overlay
 	$("#overlay").click(function(){
 		$("body").css("overflow","auto")
 		$("#overlay").hide()
@@ -392,102 +418,11 @@ $(document).ready(function(){
 		map.invalidateSize();
 	})
 
-	$("#grid").sortable()
 
-	$(".bot_menu").hide()
+	var map,
+		tiles
 
-	$(".menu_item").click(function(){
-		$(this).siblings().removeClass("active_menu")
-		$(this).addClass("active_menu")
-	})
-
-	$('#slider').dragslider({
-		animate: true,
-		range: true,
-		rangeDrag: true,
-		min:2001,
-		max:2013,
-		step: 1,
-		values: [2005, 2013] //initial display values
-	});
- 
- 	
-    var v = $("#slider").dragslider("values")
-    $('#slider_value').text(v[0]+" - "+v[1]);
-    var min = $('#slider').dragslider('option', 'min')
-    var max = $('#slider').dragslider('option', 'max')
-    $('#slider_min').text(min);
-    $('#slider_max').text(max);
-
-
-    var onPoint = false
-    var onExtract = false
-    $('#slider').dragslider({
-    	slide: function(event, ui) {
-	    	v = ui.values
-	        $('#slider_value').text(v[0]+" - "+v[1]);
-	   	},
-    	change: function(event, ui) {
-	        if (onPoint){ addPointData(cat) }
-	        var start_year = $("#slider").dragslider("values")[0]
-	    	var end_year = $("#slider").dragslider("values")[1]
-	        if (onExtract){ prepExtract("nepal")}
-	        buildCharts(start_year, end_year, geojsonPoints, geojsonExtract)
-    	}
-    });
-
-	// $("#top_menu li").on("click", function(){
-	$(".top_menu").on("click", function(){
-		onPoint = true
-		cat = $(this).attr("id")
-		addPointData(cat)
-
-		// $("#Agriculture_menu").hide()
-		// $("#Health_menu").hide()
-		// $("#Education_menu").hide()
-		$(".bot_menu").hide()
-		
-		$("#"+cat+"_menu").show()
-	})
-
-	$("#ndvi").on("click", function(){
-		onExtract = true
-  
-		prepExtract("nepal")
-		buildCharts($("#slider").dragslider("values")[0], $("#slider").dragslider("values")[1], geojsonPoints, geojsonExtract)
-
-		$("#charts").show()
-	})
-
-
-	function prepExtract(country){
-		var start_year = $("#slider").dragslider("values")[0]
-		var end_year = $("#slider").dragslider("values")[1]
-		// console.log("in")
-		$("#map").hide()
-		$("#loading").show()
-		$.ajax ({
-	        url: "process.php",
-	        data: {type: "execR", start_year: start_year, end_year: end_year},
-	        dataType: "text",
-	        type: "post",
-	        async: false,
-	        success: function(result) {
-	        	// console.log(result)
-        		$("#loading").hide()
-				$("#map").show()
-	        	addGeoExtract(country, "../data/poly/output_"+start_year+"_"+end_year+".geojson")
-	        }
-	    })
-
-	}
-
-	var map
-	var tiles
-	var cat
-
-	// mapInit()
-
+	// initialize leaflet map and trigger initial form options
 	function mapInit(){
 
 		L.mapbox.accessToken = 'pk.eyJ1Ijoic2dvb2RtIiwiYSI6InotZ3EzZFkifQ.s306QpxfiAngAwxzRi2gWg'
@@ -503,40 +438,15 @@ $(document).ready(function(){
 		map.options.maxZoom = 11
 		mapControlToggle(0)
 
-		$("#Agriculture").trigger("click")
-		$("#ndvi").trigger("click")
+		//trigger initial form options
 		$("#grid_form_option_1").change()
-
 	}
 
-	function mapControlToggle(state){
-		if (state == 1){
-			map.scrollWheelZoom.enable();
-			map.dragging.enable();
-			map.doubleClickZoom.enable()
-		} else {
-			map.scrollWheelZoom.disable();
-			map.dragging.disable();
-			map.doubleClickZoom.disable()
-		}
-	}
 
-	// function refreshMaps(){
-	// 	map.invalidateSize();
-	// 	// $(".grid_map").each(function(){
-
-	// 	// })
-	// }
-
-	// function refreshCharts(){
-	// 	$(".grid_chart").each(function(){
-	// 		$(this).highcharts().redraw()
-	// 	})
-	// }
 
 	var allCountryBounds = { global:{_northEast:{lat:90, lng:180}, _southWest:{lat:-90, lng:-180}} }
-	// addCountry("nepal", "../data/source/nepal_country.geojson")
 
+	// add country boundary to map and zoom to it
 	function addCountry(country, file){
 
 		var geojsonCountry = readJSON(file)
@@ -547,7 +457,6 @@ $(document).ready(function(){
 
 		allCountryBounds[country] = countryBounds
 		
-		// console.log(allCountryBounds)
 
 		function style(feature) {
 		    return {
@@ -555,7 +464,6 @@ $(document).ready(function(){
 		        weight: 1,
 		        opacity: 1,
 		        color: 'black',
-		        // dashArray: '3',
 		        fillOpacity: 0.25
 		    };
 		}
@@ -563,12 +471,28 @@ $(document).ready(function(){
 	}
 
 
-	// var myLayer
-	var geojson
-	var geojsonExtract 
-	var info
-	var legend
-	function addGeoExtract(country, file){
+	// build or get boundary geojson with extract data
+	function buildPolyData(country){
+
+		$.ajax ({
+	        url: "process.php",
+	        data: {type: "addPolyData", start_year: start_year, end_year: end_year, type: "x", sub: "x"},
+	        dataType: "text",
+	        type: "post",
+	        async: false,
+	        success: function(result) {
+	        	addPolyData("../data/poly/output_"+start_year+"_"+end_year+".geojson")
+	        }
+	    })
+
+	}
+
+	var geojson,
+		geojsonExtract, 
+		info,
+		legend
+
+	function addPolyData(file){
 
 		if (map.hasLayer(geojson)){
 			map.removeLayer(geojson)
@@ -576,10 +500,8 @@ $(document).ready(function(){
 			legend.removeFrom(map)
 		}
 
-
 		geojsonExtract = readJSON(file)
 		
-
 		function getColor(d) { 
 		    return d <= -1.5 ? '#de2d26' :
 		           d <= -1.0 ? '#fc9272' :
@@ -698,9 +620,10 @@ $(document).ready(function(){
 	}
 
 
-	var markers
-	var geojsonPoints
-	function addPointData(cat){
+	var markers,
+		geojsonPoints
+	
+	function addPointData(pointType){
 
 		if (map.hasLayer(markers)){
 			map.removeLayer(markers)
@@ -708,7 +631,7 @@ $(document).ready(function(){
 
 		$.ajax ({
 	        url: "process.php",
-	        data: {type: "execGeoJSON", cat: cat, range_min:$("#slider").dragslider("values")[0], range_max:$("#slider").dragslider("values")[1]},
+	        data: {type: "addPointData", pointType: pointType, range_min:start_year, range_max:end_year},
 	        dataType: "json",
 	        type: "post",
 	        async: false,
@@ -730,7 +653,7 @@ $(document).ready(function(){
 						popup += "</br>Project Start: " + a.actual_start_date
 						popup += "</br>Years: "
 						var c = 0
-						for (var y = min; y<=max; y++){
+						for (var y = start_year; y<=end_year; y++){
 							if ( parseFloat(a["d_"+y]) > 0 ){
 								if (c>0){ popup += ", "}
 								popup += y
@@ -739,7 +662,7 @@ $(document).ready(function(){
 						}
 						popup += "</br>$USD: "
 						c = 0
-						for (var y = min; y<=max; y++){
+						for (var y = start_year; y<=end_year; y++){
 							if ( parseFloat(a["d_"+y]) > 0 ){
 								if (c>0){ popup += ", "}
 								popup += a["d_"+y]
@@ -760,14 +683,27 @@ $(document).ready(function(){
 				markers.addLayer(geojsonLayer);
 				map.addLayer(markers);
 
-
 	        }
 	    })
 
 	}
 
+	// toggle map control when in grid or overlay mode
+	function mapControlToggle(state){
+		if (state == 1){
+			map.scrollWheelZoom.enable();
+			map.dragging.enable();
+			map.doubleClickZoom.enable()
+		} else {
+			map.scrollWheelZoom.disable();
+			map.dragging.disable();
+			map.doubleClickZoom.disable()
+		}
+	}
+
+
 //-------------------------------------------------------------------------------------------------
-// misc
+// misc functions
 //-------------------------------------------------------------------------------------------------
 
 	//read in a json file and return object

@@ -13,8 +13,8 @@ switch ($_POST['type']) {
 		echo $out;
 		break;
 
-	case 'execGeoJSON':
-		$type = $_POST["cat"];
+	case 'addPointData':
+		$type = $_POST["pointType"];
 		$min = $_POST["range_min"];
 		$max = $_POST["range_max"];
 		$dest =  "/var/www/html/aiddata/DVT3/data/point/NPL_projects_".$type."_".$min."_".$max.".geojson";
@@ -43,7 +43,7 @@ switch ($_POST['type']) {
 		}
 		break;
 
-	case 'execR':
+	case 'addPolyData':
 
 		$start_year = $_POST["start_year"];
 		$end_year = $_POST["end_year"];

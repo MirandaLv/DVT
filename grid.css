@@ -1,3 +1,7 @@
+#content{
+    display: none;
+}
+
 #grid_back{
     width:100px;
     height: 50px;
@@ -24,292 +28,153 @@
         box-shadow:         inset 0 0 10px #000000;
     }
 
-
-#grid_header{
-    height: 200px;
-    width:90%;
-    margin:10px 5%;
-    text-align: center;
-}
-    #grid_header>div>div{
-        margin:0 auto;
-        /*min-width: 700px*/
-        /*float:left;*/
-    }
-
-    #grid_logo, #grid_title, #grid_form{
-        height: 200px;
-        float: left;
-        display: inline-block;
-    }
-
-    #grid_banner{
-        /*min-width: 700px;*/
-    }
-
-        #grid_logo{
-            height:200px;
-            width:200px; 
-            background: rgb(246,255,180);
-            border: 3px solid rgb(131,164,28); /*rgba(19,135,255,1);*/
-            border-radius: 50%;
-            color: black; 
-        }
-
-            #grid_logo div{
-                width:85%;
-                height:85%;       
-                background-size: contain; 
-                background-position: center; 
-                background-repeat: no-repeat;
-                position:relative;
-                left: 7.5%;
-                top: 7.5%;
-            }
-        
-        #grid_title{
-            width: 400px; 
-            padding: 0 50px;
-            font-size: 10em; 
-            text-align: center;
-            vertical-align: center;
-            line-height: 200px;
-            font-family: 'Abel', sans-serif;
-            /*text-shadow: 1px 1px white, -1px -1px white;*/
-            text-decoration: underline;
-
-            -moz-text-decoration-color: green;
-            text-decoration-color: green;
-
-        }
-
-
-    
-    #grid_form{
-        width:600px;
-        /*width:50%;*/
-        /*min-width: 700px;*/
-        margin-top: 2%;
-    }
-
-        #grid_form .form{
-            background: rgb(100,100,100);
-            border: 0px solid black;
-            border-radius: 10px;
-        }
-
+/*----------------------------------------------------------------------------*/
 
 #grid_container{
-    /*width:99%;*/
-    padding-top: 75px;
-    display: block;
+    /*width:100%;*/
+    /*min-height: 2000px*/
 }
 
     #grid{
-        /*width:99%;*/
+        /*width:100%;*/
         margin: 0 5%;
         padding: 0;
+        padding-top: 75px;
         list-style-type: none; 
         text-align: center;
-
-    }
-
-    .grid-1-1{
-        width:99%;
-    }
-
-    .grid-2-1{
-        width:99%;
-        /*margin: 3px 3px 4px 1px;*/
-    }
-
-    @media (min-width: 768px) {}
-
-    @media (min-width: 992px) {
-
-        .grid-1-1{
-            width:49%;
-        }
-
-        .grid-2-1{
-            width:99%;
-            /*margin: 3px 3px 4px 1px;*/
-        }
-
-    }
-
-    @media (min-width: 1200px) {}
-
-    @media (min-width: 1600px) {
-
-        .grid-1-1{
-            width:32%;
-        }
-
-        .grid-2-1{
-            width:64%;
-            /*margin: 3px 3px 4px 1px;*/
-        }
-
     }
 
     .grid_container{
-        margin: 3px 3px 3px 0; 
+        /*display: block;*/
+        margin: 5px 5px 0 0; 
         padding: 1px; 
         float: left; 
-        /*width: 500px; */
-        /*width:30%;*/
+        width:49%;
         height: 400px; 
         font-size: 4em; 
         text-align: center; 
         border: solid 2px black;
     }
+
         .grid_container>div{
             height: 100%;
         }
 
-    #info{
-        height:100%;
-        background-color: rgba(200,200,200,0.5);
+    @media (max-width: 1400px) {
+        .grid_container{
+            width:99%;
+        }
     }
 
-    #loading{
-        position:relative;
-        left:45%;
-        top: 200px;
-
-        height: 500px; 
-        width: 100%;
-        display:inline-block;
-    }
-
-    #map, #loading { 
-        /*height: 400px; */
-        /*width: 1000px;*/
-        height: 100%;
-        width: 100%;
-        display:inline-block;
-    }
-
-
-        .legend {
-            width: 100px;
-            line-height: 20px;
-            color: #555;
-        }
-        .legend i {
-            width: 20px;
-            height: 15px;
-            float: left;
-            margin-right: 8px;
-            opacity: 0.7;
+        #grid_banner{
+            background: rgb(223,223,223);
         }
 
-
-        .info {
-            padding: 6px 8px;
-            font: 14px/16px Arial, Helvetica, sans-serif;
-            background: white;
-            background: rgba(255,255,255,0.8);
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-            border-radius: 5px;
-        }
-        .info h4 {
-            margin: 0 0 5px;
-            color: #777;
-        }
-
-
-        .geocode-cluster{
-            background: #9FE5F8;background:rgba(159, 229, 248, 0.5);border:1px solid black;border:1px solid rgba(0, 0, 0, 0.5);border-radius:50%;
-        }
-        .geocode-cluster div{
-            text-align:center;line-height:0%;position:relative;top:50%;
-        }
-
-
-        .leaflet-top,
-        .leaflet-bottom {
-        z-index: 499;
-        }
-
-
-#options_container{
-    display:block;
-    clear:both;
-    padding: 10px;
-}
-
-    #options{
-        /*width:1000px;*/
-        width: 90%;
-        padding-top: 15px;
-        background-color: rgba(155,155,155,0.8);
-        text-align: center;
-        margin-left: 5%;
-
-    /*    margin-left: auto;
-        margin-right: auto;*/
-    }
-
-        #menu{
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-            .row {
-                margin-bottom: 20px;
+            #grid_logo{
+                float:left;
+                height:200px;
+                width:200px; 
+                background: rgb(246,255,180);
+                border: 3px solid rgb(131,164,28); /*rgba(19,135,255,1);*/
+                border-radius: 50%;
+                color: black; 
             }
 
-                .row .row {
-                    margin-top: 10px;
-                    margin-bottom: 0;
+                #grid_logo div{
+                    width:85%;
+                    height:85%;       
+                    background-size: contain; 
+                    background-position: center; 
+                    background-repeat: no-repeat;
+                    position:relative;
+                    left: 7.5%;
+                    top: 7.5%;
                 }
+            
+            #grid_title{
+                float:left;
+                /*width: 400px; */
+                /*padding: 0 50px;*/
+                color:black;
+                font-size: 200px; 
+                text-align: center;
+                vertical-align: center;
+                /*line-height: 200px;*/
+                font-family: 'Abel', sans-serif;
+                /*text-shadow: 1px 1px white, -1px -1px white;*/
+                text-decoration: underline;
 
-                 #options [class*="col-"] {
-                    padding-top: 15px;
-                    padding-bottom: 15px;
-                    background-color: #eee;
-                    background-color: rgba(86,61,124,.15);
-                    border: 1px solid #ddd;
-                    border: 1px solid rgba(86,61,124,.2);
-                }
+                -moz-text-decoration-color: green;
+                text-decoration-color: green;
+            }
 
+        
+        #grid_form{
+            background: rgb(100,100,100);
 
-                .temp{
-                    font-style: italic;
-                }
-
-                #ndvi{
-                    font-weight: bold;
-                }
-
-
-    #slider_container{
-        width: 90%;
-        height: 50px;
-        position: relative;
-        text-align: center;
-        margin-left:auto;
-        margin-right: auto;
-    }
-
-        .slider_sub{
-            /*width:850px;*/
-            margin: auto;
         }
 
-        #slider_top{}
-            #slider{}
-
-        #slider_bot{}
-            #slider_bot span { position:absolute; top: 20px; }
-            #slider_min { left: 0%; }
-            #slider_max { right: 0%;}
-            #slider_value { left: 45%;}
+            #grid_form .form{
+                background: rgb(100,100,100);
+                font-size: 40px;
+            }
 
 
+        #map { 
+            width: 100%;
+            display:inline-block;
+        }
+
+            .legend {
+                width: 100px;
+                line-height: 20px;
+                color: #555;
+            }
+            .legend i {
+                width: 20px;
+                height: 15px;
+                float: left;
+                margin-right: 8px;
+                opacity: 0.7;
+            }
+
+
+            .info {
+                padding: 6px 8px;
+                font: 14px/16px Arial, Helvetica, sans-serif;
+                background: white;
+                background: rgba(255,255,255,0.8);
+                box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                border-radius: 5px;
+            }
+            .info h4 {
+                margin: 0 0 5px;
+                color: #777;
+            }
+
+
+            .geocode-cluster{
+                background: #9FE5F8;background:rgba(159, 229, 248, 0.5);border:1px solid black;border:1px solid rgba(0, 0, 0, 0.5);border-radius:50%;
+            }
+            .geocode-cluster div{
+                text-align:center;line-height:0%;position:relative;top:50%;
+            }
+
+
+            .leaflet-top,
+            .leaflet-bottom {
+                z-index: 499;
+            }
+
+        #info{
+            background-color: rgba(200,200,200,0.5);
+        }
+
+    .spacer{
+        clear:both;
+    }
+
+/*----------------------------------------------------------------------------*/
 
 
 .overlay_button{
