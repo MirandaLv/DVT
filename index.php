@@ -30,6 +30,7 @@
 <body>
 
       <div id="intro">
+
         <div id="intro_form_container" class="intro_container">
           <div id="intro_form">
             <div class="form">
@@ -59,41 +60,27 @@
           </div>
         </div>
 
-          <!-- ================================================== -->
         <div id="intro_map_container" class="intro_container">
           <div id="intro_map"></div>
         </div>
 
-          <!-- ================================================== -->
         <div id="intro_tabs_container" class="intro_container">
           <div id="intro_tabs" class="container">
             <div class="row">
               <div class="col-xs-3 jcarousel-tab-container jcarousel-tab-active" ><div id="jcarousel-general" class="jcarousel-tab" > All </div></div>
+              <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-data" class="jcarousel-tab" > Data </div></div>
               <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-country" class="jcarousel-tab" > Countries </div></div>
               <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-tool" class="jcarousel-tab" > Tools </div></div>
-              <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-alert" class="jcarousel-tab" > Alerts </div></div>
             </div>
-            
           </div>
         </div>
-          <!-- ================================================== -->
 
         <div id="intro_carousel_container" class="intro_container">
            <div id="intro_carousel" class="wrapper">
               <div class="jcarousel-wrapper">
                   <div class="jcarousel">
                       <ul>
-                         <!--  <li class="jcarousel-country"><div><span>Nepal</span> <p>Info</p> </div></li>
-                          <li class="jcarousel-country"><div><span>Malawi</span> <p>Info</p> </div></li>
-                          <li class="jcarousel-country"><div><span>Uganda</span> <p>Info</p> </div></li>
-                          <li class="jcarousel-tool"><div><span>Data Extraction Tool</span> <p>Info</p> </div></li>
-                          <li class="jcarousel-tool"><div><span>Famine Analysis</span> <p>Info</p> </div></li>
-                          <li class="jcarousel-tool"><div><span>Rapid Visualization Tool</span> <p>Info</p> </div></li>
-                          <li class="jcarousel-tool"><div><span>Other Tool</span> <p>Info</p> </div></li>
-                          <li class="jcarousel-alert"><div><span>Alert: Famine</span> <p>Info</p> </div></li>
-                          <li class="jcarousel-alert"><div><span>Alert: Violence Outbreak</span> <p>Info</p> </div></li>
-                          <li class="jcarousel-alert"><div><span>Alert: Natural Disaster</span> <p>Info</p> </div></li> -->
-                          <!-- ADD ADDITIONAL ITEMS TO CAROUSEL HERE -->
+                          <!-- items added to carousel in index.js using carousel JSON file -->
                       </ul>
                   </div>
 
@@ -107,40 +94,35 @@
 
       </div> <!-- /#intro -->
 
-        <!-- ================================================== -->
-
-
-      <!-- Wrap the rest of the page in another container to center all the content. -->
+      <!-- ================================================== -->
+<!-- 
       <div id="frontpage" class="container marketing">
 
-        <!-- Three columns of text below the carousel -->
         <div class="row">
           <div class="col-lg-4">
             <img class="img-circle" src="../imgs/news_1_head_image.png" alt="Generic placeholder image" style="width: 220px; height: 140px;">
             <h2>AidData</h2>
             <p>AidData is a research and innovation lab that seeks to improve development outcomes by making development finance data more accessible and actionable.</p>
             <p><a class="btn btn-default" href="#news_item_1" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
+          </div>
           <div class="col-lg-4">
             <img class="img-circle" src="../imgs/news_2_head_image.png" alt="Generic placeholder image" style="width: 140px; height: 140px;">
             <h2>Our Data</h2>
             <p>AidData produces mapped project-level data on $6 trillion in aid from over 90 donor agencies with information on remittances and foreign direct investment.</p>
             <p><a class="btn btn-default" href="#news_item_2" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
+          </div>
           <div class="col-lg-4">
             <img class="img-circle" src="../imgs/news_3_head_image.jpg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
             <h2>Get Involved</h2>
             <p>We are at the cusp of having the data we need to make better choices about how we allocate aid.  We need your ideas to make this a reality.</p>
             <p><a class="btn btn-default" href="#news_item_3" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
+          </div>
+        </div>  --><!-- /.row -->
 
 
         <!-- ================================================== -->
 
-        <!-- START THE FEATURETTES -->
-
-        <hr class="featurette-divider">
+<!--         <hr class="featurette-divider">
 
         <div id="news_item_1" class="row featurette">
           <div class="col-md-7">
@@ -206,9 +188,8 @@
 
         <hr class="featurette-divider">
 
-        <!-- /END THE FEATURETTES -->
 
-    </div> <!-- /#frontpage -->
+    </div> --> <!-- /#frontpage -->
 
 
 <!--==================================================================================================== -->
@@ -222,8 +203,9 @@
          <ul id="grid">
             <li class="grid_container">
                 <div id="grid_banner">
-                  <div id="grid_logo"><div></div></div>
+                  <div id="grid_logo_container"><div id="grid_logo"><div></div></div></div> 
                   <div id="grid_title"></div>
+                 
                 </div>
             </li>
             <li class="grid_container">          
@@ -261,7 +243,7 @@
             <li class="grid_container"><div id="chart1"></div></li>
             <li class="grid_container"><div id="chart2"></div></li>
             <li class="grid_container"><div id="chart3"></div></li>
-            <li class="grid_container"><div id="info"></div></li>
+            <li class="grid_container"><div id="info_container"><div id="info"></div></div></li>
          </ul>       
       </div> 
 
@@ -279,18 +261,6 @@
 
 <!--==================================================================================================== -->
 
-  <!--   
-    <div id="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">CONTACT INFO</div>
-          <div class="col-md-4">PARTNERS</div>
-          <div class="col-md-4">SOCIAL MEDIA</div>
-        </div>
-      </div>
-    </div> 
-    
- -->
 
     <!-- Fixed navbar -->
     <div id="navbar" class="navbar navbar-default navbar-fixed-bottom" role="navigation">
@@ -419,7 +389,6 @@
    <script src="../libs/jquery.jcarousel.min.js"></script>
 
    <script src="charts.js"></script>
-   <script src="jcarousel.js"></script> 
 
    <script src="index.js"></script> 
 

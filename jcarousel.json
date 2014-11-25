@@ -1,0 +1,77 @@
+ {
+    "Data Extraction Tool":{
+        "type":"data",
+        "title":"Data Extraction Tool",
+        "link":"http://128.239.119.254/aiddata/DET/www/det.php",
+        "data": {
+            "description": "info"
+        }
+    },
+    "Nepal": {
+        "type":"country",
+        "title":"Nepal",
+        "link":"",
+        "data": {
+            "activities": 1000,
+            "disbursements": 1000000
+        }
+    },
+    "Data Visualization Tool": {
+        "type":"tool",
+        "title":"Data Visualization Tool",
+        "link":"http://128.239.119.254/aiddata/DVT/leaflet_05/www",
+        "data": {
+            "description":"info"
+        }
+    },
+    "Malawi":{
+        "type":"country",
+        "title":"Malawi",
+        "link":"",
+        "data": {
+            "activities": 2000,
+            "disbursements": 2000000
+        }
+    },
+    "Uganda":{
+        "type":"country",
+        "title":"Uganda",
+        "link":"",
+        "data": {
+            "activities": 2000,
+            "disbursements": 2000000
+        }
+    },
+    "Famine Analysis":{
+        "type":"tool",
+        "title":"Famine Analysis",
+        "link":"#",
+        "data": {
+            "description":"info"
+        }
+    },
+    "Table View Tool":{
+        "type":"tool",
+        "title":"Table View Tool",
+        "link":"#",
+        "data": {
+            "description":"info"
+        }
+    },    
+    "Point Extraction Tool":{
+        "type":"data",
+        "title":"Point Extraction Tool",
+        "link":"http://128.239.119.254/aiddata/PET",
+        "data": {
+            "description":"info"
+        }
+    },
+    "Raw Data":{
+        "type":"data",
+        "title":"Raw Data",
+        "link":"#",
+        "data": {
+            "description": "info"
+        }
+    }
+}

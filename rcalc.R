@@ -5,8 +5,11 @@ library("leafletR")
 
 readIn <- commandArgs(trailingOnly = TRUE)
 
-in_startYear <- as.numeric(readIn[1])
-in_endYear <- as.numeric(readIn[2])
+in_country <- readIn[1]
+in_type <- readIn[2]
+in_sub <- readIn[3]
+in_startYear <- as.numeric(readIn[4])
+in_endYear <- as.numeric(readIn[5])
 
 setwd("/var/www/html/aiddata/DVT3/data")
 geojson <- readOGR("source/Leaflet.geojson", "OGRGeoJSON")

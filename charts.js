@@ -9,7 +9,6 @@ function buildCharts(start, end, points, extract){
 	// console.log(extract.features.length)
 
 	$("#info").html("Between " + start + " and " + end + " there are projects at " + points.features.length + " sites, across " + extract.features.length + " districts.")
-	$("#info").css("background-color","#00b159")
 	var data = Array()
 
 	for (var i=0;i<extract.features.length;i++){
@@ -93,6 +92,7 @@ function buildCharts(start, end, points, extract){
 	            data: data//[[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8]]
 	        }]
 	    });
+
 	});
 
 	var data2prep = Object()
@@ -179,6 +179,7 @@ function buildCharts(start, end, points, extract){
 	            data: data2
 	        }]
 	    });
+
 	});
 
 
@@ -219,102 +220,104 @@ function buildCharts(start, end, points, extract){
 
 	}
 
-$(function () {
-    $('#chart3').highcharts({
-        chart: {
-        	// width:500,
-            zoomType: '',
-            // height: 700,
-            spacingLeft: 10,
-            marginRight: 100,
-            backgroundColor: '#ffc425'
+	$(function () {
+	    $('#chart3').highcharts({
+	        chart: {
+	        	// width:500,
+	            zoomType: '',
+	            // height: 700,
+	            spacingLeft: 10,
+	            marginRight: 100,
+	            backgroundColor: '#ffc425'
 
-        },
-        title: {
-            text: 'Donor Aid and Numbers of Projects'
-        },
-        subtitle: {
-            text: '('+start+' - '+end+')'
-        },
-        xAxis: {
-            categories: Object.keys(data3prep),
-        	labels:{
-	          	rotation: -45,
-	        	// style: {
-          //       	width: '100%'
-          //   	}
-                formatter: function(){
-                    if (this.value.length > 20){
-                        return this.value.substr(0,20) + "...";
-                    }else{
-                         return this.value;   
-                    }                        
-                }
-            
-	        }
-        },
-        yAxis: [{ // Primary yAxis
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
-            },
-            title: {
-                text: 'Aid',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
-            }
-        }, { // Secondary yAxis
-            title: {
-                text: 'Projects',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
-                }
-            },
-            labels: {
-                format: '{value}',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
-                }
-            },
-            opposite: true
-        }],
-        tooltip: {
-            shared: true
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            x: 10,
-            verticalAlign: 'top',
-            y: 0,
-            floating: true,
-            backgroundColor: 'rgba(255,255,255,0)' //(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-        },
-        credits:{
-        	enabled:false
-        },
-        series: [{
-            name: 'Aid',
-            type: 'column',
-            yAxis: 1,
-            data: data3b//,
-            // tooltip: {
-            //     valueSuffix: ''
-            // }
+	        },
+	        title: {
+	            text: 'Donor Aid and Numbers of Projects'
+	        },
+	        subtitle: {
+	            text: '('+start+' - '+end+')'
+	        },
+	        xAxis: {
+	            categories: Object.keys(data3prep),
+	        	labels:{
+		          	rotation: -45,
+		        	// style: {
+	          //       	width: '100%'
+	          //   	}
+	                formatter: function(){
+	                    if (this.value.length > 20){
+	                        return this.value.substr(0,20) + "...";
+	                    }else{
+	                         return this.value;   
+	                    }                        
+	                }
+	            
+		        }
+	        },
+	        yAxis: [{ // Primary yAxis
+	            labels: {
+	                format: '{value}',
+	                style: {
+	                    color: Highcharts.getOptions().colors[1]
+	                }
+	            },
+	            title: {
+	                text: 'Aid',
+	                style: {
+	                    color: Highcharts.getOptions().colors[1]
+	                }
+	            }
+	        }, { // Secondary yAxis
+	            title: {
+	                text: 'Projects',
+	                style: {
+	                    color: Highcharts.getOptions().colors[0]
+	                }
+	            },
+	            labels: {
+	                format: '{value}',
+	                style: {
+	                    color: Highcharts.getOptions().colors[0]
+	                }
+	            },
+	            opposite: true
+	        }],
+	        tooltip: {
+	            shared: true
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'left',
+	            x: 10,
+	            verticalAlign: 'top',
+	            y: 0,
+	            floating: true,
+	            backgroundColor: 'rgba(255,255,255,0)' //(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+	        },
+	        credits:{
+	        	enabled:false
+	        },
+	        series: [{
+	            name: 'Aid',
+	            type: 'column',
+	            yAxis: 1,
+	            data: data3b//,
+	            // tooltip: {
+	            //     valueSuffix: ''
+	            // }
 
-        }, {
-            name: 'Projects',
-            type: 'column',
-            data: data3a//,
-            // tooltip: {
-            //     valueSuffix: ''
-            // }
-        }]
-    });
-});
+	        }, {
+	            name: 'Projects',
+	            type: 'column',
+	            data: data3a//,
+	            // tooltip: {
+	            //     valueSuffix: ''
+	            // }
+	        }]
+	    });
+
+	});
+
 
 
 }
