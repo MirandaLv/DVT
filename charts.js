@@ -9,6 +9,8 @@ function buildCharts(start, end, points, extract){
 	// console.log(extract.features.length)
 
 	$("#info").html("Between " + start + " and " + end + " there are projects at " + points.features.length + " sites, across " + extract.features.length + " districts.")
+	
+
 	var data = Array()
 
 	for (var i=0;i<extract.features.length;i++){
@@ -100,18 +102,18 @@ function buildCharts(start, end, points, extract){
 	for (var i=0;i<points.features.length;i++){
 		var a = points.features[i].properties
 
-		if (!data2prep[a.donors]){
-			data2prep[a.donors] = 0.0
+		if (!data2prep[a.donor]){
+			data2prep[a.donor] = 0.0
 		} 
 
 		var sum = 0
 
 		for (var j=start;j<=end;j++){
-			sum += parseFloat(a["d_"+j])
+			sum += ( parseFloat(a["d_"+j]) )
 		}
 
-		data2prep[a.donors] +=  sum
-		
+		data2prep[a.donor] +=  sum / parseInt(a.count)
+		// console.log(a["count"])
 	}
 
 	var data2 = Array()
@@ -137,7 +139,7 @@ function buildCharts(start, end, points, extract){
 
 	        },
 	        title: {
-	            text: 'Donors'
+	            text: 'Donor'
 	        },
 	        subtitle: {
 	            text: 'Disbursements between ' + start + " and " + end
@@ -175,7 +177,7 @@ function buildCharts(start, end, points, extract){
 	        },
 	        series: [{
 	            type: 'pie',
-	            name: 'Donors',
+	            name: 'Donor',
 	            data: data2
 	        }]
 	    });
@@ -190,10 +192,10 @@ function buildCharts(start, end, points, extract){
 	for (var i=0;i<points.features.length;i++){
 		var a = points.features[i].properties
 
-		if (!data3prep[a.donors]){
-			data3prep[a.donors] = Object()
-			data3prep[a.donors].aid = 0
-			data3prep[a.donors].projects = 0
+		if (!data3prep[a.donor]){
+			data3prep[a.donor] = Object()
+			data3prep[a.donor].aid = 0
+			data3prep[a.donor].projects = 0
 		} 
 
 		var sum = 0
@@ -202,8 +204,8 @@ function buildCharts(start, end, points, extract){
 			sum += parseFloat(a["d_"+j])
 		}
 
-		data3prep[a.donors].aid +=  sum
-		data3prep[a.donors].projects += 1
+		data3prep[a.donor].aid +=  sum / parseInt(a.count)
+		data3prep[a.donor].projects += 1
 		
 	}
 
@@ -212,7 +214,7 @@ function buildCharts(start, end, points, extract){
 	var keys = Object.keys(data3prep)
 	for (var i=0;i<keys.length;i++){
 
-		var point1 = [ keys[i], data3prep[keys[i]].aid ]
+		var point1 = [ keys[i], Math.floor( 100 * data3prep[keys[i]].aid ) / 100 ]
 		data3a.push(point1)
 
 		var point2 = [ keys[i], data3prep[keys[i]].projects ]
@@ -262,14 +264,14 @@ function buildCharts(start, end, points, extract){
 	                }
 	            },
 	            title: {
-	                text: 'Aid',
+	                text: 'Projects',
 	                style: {
 	                    color: Highcharts.getOptions().colors[1]
 	                }
 	            }
 	        }, { // Secondary yAxis
 	            title: {
-	                text: 'Projects',
+	                text: 'Aid',
 	                style: {
 	                    color: Highcharts.getOptions().colors[0]
 	                }
@@ -301,7 +303,7 @@ function buildCharts(start, end, points, extract){
 	            name: 'Aid',
 	            type: 'column',
 	            yAxis: 1,
-	            data: data3b//,
+	            data: data3a//,
 	            // tooltip: {
 	            //     valueSuffix: ''
 	            // }
@@ -309,7 +311,7 @@ function buildCharts(start, end, points, extract){
 	        }, {
 	            name: 'Projects',
 	            type: 'column',
-	            data: data3a//,
+	            data: data3b//,
 	            // tooltip: {
 	            //     valueSuffix: ''
 	            // }

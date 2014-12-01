@@ -40,9 +40,9 @@ switch ($_POST['type']) {
 			}
 
 			if ($country != "Malawi"){
-				$search .= " AND (d_".$min." != '0' OR d_".$min."_currentUSD != '0'";
+				$search .= " AND (d_".$min." != '0'";
 				for ($i=$min+1;$i<=$max;$i++) {
-					$search .= " OR d_".$i." != '0' OR d_".$i."_currentUSD != '0'";
+					$search .= " OR d_".$i." != '0'";
 				}
 				$search .= ")";
 			}
