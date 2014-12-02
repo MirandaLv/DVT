@@ -1,0 +1,16 @@
+#!/bin/bash
+
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/NPL_Agriculture.csv Agriculture Nepal total_c_to_2012
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/NPL_Education.csv Education Nepal total_c_to_2012
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/NPL_Health.csv Health Nepal total_c_to_2012
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/NPL_Industry.csv Industry Nepal total_c_to_2012
+
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/UGA_Agriculture.csv Agriculture Uganda total_c_to_2010_USD2011
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/UGA_Education.csv Education Uganda total_c_to_2010_USD2011
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/UGA_Health.csv Health Uganda total_c_to_2010_USD2011
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/UGA_Industry.csv Industry Uganda total_c_to_2010_USD2011
+
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/MWI_Agriculture.csv Agriculture Malawi total_c_to_2011
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/MWI_Education.csv Education Malawi total_c_to_2011
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/MWI_Health.csv Health Malawi total_c_to_2011
+python /var/www/html/aiddata/home/data/form/calc.py /var/www/html/aiddata/home/data/form/MWI_Industry.csv Industry Malawi total_c_to_2011
