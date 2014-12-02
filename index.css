@@ -14,7 +14,7 @@ body {
     min-width: 710px;
     /*width:100%;*/
     /*height:100%;*/
-    padding-bottom: 50px;
+    /*padding-bottom: 50px;*/
     color: white;
     /*background: linear-gradient(to right, #1e5799 0%,#657d9b 0%,#526b80 19%,#526b80 48%,#526b80 74%,#657d9b 100%);*/
     background: linear-gradient(to right, rgba(88,108,128,0.85), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,0.85));
@@ -150,7 +150,7 @@ a:hover{
 
     .map_info_container{
         position: absolute;
-        z-index: 1;
+        /*z-index: 1;*/
         width: 81px;
         height: 81px;
     }
@@ -170,7 +170,7 @@ a:hover{
         font-size: 1.0em;
         /*line-height: 26px;*/
         border-radius: 50%;
-        z-index: 2;
+        /*z-index: 2;*/
     }
 
     .map_info_hover, .map_info:hover{
@@ -201,7 +201,7 @@ a:hover{
         color: rgb(52,122,25); 
         float:left;
         /*clear: both;*/
-        z-index: 2;
+        /*z-index: 2;*/
     }
 
 
@@ -255,12 +255,18 @@ a:hover{
         position: absolute;
         top:0px;
         left:0px;
-        z-index: 1;
+        /*z-index: 1;*/
     }
 
         .highcharts-container,
         .highcharts-container svg {
             overflow: visible !important;
+            position: inherit !important;
+        }
+
+        .highcharts-tooltip {
+            /*position: relative;*/
+            /*z-index: 99;*/
         }
 
 
@@ -295,9 +301,11 @@ a:hover{
 /*tabs*/
 #intro_tabs{} /* USE jcarousel.css*/
 
+
 /* -------------------------------------------------- */
 /*carousel*/
 #intro_carousel{} /* USE jcarousel.css*/
+
 
 /*---------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------*/
@@ -308,87 +316,10 @@ a:hover{
 
 }
 
-/* -------------------------------------------------- */
-/*marketing*/
-
-/* Center align the text within the three columns below the carousel */
-
-/*.marketing .col-lg-4 {
-  margin-bottom: 20px;
-  text-align: center;
-}
-.marketing h2 {
-  font-weight: normal;
-}
-.marketing .col-lg-4 p {
-  margin-right: 10px;
-  margin-left: 10px;
-}
-*/
-
-/* -------------------------------------------------- */
-/*featurettes*/
-
-/*
-.featurette-divider {
-  margin: 80px 0; 
-}
-
-.featurette-heading {
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-
-@media (min-width: 768px) {
-
-  .featurette-heading {
-    font-size: 50px;
-  }
-}
-
-@media (min-width: 992px) {
-  .featurette-heading {
-    margin-top: 120px;
-  }
-}
-*/
 
 /* -------------------------------------------------- */
 /*content*/
 
 #content{} /* USE grid.css */
 
-/* -------------------------------------------------- 
-/*footer*/
 
-/*#footer{
-    min-height:200px;
-    background: rgb(7,26,44);
-    color: rgb(213,226,238);
-    padding-bottom: 110px;
-    text-align: center;
-}
-
-#footer .row>div{
-    padding: 50px;
-    height:100px;
-}*/
-
-
-/* -------------------------------------------------- */
-/*navbar*/
-
-#navbar{
-    /*margin-top: 100px;*/
-    border-top: 2px solid rgb(7,26,44);
-}
-
-#navbar_aiddata_logo{
-    margin:0 10px;
-    padding:0;
-}
-
-#navbar_aiddata_logo img{
-    height: 50px;
-}

@@ -60,7 +60,7 @@ $(document).ready(function(){
 	    .attr("height", height);
 
 	// init map info lines
-	var line_Nepal,	line_Malawi//, line_Uganda 
+	var line_Nepal,	line_Uganda, line_Malawi 
 
 	// initialize map info containers
 	var info_Nepal = d3.select("#intro_map").append("div")
@@ -68,15 +68,15 @@ $(document).ready(function(){
 			.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")
 			.html("<div class='map_info'><div class='map_title'><a>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div></div>");
 	
-	var info_Malawi = d3.select("#intro_map").append("div")
-			.attr("class", "map_info_container").attr("id","info_Malawi").attr("title", "Malawi")
-			.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")
-			.html("<div class='map_info'><div class='map_title'><a>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div></div>");
-	
 	var info_Uganda = d3.select("#intro_map").append("div")
 			.attr("class", "map_info_container").attr("id","info_Uganda").attr("title", "Uganda")
 			.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")
 			.html("<div class='map_info'><div class='map_title'><a>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div></div>");
+
+	var info_Malawi = d3.select("#intro_map").append("div")
+			.attr("class", "map_info_container").attr("id","info_Malawi").attr("title", "Malawi")
+			.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")
+			.html("<div class='map_info'><div class='map_title'><a>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div></div>");
 
 
 	//link map info popups to map elements
@@ -168,16 +168,17 @@ $(document).ready(function(){
 								.attr("x1", width/1.34).attr("y1", height/2.3)
 								.attr("x2", width/1.2).attr("y2", height/2.9)
 								.attr("stroke", "black").attr("stroke-width", "1");
-		line_Malawi = svg.append("line")
-								.attr("id","line_Malawi").attr("class", "map_line")
-								.attr("x1", width/1.67).attr("y1", height/1.43)
-								.attr("x2", width/1.45).attr("y2", height/1.3)
-								.attr("stroke", "black").attr("stroke-width", "1");
 		line_Uganda = svg.append("line").attr("id","line_Uganda")
 								.attr("class", "map_line")
 								.attr("x1", width/1.68).attr("y1", height/1.65)
 								.attr("x2", width/1.5).attr("y2", height/2)
 								.attr("stroke", "black").attr("stroke-width", "1");
+		line_Malawi = svg.append("line")
+								.attr("id","line_Malawi").attr("class", "map_line")
+								.attr("x1", width/1.67).attr("y1", height/1.43)
+								.attr("x2", width/1.45).attr("y2", height/1.3)
+								.attr("stroke", "black").attr("stroke-width", "1");
+
 
 	}
 	 
@@ -217,13 +218,13 @@ $(document).ready(function(){
 
 	    // update map info box positions
 		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")//.html("<div class='map_title'><a href=''>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
-		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")//.html("<div class='map_title'><a href=''>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
 		info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")//.html("<div class='map_title'><a href=''>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
+		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")//.html("<div class='map_title'><a href=''>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
 
 		// update map info lines
 		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9).attr("stroke", "black").attr("stroke-width", "1")
-		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3).attr("stroke", "black").attr("stroke-width", "1")
 		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
+		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3).attr("stroke", "black").attr("stroke-width", "1")
 
 	}
 
@@ -233,11 +234,12 @@ $(document).ready(function(){
 		var npl_percent = form_data["Nepal"][type][sub]
 		buildMapChart('#chart_Nepal', npl_percent)
 
+		var uga_percent = form_data["Uganda"][type][sub]
+		buildMapChart('#chart_Uganda', uga_percent)
+
 		var mwi_percent = form_data["Malawi"][type][sub]
 		buildMapChart('#chart_Malawi', mwi_percent)
 
-		var uga_percent = form_data["Uganda"][type][sub]
-		buildMapChart('#chart_Uganda', uga_percent)
 	}
 
 	//builds map charts
