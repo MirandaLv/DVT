@@ -12,14 +12,13 @@
         "title":"Nepal",
         "link":"",
         "data": {
-            "activities": 1000,
-            "disbursements": 1000000
+            "description":"info"
         }
     },
     "Data Visualization Tool": {
         "type":"tool",
         "title":"Data Visualization Tool",
-        "link":"http://128.239.119.254/aiddata/DVT/leaflet_05/www",
+        "link":"http://128.239.119.254/aiddata/DVT/leaflet_05",
         "data": {
             "description":"info"
         }
@@ -29,8 +28,7 @@
         "title":"Malawi",
         "link":"",
         "data": {
-            "activities": 2000,
-            "disbursements": 2000000
+            "description":"info"
         }
     },
     "Uganda":{
@@ -38,14 +36,13 @@
         "title":"Uganda",
         "link":"",
         "data": {
-            "activities": 2000,
-            "disbursements": 2000000
+            "description":"info"
         }
     },
     "Famine Analysis":{
         "type":"tool",
         "title":"Famine Analysis",
-        "link":"#",
+        "link":"http://128.239.119.254/aiddata/STC/www/",
         "data": {
             "description":"info"
         }
@@ -69,7 +66,7 @@
     "Raw Data":{
         "type":"data",
         "title":"Raw Data",
-        "link":"#",
+        "link":"http://aiddata.org/geocoded-datasets",
         "data": {
             "description": "info"
         }

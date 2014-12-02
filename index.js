@@ -6,11 +6,13 @@ $(document).ready(function(){
 
 	// file paths (static)
 	var fp = {
-		'form_data': 			'../data/form/form_data.json',
+		'form_data': 			'data/form/form_data.json',
 		'carousel_items': 		'jcarousel.json',
-		'd3-world': 			'../data/world/d3-world.json',
-		'world-country-names': '../data/world/world-country-names.tsv'
+		'd3-world': 			'data/world/d3-world.json',
+		'world-country-names': 'data/world/world-country-names.tsv'
 	}
+
+ 	var form_data = readJSON(fp["form_data"])
 
 	//--------------------------------------------------
 	// form
@@ -18,9 +20,11 @@ $(document).ready(function(){
 
 	$("#intro_form select").on("change", function(){
 
-	 	var form_data = readJSON(fp["form_data"])
 	 	var type = $('#intro_form_option_1').val()
 	 	var sub = $('#intro_form_option_2').val()
+
+	 	$("#grid_form_option_1").val(type)
+	 	$("#grid_form_option_2").val(sub)
 
 	 	var total = form_data["Global"][type]["total"]
 	 	var percent = form_data["Global"][type][sub]
@@ -229,11 +233,11 @@ $(document).ready(function(){
 		var npl_percent = form_data["Nepal"][type][sub]
 		buildMapChart('#chart_Nepal', npl_percent)
 
-		var mal_percent = 21
-		buildMapChart('#chart_Malawi', mal_percent)
+		var mwi_percent = form_data["Malawi"][type][sub]
+		buildMapChart('#chart_Malawi', mwi_percent)
 
-		var ug_percent = 20
-		buildMapChart('#chart_Uganda', ug_percent)
+		var uga_percent = form_data["Uganda"][type][sub]
+		buildMapChart('#chart_Uganda', uga_percent)
 	}
 
 	//builds map charts
@@ -433,14 +437,28 @@ $(document).ready(function(){
         $(".jcarousel ul").empty()
          // $('.jcarousel-pagination').empty()
 
+   	 	var form_data = readJSON(fp["form_data"]) 
         $.each(carousel_items, function(i,v){
         // for (var i=0;i<carousel_items.length;i++){
             if ( type == "jcarousel-general" || type == "jcarousel-"+carousel_items[i].type){
+
+                var data_html = ""                
+            	
+            	// if item is a country, get country info from form_data.json
+            	if (carousel_items[i].type == "country"){
+            		data_html += "<span><b>projects</b>: "+form_data[carousel_items[i].title]["Total"]["projects"].toLocaleString()+"</span>"
+            		data_html += "<span><b>total aid</b>: $"+form_data[carousel_items[i].title]["Total"]["total"].toLocaleString()+"</span>"
+            	}
+
+
+                // get general info from jcarousel.json
                 var data_info = carousel_items[i].data
-                var data_html = ""
+
                 for (var key in data_info){
                     data_html += "<span><b>"+key+"</b>: "+data_info[key]+"</span>"
                 }
+                
+                // put carousel item together
                 var carousel_html = '<li class="jcarousel-'+carousel_items[i].type+'"><div class="jcarousel-content"><span><a class="jcarousel-title" title="'+carousel_items[i].title+'" '
                 
                 if (carousel_items[i].link != ""){
@@ -449,6 +467,7 @@ $(document).ready(function(){
                 
                 carousel_html += '>'+carousel_items[i].title+'</a></span> <div class="jcarousel-info">'+data_html+'</div> </div></li>'
                 
+                // add item to carousel
                 $(".jcarousel ul").append(carousel_html)
             } 
         })
@@ -479,7 +498,7 @@ $(document).ready(function(){
 		}
 
 		// if (old_country != grid_country){
-			$("#grid_logo div").css("background-image","url('../imgs/"+country.toLowerCase()+"-outline.png')")
+			$("#grid_logo div").css("background-image","url('imgs/"+country.toLowerCase()+"-outline.png')")
 			$("#grid_title, #grid_country").html(grid_country)		
 			
 			mapInit()
@@ -519,6 +538,10 @@ $(document).ready(function(){
 	 	var type = $('#grid_form_option_1').val()
 	 	var sub = $('#grid_form_option_2').val()
 
+		$("#intro_form_option_1").val(type)
+		$("#intro_form_option_2").val(sub)
+		$("#intro_form_option_1").change()
+		
 	 	// update form
 	 	var form_data = readJSON(fp['form_data'])
 
@@ -532,7 +555,7 @@ $(document).ready(function(){
 	 	$("#grid_variable2").text(percent + "%")
 
 	 	//update map
-	 	buildPolyData(grid_country.toLowerCase(), type, sub)
+	 	buildPolyData(grid_country.toLowerCase(), type.toLowerCase(), sub.toLowerCase())
 		addPointData(grid_country, type)
 
 		// update charts
@@ -606,15 +629,29 @@ $(document).ready(function(){
 
 	// build or get boundary geojson with extract data
 	function buildPolyData(country, type, sub){
-
+		switch (sub){
+			case "ec_per":
+				sub = "income"
+				break
+			case "ag_per":
+				sub = "yield"
+				break
+			case "ur_per":
+				sub = "urban"
+				break
+		}
+       	console.log("building.")
+       	// country = "nepal"
 		$.ajax ({
 	        url: "process.php",
-	        data: {type: "addPolyData", country:country, type: type, sub: sub, start_year: start_year, end_year: end_year},
-	        dataType: "text",
+	        data: {type: "addPolyData", country:country, polyType: type, sub: sub, start_year: start_year, end_year: end_year},
+	        dataType: "json",
 	        type: "post",
 	        async: false,
 	        success: function(result) {
-	        	addPolyData("../data/poly/output_"+start_year+"_"+end_year+".geojson")
+	        	// console.log(result)
+	        	console.log("buildPolyData done")
+	        	addPolyData("data/poly/"+country+"_"+type+"_"+sub+"_"+start_year+"_"+end_year+".geojson")
 	        }
 	    })
 

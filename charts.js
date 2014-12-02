@@ -11,91 +11,91 @@ function buildCharts(start, end, points, extract){
 	$("#info").html("Between " + start + " and " + end + " there are projects at " + points.features.length + " sites, across " + extract.features.length + " districts.")
 	
 
-	var data = Array()
+	// var data = Array()
 
-	for (var i=0;i<extract.features.length;i++){
-		var a = extract.features[i].properties
-		var point = [parseFloat(a.ndvi), parseFloat(a.sum)]
-		data.push(point)
+	// for (var i=0;i<extract.features.length;i++){
+	// 	var a = extract.features[i].properties
+	// 	var point = [parseFloat(a.ndvi), parseFloat(a.sum)]
+	// 	data.push(point)
 
-	}
+	// }
 
-	$(function () {
-	    $('#chart1').highcharts({
-	        chart: {
-	        	// width:500,
-	            type: 'scatter',
-	            zoomType: '',
-	            marginRight: 50,
-	            plotBorderWidth: 0,
-	            backgroundColor: '#00aedb'
+	// $(function () {
+	//     $('#chart1').highcharts({
+	//         chart: {
+	//         	// width:500,
+	//             type: 'scatter',
+	//             zoomType: '',
+	//             marginRight: 50,
+	//             plotBorderWidth: 0,
+	//             backgroundColor: '#00aedb'
 
-	        },
-	        title: {
-	            text: 'Aid vs NDVI'
-	        },
-	        subtitle: {
-	            text: '('+start+' - '+end+')'
-	        },
-	        xAxis: {
-	            title: {
-	                enabled: true,
-	                text: 'NDVI (in 2001)'
-	            },
-	            startOnTick: true,
-	            endOnTick: true,
-	            showLastLabel: true
-	        },
-	        yAxis: {
-	            title: {
-	                text: 'Aid (USD)'
-	            }
-	        },
-	        legend: {
-	            layout: 'vertical',
-	            align: 'left',
-	            verticalAlign: 'top',
-	            x: 10,
-	            y: 0,
-	            floating: true,
-	            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(100,100,100,0.2)',
-	            borderWidth: 1
-	        },
-	        credits:{
-        		enabled:false
-        	},
-	        plotOptions: {
-	            scatter: {
-	                marker: {
-	                    radius: 5,
-	                    states: {
-	                        hover: {
-	                            enabled: true,
-	                            lineColor: 'rgb(255,0,0)'
-	                        }
-	                    }
-	                },
-	                states: {
-	                    hover: {
-	                        marker: {
-	                            enabled: false
-	                        }
-	                    }
-	                },
-	                tooltip: {
-	                    headerFormat: '<b>{series.name}</b><br>',
-	                    pointFormat: 'Aid: ${point.y:,.2f}<br>NDVI: {point.x:.3f} '
-	                }
-	            }
-	        },
-	        series: [{
-	            name: 'Nepal Districts',
-	            color: 'rgba(255, 255, 255, .75)',
-	            data: data//[[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8]]
-	        }]
-	    });
+	//         },
+	//         title: {
+	//             text: 'Aid vs NDVI'
+	//         },
+	//         subtitle: {
+	//             text: '('+start+' - '+end+')'
+	//         },
+	//         xAxis: {
+	//             title: {
+	//                 enabled: true,
+	//                 text: 'NDVI (in 2001)'
+	//             },
+	//             startOnTick: true,
+	//             endOnTick: true,
+	//             showLastLabel: true
+	//         },
+	//         yAxis: {
+	//             title: {
+	//                 text: 'Aid (USD)'
+	//             }
+	//         },
+	//         legend: {
+	//             layout: 'vertical',
+	//             align: 'left',
+	//             verticalAlign: 'top',
+	//             x: 10,
+	//             y: 0,
+	//             floating: true,
+	//             backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(100,100,100,0.2)',
+	//             borderWidth: 1
+	//         },
+	//         credits:{
+ //        		enabled:false
+ //        	},
+	//         plotOptions: {
+	//             scatter: {
+	//                 marker: {
+	//                     radius: 5,
+	//                     states: {
+	//                         hover: {
+	//                             enabled: true,
+	//                             lineColor: 'rgb(255,0,0)'
+	//                         }
+	//                     }
+	//                 },
+	//                 states: {
+	//                     hover: {
+	//                         marker: {
+	//                             enabled: false
+	//                         }
+	//                     }
+	//                 },
+	//                 tooltip: {
+	//                     headerFormat: '<b>{series.name}</b><br>',
+	//                     pointFormat: 'Aid: ${point.y:,.2f}<br>NDVI: {point.x:.3f} '
+	//                 }
+	//             }
+	//         },
+	//         series: [{
+	//             name: 'Nepal Districts',
+	//             color: 'rgba(255, 255, 255, .75)',
+	//             data: data//[[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8]]
+	//         }]
+	//     });
 
-	});
+	// });
 
 	var data2prep = Object()
 

@@ -20,10 +20,10 @@ switch ($_POST['type']) {
 		$min = $_POST["range_min"];
 		$max = $_POST["range_max"];
 
-		$dest =  "/var/www/html/aiddata/DVT3/data/point/".$country."_".$type."_".$min."_".$max.".geojson";
+		$dest =  "/var/www/html/aiddata/home/data/point/".$country."_".$type."_".$min."_".$max.".geojson";
 		if (!file_exists($dest)){
 
-			$source = '/var/www/html/aiddata/DVT3/data/source/'.$country.'.vrt';
+			$source = '/var/www/html/aiddata/home/data/source/'.$country.'.vrt';
 
 			if ($country == "Uganda"){
 				if ($type == "Health"){
@@ -63,21 +63,34 @@ switch ($_POST['type']) {
 	// build / get geojson with extract values and new calculations (from R script)
 	case 'addPolyData':
 
+
 		$country = $_POST["country"];
-		$type = $_POST["pointType"];
+		$type = $_POST["polyType"];
 		$sub = $_POST["sub"];
 		$start_year = $_POST["start_year"];
 		$end_year = $_POST["end_year"];
 
-		$vars = $country ." ". $type ." ". $sub ." ". $start_year ." ". $end_year;
+		switch ($country){
+			case "malawi":
+			case "uganda":
+				$continent = "africa";
+				break;
+			case "nepal":
+				$continent = "asia";
+				break;
+		}
 
-		if ( file_exists("/var/www/html/aiddata/DVT3/data/poly/output_".$start_year."_".$end_year.".geojson") ){
-			echo "exists";
+		$vars = $country ." ". $type ." ". $sub ." ". $start_year ." ". $end_year ." ". $continent;
+
+		if ( file_exists("/var/www/html/aiddata/home/data/poly/". $country."_".$type."_".$sub."_".$start_year."_".$end_year.".geojson") ){
+			$out = "exists";
 
 		} else {
-			exec("/usr/bin/Rscript /var/www/html/aiddata/DVT3/www/rcalc.R $vars"); 
-			echo "created";
+			exec("/usr/bin/Rscript /var/www/html/aiddata/home/www/rcalc.R $vars"); 
+			$out = "created";
 		}
+		echo json_encode($out);
+
 		break;
 }
 

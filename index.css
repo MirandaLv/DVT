@@ -225,7 +225,7 @@ a:hover{
     }
 
     #info_Uganda .map_image{
-        background-image: url('../imgs/uganda-outline.png'); 
+        background-image: url('imgs/uganda-outline.png'); 
         width: 75%;
         height: 75%;
         top:10%;
@@ -233,7 +233,7 @@ a:hover{
     }
 
     #info_Nepal .map_image{
-        background-image: url('../imgs/nepal-outline.png'); 
+        background-image: url('imgs/nepal-outline.png'); 
         width:85%;
         height:85%;
         top:25%;
@@ -241,7 +241,7 @@ a:hover{
     }
 
     #info_Malawi .map_image{
-        background-image: url('../imgs/malawi-outline.png'); 
+        background-image: url('imgs/malawi-outline.png'); 
         width: 85%;
         height: 85%;
         top:5%;

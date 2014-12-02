@@ -18,8 +18,8 @@
 
    <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css'/>
 
-   <link rel="stylesheet" href="../libs/MarkerCluster/MarkerCluster.css" />
-   <link rel="stylesheet" href="../libs/MarkerCluster/MarkerCluster.Default.css" />
+   <link rel="stylesheet" href="libs/MarkerCluster/MarkerCluster.css" />
+   <link rel="stylesheet" href="libs/MarkerCluster/MarkerCluster.Default.css" />
 
    <link rel="stylesheet" href="index.css?<?php echo filectime('index.css') ?>" />   
    <link rel="stylesheet" href="grid.css?<?php echo filectime('grid.css') ?>" />   
@@ -94,103 +94,6 @@
 
       </div> <!-- /#intro -->
 
-      <!-- ================================================== -->
-<!-- 
-      <div id="frontpage" class="container marketing">
-
-        <div class="row">
-          <div class="col-lg-4">
-            <img class="img-circle" src="../imgs/news_1_head_image.png" alt="Generic placeholder image" style="width: 220px; height: 140px;">
-            <h2>AidData</h2>
-            <p>AidData is a research and innovation lab that seeks to improve development outcomes by making development finance data more accessible and actionable.</p>
-            <p><a class="btn btn-default" href="#news_item_1" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-lg-4">
-            <img class="img-circle" src="../imgs/news_2_head_image.png" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-            <h2>Our Data</h2>
-            <p>AidData produces mapped project-level data on $6 trillion in aid from over 90 donor agencies with information on remittances and foreign direct investment.</p>
-            <p><a class="btn btn-default" href="#news_item_2" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-lg-4">
-            <img class="img-circle" src="../imgs/news_3_head_image.jpg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-            <h2>Get Involved</h2>
-            <p>We are at the cusp of having the data we need to make better choices about how we allocate aid.  We need your ideas to make this a reality.</p>
-            <p><a class="btn btn-default" href="#news_item_3" role="button">View details &raquo;</a></p>
-          </div>
-        </div>  --><!-- /.row -->
-
-
-        <!-- ================================================== -->
-
-<!--         <hr class="featurette-divider">
-
-        <div id="news_item_1" class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">AidData<span class="text-muted"></span></h2>
-            <p class="lead">
-              AidData was formed in 2009 from the merger of two programs: Project-Level Aid (PLAID) and 
-              Accessible Information on Development Activities (AiDA). PLAID, begun in 2003, was a joint effort 
-              between the College of William & Mary and Brigham Young University to create a database of 
-              development finance activities for use in the research community. AiDA was established in 2001 by 
-              Development Gateway to serve as a registry of aid activities to improve aid coordination and 
-              effectiveness.
-              <br><br>
-              Today, AidData is a dynamic partnership between three core institutions. Two universities with a 
-              reputation for scholastic excellence, the College of William & Mary and Brigham Young University, 
-              contribute intellectual rigor and access to scholars and students as engines of innovation to look at 
-              development problems in new ways. Development Gateway, a non-profit development organization, 
-              contributes long-standing relationships with ministries of finance in developing countries in designing 
-              aid management systems, and provides products and services to fuel greater development 
-              transparency and effectiveness.
-            </p>
-          </div>
-          <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="../imgs/news_1_body_image.jpg" alt="Generic placeholder image">
-          </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div id="news_item_2"class="row featurette">
-          <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="../imgs/news_2_body_image.jpg" alt="Generic placeholder image">
-          </div>
-          <div class="col-md-7">
-            <h2 class="featurette-heading">Our Data<span class="text-muted"></span></h2>
-            <p class="lead">
-              Each year, billions of dollars are spent to improve the lives of citizens in developing 
-              countries. With accessible and relevant data at their fingertips, governments can make 
-              better decisions to plan for their country’s future, citizens can hold their leaders to account
-              for providing public goods, and donors can invest aid dollars to maximize development 
-              results. AidData's research release databases include geocoded data from a variety of country aid 
-              information management systems (AIMS), donor IATI feeds, and open data initiatives like the World 
-              Bank’s Mapping for Results.
-            </p>
-          </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <div id="news_item_3" class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">Get Involved<span class="text-muted"></span></h2>
-            <p class="lead">
-              From primary research to data visualization, student geocoders to professional programmers, a
-              wide variety of users have begun to do incredible things to help change how we map and target 
-              international aid efforts.  We’re just at the start.  Click through to see a variety of challenges we’re 
-              trying to solve today, and get involved.
-            </p>
-          </div>
-          <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="../imgs/news_3_body_image.jpg" alt="Generic placeholder image">
-          </div>
-        </div>
-
-        <hr class="featurette-divider">
-
-
-    </div> --> <!-- /#frontpage -->
-
 
 <!--==================================================================================================== -->
 
@@ -227,7 +130,6 @@
                     <select id="grid_form_option_2" >
                       <option value="ec_per">low income</option>               
                       <option value="ag_per">low yield</option>
-                      <option value="ec_per">low income</option>               
                       <option value="ur_per">urban</option>              
                     </select>
                     <span> areas received </span>
@@ -272,12 +174,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a id="navbar_aiddata_logo" class="navbar-brand" href="http://aiddata.org/"><img src="../imgs/ACDP logo transparent large.png"> </a>
+          <a id="navbar_aiddata_logo" class="navbar-brand" href="http://aiddata.org/"><img src="imgs/ACDP logo transparent large.png"> </a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 
-            <li class="active"><a href="http://128.239.119.254/aiddata/DVT3/www">Home</a></li>
+            <li class="active"><a href="http://128.239.119.254/aiddata/home">Home</a></li>
 
 
             <li class="dropdown">
@@ -367,15 +269,15 @@
 
    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
 
-   <script src="../libs/leaflet.ajax.min.js"></script>
+   <script src="libs/leaflet.ajax.min.js"></script>
 
-   <script src="../libs/leaflet-dvf.min.js"></script>
+   <script src="libs/leaflet-dvf.min.js"></script>
 
-   <script src="../libs/Leaflet.geoCSV-master/leaflet.geocsv.js"></script>
+   <script src="libs/Leaflet.geoCSV-master/leaflet.geocsv.js"></script>
 
-   <script src="../libs/MarkerCluster/leaflet.markercluster-src.js"></script>
+   <script src="libs/MarkerCluster/leaflet.markercluster-src.js"></script>
 
-   <script src="../libs/underscoremin.js"></script>
+   <script src="libs/underscoremin.js"></script>
 
    <script src="http://code.highcharts.com/highcharts.js"></script>
 
@@ -383,10 +285,10 @@
 
    <script src="http://d3js.org/d3.v3.min.js"></script>
    <script src="http://d3js.org/topojson.v1.min.js"></script>
-   <!--<script src="../libs/topojson.js"></script>-->
+   <!--<script src="libs/topojson.js"></script>-->
    <script src="http://d3js.org/queue.v1.min.js"></script>
 
-   <script src="../libs/jquery.jcarousel.min.js"></script>
+   <script src="libs/jquery.jcarousel.min.js"></script>
 
    <script src="charts.js"></script>
 
