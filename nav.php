@@ -11,6 +11,11 @@
     padding-bottom: 50px;
   }
 
+  #navbar_spacer{
+    clear:both;
+    height: 75px;
+  }
+
   #navbar{
     border-top: 2px solid rgb(7,26,44);
   }
@@ -25,6 +30,8 @@
   }
 </style>
 
+<!-- Add navbar_spacer div to html in file nav.php is being included with -->
+<!-- <div id="navbar_spacer"></div> -->
 
 <!-- Fixed navbar -->
 <div id="navbar" class="navbar navbar-default navbar-fixed-bottom" role="navigation">
@@ -36,7 +43,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a id="navbar_aiddata_logo" class="navbar-brand" href="http://aiddata.org/"><img src="/aiddata/home/imgs/ACDP logo transparent large.png"> </a>
+      <a id="navbar_aiddata_logo" class="navbar-brand" href="http://aiddata.org/"><img src="/aiddata/imgs/ACDP logo transparent large.png"> </a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">

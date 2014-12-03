@@ -18,8 +18,8 @@
 
    <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css'/>
 
-   <link rel="stylesheet" href="libs/MarkerCluster/MarkerCluster.css" />
-   <link rel="stylesheet" href="libs/MarkerCluster/MarkerCluster.Default.css" />
+   <link rel="stylesheet" href="/aiddata/libs/MarkerCluster/MarkerCluster.css" />
+   <link rel="stylesheet" href="/aiddata/libs/MarkerCluster/MarkerCluster.Default.css" />
 
    <link rel="stylesheet" href="index.css?<?php echo filectime('index.css') ?>" />   
    <link rel="stylesheet" href="grid.css?<?php echo filectime('grid.css') ?>" />   
@@ -149,7 +149,7 @@
          </ul>       
       </div> 
 
-      <div class="spacer"></div>
+      <div id="navbar_spacer"></div>
 
    </div>
 
@@ -178,15 +178,15 @@
 
    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
 
-   <script src="libs/leaflet.ajax.min.js"></script>
+   <script src="/aiddata/libs/leaflet.ajax.min.js"></script>
 
-   <script src="libs/leaflet-dvf.min.js"></script>
+   <script src="/aiddata/libs/leaflet-dvf.min.js"></script>
 
-   <script src="libs/Leaflet.geoCSV-master/leaflet.geocsv.js"></script>
+   <script src="/aiddata/libs/Leaflet.geoCSV-master/leaflet.geocsv.js"></script>
 
-   <script src="libs/MarkerCluster/leaflet.markercluster-src.js"></script>
+   <script src="/aiddata/libs/MarkerCluster/leaflet.markercluster-src.js"></script>
 
-   <script src="libs/underscoremin.js"></script>
+   <script src="/aiddata/libs/underscoremin.js"></script>
 
    <script src="http://code.highcharts.com/highcharts.js"></script>
 
@@ -194,10 +194,10 @@
 
    <script src="http://d3js.org/d3.v3.min.js"></script>
    <script src="http://d3js.org/topojson.v1.min.js"></script>
-   <!--<script src="libs/topojson.js"></script>-->
+   <!--<script src="/aiddata/libs/topojson.js"></script>-->
    <script src="http://d3js.org/queue.v1.min.js"></script>
 
-   <script src="libs/jquery.jcarousel.min.js"></script>
+   <script src="/aiddata/libs/jquery.jcarousel.min.js"></script>
 
    <script src="charts.js"></script>
 

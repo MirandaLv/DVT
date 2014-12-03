@@ -47,10 +47,18 @@
             "description":"info"
         }
     },
-    "Table View Tool":{
+    "Map Analysis Tool":{
         "type":"tool",
-        "title":"Table View Tool",
-        "link":"#",
+        "title":"Map Analysis Tool",
+        "link":"http://128.239.119.254/aiddata/MAT",
+        "data": {
+            "description":"info"
+        }
+    },
+    "Data Inspection Tool":{
+        "type":"tool",
+        "title":"Data Inspection Tool",
+        "link":"http://128.239.119.254/aiddata/DIT",
         "data": {
             "description":"info"
         }

@@ -217,14 +217,20 @@ $(document).ready(function(){
 
 
 	    // update map info box positions
-		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")//.html("<div class='map_title'><a href=''>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
-		info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")//.html("<div class='map_title'><a href=''>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
-		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")//.html("<div class='map_title'><a href=''>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
+		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")
+				  // .html("<div class='map_title'><a href=''>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div");
+		info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")
+				   // .html("<div class='map_title'><a href=''>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div");
+		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")
+				   // .html("<div class='map_title'><a href=''>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
 
 		// update map info lines
-		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9).attr("stroke", "black").attr("stroke-width", "1")
-		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2).attr("stroke", "black").attr("stroke-width", "1")
-		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3).attr("stroke", "black").attr("stroke-width", "1")
+		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9)
+				  .attr("stroke", "black").attr("stroke-width", "1")
+		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2)
+				   .attr("stroke", "black").attr("stroke-width", "1")
+		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3)
+				   .attr("stroke", "black").attr("stroke-width", "1")
 
 	}
 
@@ -500,7 +506,7 @@ $(document).ready(function(){
 		}
 
 		// if (old_country != grid_country){
-			$("#grid_logo div").css("background-image","url('imgs/"+country.toLowerCase()+"-outline.png')")
+			$("#grid_logo div").css("background-image","url('/aiddata/imgs/"+country.toLowerCase()+"-outline.png')")
 			$("#grid_title, #grid_country").html(grid_country)		
 			
 			mapInit()
