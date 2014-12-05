@@ -51,7 +51,7 @@
         background: rgb(161,178,36); /*green*/  
     }
 
-    .jcarousel-tab-active #jcarousel-tool{
+    .jcarousel-tab-active #jcarousel-analysis{
         color: white;
         background: rgb(44,155,200); /*blue*/        
     }
@@ -71,7 +71,7 @@
     border-bottom: 5px solid rgb(161,178,36); /*green*/
 }
 
-#jcarousel-tool{
+#jcarousel-analysis{
     border-bottom: 5px solid rgb(44,155,200); /*blue*/
 }
 
@@ -88,7 +88,7 @@
     color: rgb(161,178,36); /*green*/
 }
 
-#jcarousel-tool, .jcarousel-tool .jcarousel-title {
+#jcarousel-analysis, .jcarousel-analysis .jcarousel-title {
     color: rgb(44,155,200); /*blue*/
 }
 

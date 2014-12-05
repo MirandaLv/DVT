@@ -16,7 +16,7 @@
         }
     },
     "Data Visualization Tool": {
-        "type":"tool",
+        "type":"analysis",
         "title":"Data Visualization Tool",
         "link":"http://128.239.119.254/aiddata/DVT/leaflet_05",
         "data": {
@@ -40,7 +40,7 @@
         }
     },
     "Famine Analysis":{
-        "type":"tool",
+        "type":"analysis",
         "title":"Famine Analysis",
         "link":"http://128.239.119.254/aiddata/STC/www/",
         "data": {
@@ -48,7 +48,7 @@
         }
     },
     "Map Analysis Tool":{
-        "type":"tool",
+        "type":"analysis",
         "title":"Map Analysis Tool",
         "link":"http://128.239.119.254/aiddata/MAT",
         "data": {
@@ -56,7 +56,7 @@
         }
     },
     "Data Inspection Tool":{
-        "type":"tool",
+        "type":"data",
         "title":"Data Inspection Tool",
         "link":"http://128.239.119.254/aiddata/DIT",
         "data": {
