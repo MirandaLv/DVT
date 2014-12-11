@@ -12,7 +12,14 @@ $(document).ready(function(){
 		'world-country-names': 'data/world/world-country-names.tsv'
 	}
 
- 	var form_data = readJSON(fp["form_data"])
+ 	var form_data
+ 	readJSON(fp["form_data"], function (request, status, error){
+ 		if (error){
+ 			console.log(error)
+ 			return 1
+ 		}
+ 		form_data = request
+ 	})
 
 	//--------------------------------------------------
 	// form
@@ -349,7 +356,15 @@ $(document).ready(function(){
 	// carousel and tabs
 	//--------------------------------------------------
 
-	var carousel_items =  readJSON(fp["carousel_items"])
+	var carousel_items
+	readJSON(fp["carousel_items"],  function (request, status, error){
+ 		if (error){
+ 			console.log(error)
+ 			return 1
+ 		}
+ 		carousel_items = request
+ 	})
+ 	console.log(carousel_items)
 
 	var carousel_init = true
 
@@ -445,7 +460,6 @@ $(document).ready(function(){
         $(".jcarousel ul").empty()
          // $('.jcarousel-pagination').empty()
 
-   	 	var form_data = readJSON(fp["form_data"]) 
         $.each(carousel_items, function(i,v){
         // for (var i=0;i<carousel_items.length;i++){
             if ( type == "jcarousel-general" || type == "jcarousel-"+carousel_items[i].type){
@@ -551,8 +565,6 @@ $(document).ready(function(){
 		$("#intro_form_option_1").change()
 		
 	 	// update form
-	 	var form_data = readJSON(fp['form_data'])
-
 	 	var total = form_data[grid_country][type]["total"]
 	 	
 	 	total = shortNum(total,2)
@@ -678,8 +690,14 @@ $(document).ready(function(){
 			legend.removeFrom(map)
 		}
 
-		geojsonExtract = readJSON(file)
-		
+		readJSON(file, function (request, status, error){
+	 		if (error){
+	 			console.log(error)
+	 			return 1
+	 		}
+	 		geojsonExtract = request
+	 	})
+			
 		function getColor(d) { 
 		    return d <= -1.5 ? '#de2d26' :
 		           d <= -1.0 ? '#fc9272' :
@@ -890,15 +908,21 @@ $(document).ready(function(){
 //--------------------------------------------------------------------------------------------------
 
 	//read in a json file and return object
-	function readJSON(file) {
-	    var request = $.ajax({
-	    	type: "GET",
+	function readJSON(file, callback) {
+		$.ajax({
+			type: "GET",
 			dataType: "json",
 			url: file,
 			async: false,
-	    })
-	    return request.responseJSON
+		    success: function (request) {
+		      	callback(request, "good", 0)
+		    },    
+		    error: function (request, status, error) {
+		      	callback(request, status, error);
+		    }
+		}) 
 	};
+
 
 	//converts number to short num + string
 	function shortNum(num, dec){

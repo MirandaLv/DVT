@@ -1,10 +1,10 @@
  {
-    "Data Extraction Tool":{
+    "Data Access Tool":{
         "type":"data",
-        "title":"Data Extraction Tool",
-        "link":"http://128.239.119.254/aiddata/DET/www/det.php",
+        "title":"Data Access Tool",
+        "link":"http://128.239.119.254/aiddata/DAT",
         "data": {
-            "description": "Extract raw data from a variety of rasters using subnational boundaries."
+            "description":"Select and download specific subsections of AidData releases."
         }
     },
     "Nepal": {
@@ -55,12 +55,20 @@
             "description":"info"
         }
     },
-    "Data Inspection Tool":{
+    "Raw Data":{
         "type":"data",
-        "title":"Data Inspection Tool",
-        "link":"http://128.239.119.254/aiddata/DIT",
+        "title":"Raw Data",
+        "link":"http://aiddata.org/geocoded-datasets",
         "data": {
-            "description":"info"
+            "description":"Download the complete raw data from AidData research releases."
+        }
+    },
+    "Data Extraction Tool":{
+        "type":"data",
+        "title":"Data Extraction Tool",
+        "link":"http://128.239.119.254/aiddata/DET/www/det.php",
+        "data": {
+            "description":"Extract raw data from a variety of rasters using subnational boundaries."
         }
     },    
     "Point Extraction Tool":{
@@ -68,15 +76,7 @@
         "title":"Point Extraction Tool",
         "link":"http://128.239.119.254/aiddata/PET",
         "data": {
-            "description":"info"
-        }
-    },
-    "Raw Data":{
-        "type":"data",
-        "title":"Raw Data",
-        "link":"http://aiddata.org/geocoded-datasets",
-        "data": {
-            "description": "info"
+            "description":"Extract raw data from a variety of rasters using point data you upload."
         }
     }
 }
