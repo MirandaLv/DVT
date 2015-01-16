@@ -2,7 +2,7 @@
     "Data Access Tool":{
         "type":"data",
         "title":"Data Access Tool",
-        "link":"http://128.239.119.254/aiddata/DAT",
+        "link":"http://da.aiddata.wm.edu/aiddata/DAT",
         "data": {
             "description":"Select and download specific subsections of AidData releases."
         }
@@ -18,7 +18,7 @@
     "Map Analysis Tool":{
         "type":"analysis",
         "title":"Map Analysis Tool",
-        "link":"http://128.239.119.254/aiddata/MAT",
+        "link":"http://da.aiddata.wm.edu/aiddata/MAT",
         "data": {
             "description":"Assign weights to raster data and view the results aggregated using subnational boundaries."
         }
@@ -42,7 +42,7 @@
     "Famine Analysis":{
         "type":"analysis",
         "title":"Famine Analysis",
-        "link":"http://128.239.119.254/aiddata/STC/www/",
+        "link":"http://da.aiddata.wm.edu/aiddata/STC/www/",
         "data": {
             "description":"info"
         }
@@ -50,7 +50,7 @@
     "Data Visualization Tool": {
         "type":"analysis",
         "title":"Data Visualization Tool",
-        "link":"http://128.239.119.254/aiddata/DVT/leaflet_05",
+        "link":"http://da.aiddata.wm.edu/aiddata/DVT/leaflet_05",
         "data": {
             "description":"info"
         }
@@ -66,7 +66,7 @@
     "Data Extraction Tool":{
         "type":"data",
         "title":"Data Extraction Tool",
-        "link":"http://128.239.119.254/aiddata/DET/www/det.php",
+        "link":"http://da.aiddata.wm.edu/aiddata/DET/www/det.php",
         "data": {
             "description":"Extract raw data from a variety of rasters using subnational boundaries."
         }
@@ -74,7 +74,7 @@
     "Point Extraction Tool":{
         "type":"data",
         "title":"Point Extraction Tool",
-        "link":"http://128.239.119.254/aiddata/PET",
+        "link":"http://da.aiddata.wm.edu/aiddata/PET",
         "data": {
             "description":"Extract raw data from a variety of rasters using point data you upload."
         }

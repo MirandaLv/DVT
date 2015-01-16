@@ -58,12 +58,15 @@
               <li><a href="/aiddata/DET/www/det.php">Data Extraction Tool (DET) </a></li>
               <li><a href="/aiddata/DET_TEST/www/det.php">DET_TEST</a></li>
               <li><a href="/aiddata/PET">Point Extraction Tool (PET)</a></li>
+              <li><a href="/aiddata/DAT">Data Access Tool (DAT)</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">Data Upload</li>
               <li><a href="/aiddata/DET/AMU/home">Application Management Utility for DET</a></li>
               <li><a href="/aiddata/DET_TEST/AMU/home">AMU for DET_TEST</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">Visualizations</li>
+              <li><a href="/aiddata/DASH">DASH</a></li>
+              <li><a href="/aiddata/MAT">Map Analysis Tool</a></li>
               <li><a href="/aiddata/DVT/leaflet_05">Data Visualization Tool</a></li>
               <li><a href="/aiddata/DVT3/www">DVT3</a></li>
               <li><a href="/aiddata/grid/www">Grid</a></li>
@@ -93,8 +96,9 @@
               <li class="dropdown-header">Research</li>
               <li><a href="#">Evaluating the Impact of Open Aid Data</a></li>
               <li class="divider"></li>
-              <li class="dropdown-header">Technical</li>
-              <li><a href="#">Using Super Computers to Analyze Geospatial Data</a></li>
+              <li class="dropdown-header">Tools</li>
+              <li><a href="/aiddata/CCB/test">Center for Conservation Biology</a></li>
+              <li><a href="/aiddata/STC/www">Save the Children</a></li>
               <li class="divider"></li>
               <li class="dropdown-header">Outreach</li>
               <li><a href="#">New Data Collection Methods</a></li>
