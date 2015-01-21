@@ -122,7 +122,6 @@
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="http://aiddata.org">AidData.org</a></li>
         <li><a href="#">About</a></li>
         <li id="temp_reset"><a href="#">Contact</a></li>
       </ul>
