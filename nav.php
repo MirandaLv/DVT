@@ -121,10 +121,10 @@
         </li>
 
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+    <!--   <ul class="nav navbar-nav navbar-right">
         <li><a href="#">About</a></li>
         <li id="temp_reset"><a href="#">Contact</a></li>
-      </ul>
+      </ul> -->
     </div><!--/.nav-collapse -->
   </div>
 </div> <!-- /#navbar -->
