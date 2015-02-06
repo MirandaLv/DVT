@@ -27,6 +27,14 @@ switch ($_POST['type']) {
 		// build source csv / vrt
 		if ( !file_exists($source) ) {
 
+			// filter by sectory
+
+			// unwind transactions
+			// filter by transaction year
+			// group
+
+			// unwind locations
+			// export points
 		}
 
 		// build geojson
