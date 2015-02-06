@@ -1,3 +1,22 @@
+
+# *** form_data.json
+# ***  ^^^^^
+# *** buildJSON / calc.py
+# ***  ^^^^^
+# *** sector csv files
+# ***  ^^^^^
+# *** PET (using indicator rasters)
+# ***  ^^^^^
+# *** geojson of points
+# ***  ^^^^^
+# *** ogr2ogr (in home grid page)
+# ***  ^^^^^
+# *** vrt + standardized research release
+# ***  ^^^^^
+# *** standardization
+# ***  ^^^^^
+# *** research release
+
 import struct
 import sys
 import csv

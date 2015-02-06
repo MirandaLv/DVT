@@ -20,7 +20,6 @@ body {
     background: linear-gradient(to right, rgba(88,108,128,0.85), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,0.85));
     /*font-family: 'Raleway', sans-serif;*/
     font-family: 'Open Sans', sans-serif;
-
 }
 
 a, a:hover, a:active, a:focus, a:visited, select{
@@ -41,8 +40,9 @@ a:hover{
 #intro_form_container,#intro_tabs_container, #intro_carousel_container{
     /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQImU3IsQ0AMAzDsPx/mb/gKe5QBMiggRp0S9K5wB8LdC7QB4P7OK2+qh5xAAAAAElFTkSuQmCC) repeat;*/
     /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAKUlEQVQImWO4f//+fxhml9T5z4DMuX//PkQAxrl///5/BmTO/fv3/wMAaOAwfYoDF7QAAAAASUVORK5CYII=) repeat;*/
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQImWOIyGn4D8NskjpnGJA5ETkN/xmQORE5Df8ZkDkROQ3/AR6AH4GEIyRxAAAAAElFTkSuQmCC) repeat;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQImWOIyGn4D8NskjpnGJA5ETkN/xmQORE5Df8ZkDkROQ3/AR6AH4GEIyRxAAAAAElFTkSuQmCC) repeat;*/
     /*background: rgba(223,223,223,1);*/
+    background: rgba(245,245,245,1);
 }
 
 
@@ -67,7 +67,8 @@ a:hover{
         padding: 10px;
 
         text-align: left;
-        color: rgb(255,255,255);
+        /*color: rgb(255,255,255);*/
+        color:black;
         /*font-family: Arial, Helvetica, sans-serif;*/
         font-family: 'Oswald', sans-serif;
         font-size: 2.1em;
@@ -89,6 +90,7 @@ a:hover{
 
         display: inline-block;
         color: rgb(255,255,255);
+        /*color:black;*/
         cursor: pointer;
     }
 
@@ -99,12 +101,13 @@ a:hover{
     }
 
      .form .variable {
-        color: rgb(255,255,255);
+ /*       color: rgb(255,255,255);
         text-shadow:
             -1px -1px 0 rgb(204,76,67),  
             1px -1px 0 rgb(204,76,67),
             -1px 1px 0 rgb(204,76,67),
-            1px 1px 0 rgb(204,76,67);
+            1px 1px 0 rgb(204,76,67);*/
+            color:red;
     }
 
 
@@ -126,7 +129,6 @@ a:hover{
        /* -webkit-box-shadow: 0 0 10px rgb(161,178,36);;
         -moz-box-shadow: 0 0 10px rgb(161,178,36);;
         box-shadow: 0 0 10px rgb(161,178,36);;*/
-
     }
 
     .map_country {
@@ -313,9 +315,7 @@ a:hover{
 #frontpage{
     width: 90%;
     padding-top: 50px;
-
 }
-
 
 /* -------------------------------------------------- */
 /*content*/

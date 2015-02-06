@@ -2,7 +2,7 @@
     "Data Access Tool":{
         "type":"data",
         "title":"Data Access Tool",
-        "link":"http://da.aiddata.wm.edu/aiddata/DAT",
+        "link":"http://labs.aiddata.org/aiddata/DAT",
         "data": {
             "description":"Select and download specific subsections of AidData releases."
         }
@@ -15,12 +15,12 @@
             "description":"info"
         }
     },
-    "Map Analysis Tool":{
+    "DASH Gap Analysis":{
         "type":"analysis",
-        "title":"Map Analysis Tool",
-        "link":"http://da.aiddata.wm.edu/aiddata/MAT",
+        "title":"DASH Gap Analysis",
+        "link":"http://labs.aiddata.org/aiddata/DASH",
         "data": {
-            "description":"Assign weights to raster data and view the results aggregated using subnational boundaries."
+            "description":"Assign weights to raster data to create a custom layer then compare to aid layers by running a gap analysis."
         }
     },
     "Malawi":{
@@ -39,44 +39,36 @@
             "description":"info"
         }
     },
-    "Famine Analysis":{
-        "type":"analysis",
-        "title":"Famine Analysis",
-        "link":"http://da.aiddata.wm.edu/aiddata/STC/www/",
-        "data": {
-            "description":"info"
-        }
-    },
-    "Data Visualization Tool": {
-        "type":"analysis",
-        "title":"Data Visualization Tool",
-        "link":"http://da.aiddata.wm.edu/aiddata/DVT/leaflet_05",
-        "data": {
-            "description":"info"
-        }
-    },
-    "Raw Data":{
+    "View Datasets":{
         "type":"data",
-        "title":"Raw Data",
-        "link":"http://aiddata.org/geocoded-datasets",
+        "title":"View Datasets",
+        "link":"http://labs.aiddata.org/aiddata/home/datasets.php",
         "data": {
-            "description":"Download the complete raw data from AidData research releases."
+            "description":"Download raw datasets released by AidData."
         }
-    },
-    "Data Extraction Tool":{
-        "type":"data",
-        "title":"Data Extraction Tool",
-        "link":"http://da.aiddata.wm.edu/aiddata/DET/www/det.php",
-        "data": {
-            "description":"Extract raw data from a variety of rasters using subnational boundaries."
-        }
-    },    
+    },   
     "Point Extraction Tool":{
         "type":"data",
         "title":"Point Extraction Tool",
-        "link":"http://da.aiddata.wm.edu/aiddata/PET",
+        "link":"http://labs.aiddata.org/aiddata/PET",
         "data": {
             "description":"Extract raw data from a variety of rasters using point data you upload."
+        }
+    },
+    "DASH Tutorial":{
+        "type":"analysis",
+        "title":"DASH Tutorial",
+        "link":"http://labs.aiddata.org/aiddata/DASH#tutorial",
+        "data": {
+            "description":"Tutorial for the DASH Gap Analysis Tool."
+        }
+    },
+    "Nepal DASH Water Security":{
+        "type":"analysis",
+        "title":"Nepal DASH Water Security",
+        "link":"http://labs.aiddata.org/aiddata/DASH/#country=Nepal&adm=ADM3&weights=ro1--agriculture__cropland__2014--10&weights=ro2--natural_disasters__impervious_surfaces__2014--8&weights=ro3--agriculture__livestock_density__2014--4&weights=ro4--natural_disasters__wetland_disconnectivity__2014--2&gapanalysis=aid__water_aid_all__2014&active_gapanalysis=Nepal_ADM3_1a178b4612037b062167ba785590f45d&active_weights=Nepal_ADM3_2c1038e4397a9e4d09fa4b805b8e3efa&theme=Water+Security",
+        "data": {
+            "description":"Water security example using the DASH gap analysis tool."
         }
     }
 }

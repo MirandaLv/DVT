@@ -26,15 +26,18 @@
     cursor:pointer;
 }
 
+.jcarousel-tab-container{
+    background: rgba(245,245,245,1)
+}
 
 /*non-active tabs alternating background (*/
-.jcarousel-tab-container:nth-child(odd){
+/*.jcarousel-tab-container:nth-child(odd){
 	background: rgb(255,255,255)
 }
 
 .jcarousel-tab-container:nth-child(even){
 	background: rgb(245,245,245)
-}
+}*/
 
 /*active tab*/
 .jcarousel-tab-active{

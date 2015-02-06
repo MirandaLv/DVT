@@ -68,9 +68,9 @@
          <div id="intro_tabs" class="container">
             <div class="row">
                <div class="col-xs-3 jcarousel-tab-container jcarousel-tab-active" ><div id="jcarousel-general" class="jcarousel-tab" > All </div></div>
-               <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-data" class="jcarousel-tab" > Data </div></div>
-               <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-country" class="jcarousel-tab" > Countries </div></div>
-               <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-analysis" class="jcarousel-tab" > Analysis </div></div>
+               <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-data" class="jcarousel-tab" > Get Data </div></div>
+               <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-country" class="jcarousel-tab" > Country Info </div></div>
+               <div class="col-xs-3 jcarousel-tab-container" ><div id="jcarousel-analysis" class="jcarousel-tab" > Analysis Tools </div></div>
             </div>
          </div>
       </div>
@@ -140,9 +140,9 @@
                </div>
             </li>
             <li class="grid_container">
-               <div id="map"><div class="overlay_button"></div></div>
+               <div id="map"><!-- <div class="overlay_button"></div> --></div>
             </li> 
-            <li class="grid_container"><div id="chart1"></div></li>
+            <!-- <li class="grid_container"><div id="chart1"></div></li> -->
             <li class="grid_container"><div id="chart2"></div></li>
             <li class="grid_container"><div id="chart3"></div></li>
             <li class="grid_container"><div id="info_container"><div id="info"></div></div></li>
