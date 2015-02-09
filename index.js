@@ -384,8 +384,6 @@ $(document).ready(function(){
     // manage tab selection
     $(".jcarousel-tab-container").on("click", function(){
 
-        // console.log($(this).attr("id")+"!")
-
         if ( $(this).hasClass("jcarousel-tab-active") && carousel_init == false ){
             return 0;
         }
@@ -414,7 +412,6 @@ $(document).ready(function(){
            $("#intro_carousel").animate({opacity:1});
 
         })
-
     })
 
 
@@ -587,7 +584,6 @@ $(document).ready(function(){
 	 	$("#grid_variable2").text(percent + "%");
 
 	 	//update map
-	 	// buildPolyData(grid_country.toLowerCase(), type.toLowerCase(), sub.toLowerCase());
 		addPointData(grid_country, type);
 
 		// update charts
@@ -600,29 +596,6 @@ $(document).ready(function(){
  
 	});
 
-	// // add overlay
-	// var $selected;
-	// $(".overlay_button").click(function(){
-	// 	$("body").css("overflow","hidden");
-	// 	$("#overlay").show();
-	// 	// $("#overlay").toggleClass("overlay_active");
-	// 	$selected = $(this).parent().parent();
-	// 	$selected.addClass("overlay_content");
-
-	// 	mapControlToggle(1);
-	// 	map.invalidateSize();
-
-	// });
-
-	// // remove overlay
-	// $("#overlay").click(function(){
-	// 	$("body").css("overflow","auto")
-	// 	$("#overlay").hide()
-	// 	$selected.removeClass("overlay_content")
-	// 	mapControlToggle(0)
-	// 	map.invalidateSize();
-	// });
-
 	// return to landing page from country page
 	$("#grid_back").on("click", function(){
 		$("#content").hide();
@@ -630,7 +603,6 @@ $(document).ready(function(){
 		$("#frontpage").show();
 		window.dispatchEvent(new Event('resize'));
 	});
-
 
 	var map, tiles;
 
@@ -656,46 +628,13 @@ $(document).ready(function(){
 		$("#grid_form_option_1").change();
 	}
 
-	// build or get boundary geojson with extract data
-	// function buildPolyData(country, type, sub){
-	// 	switch (sub){
-	// 		case "ec_per":
-	// 			sub = "income";
-	// 			break;
-	// 		case "ag_per":
-	// 			sub = "yield";
-	// 			break;
-	// 		case "ur_per":
-	// 			sub = "urban";
-	// 			break;
-	// 	}
- //       	console.log("building.");
- //       	// country = "nepal"
-	// 	$.ajax ({
-	//         url: "process.php",
-	//         data: {call: "addPolyData", country:country, polyType: type, sub: sub, start_year: start_year, end_year: end_year},
-	//         dataType: "json",
-	//         type: "post",
-	//         async: false,
-	//         success: function(result) {
-	//         	// console.log(result)
-	//         	console.log("buildPolyData done");
-	//         	addPolyData("data/poly/"+country+"_"+type+"_"+sub+"_"+start_year+"_"+end_year+".geojson");
-	//         }
-	//     });
-	// }
 
-	var geojson,
-		geojsonExtract, 
-		info,
-		legend;
+	var geojson, geojsonExtract;
 
 	function addCountry(file){
 
 		if (map.hasLayer(geojson)){
 			map.removeLayer(geojson);
-			// info.removeFrom(map);
-			// legend.removeFrom(map);
 		}
 
 		readJSON(file, function (request, status, error){
@@ -706,20 +645,9 @@ $(document).ready(function(){
 	 		geojsonExtract = request;
 	 	})
 			
-		// function getColor(d) { 
-		//     return d <= -1.5 ? '#de2d26' :
-		//            d <= -1.0 ? '#fc9272' :
-		//            d <= -0.5 ? '#fee0d2' :
-
-		//            d <= 0.5 ? '#fff7bc' :
-		//            d <= 1.0 ? '#e5f5e0' :
-  //  		           d <= 1.5 ? '#a1d99b' :
-  //  		           			  '#31a354';
-		// }
-
 		function style(feature) {
 		    return {
-		        fillColor: '#31a354',//getColor(feature.properties.sd), 
+		        fillColor: '#31a354',, 
 		        weight: 1,
 		        opacity: 1,
 		        color: 'black',
@@ -727,103 +655,18 @@ $(document).ready(function(){
 		    };
 		}
 
-		// function highlightFeature(e) {
-		//     var layer = e.target;
-
-		//     layer.setStyle({
-		//         weight: 5,
-		//         color: '#666',
-		//         dashArray: '',
-		//         fillOpacity: 0.7
-		//     });
-
-		//     if (!L.Browser.ie && !L.Browser.opera) {
-		//         layer.bringToFront();
-		//     }
-
-  //  		    info.update(e.target.feature.properties);
-
-		// }
-
-		// function resetHighlight(e) {
-		//     geojson.resetStyle(e.target);
-		//     info.update();
-		// }
-
-		// function zoomToFeature(e) {
-	 //    	// map.fitBounds(e.target.getBounds());
-		// }
-
-		// function onEachFeature(feature, layer) {
-		//     layer.on({
-		//         mouseover: highlightFeature,
-		//         mouseout: resetHighlight,
-		//         click: zoomToFeature
-		//     });
-		// }
-
 		geojson = L.geoJson(geojsonExtract, {
-		    style: style//,
-		    // onEachFeature: onEachFeature
+		    style: style
 		});
 
 		map.addLayer(geojson, true);
 
 		map.fitBounds( geojson.getBounds() );
 
-		// info = L.control();
-
-		// info.onAdd = function (map) {
-		//     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-		//     this.update();
-		//     return this._div;
-		// };
-
-		// // method that we will use to update the control based on feature properties passed
-		// info.update = function (props) {
-		//     this._div.innerHTML = '<h4>Potential Agricultural Productivity (2001)</h4>' +  (props ?
-		//         '<b>' + props.NAME_2 + '</b><br />' 
-		//         + 'sd: ' + roundx(props.sd) + '<br>'
-		//         + '%$ - %ndvi: ' + roundx(props.ratio) + '<br>'
-		//         + 'Aid:  ' + roundx(props.sum) + ' $ USD<br>'
-		//         + 'NDVI: ' + roundx(props.ndvi) 
-		//         : 'Hover over an area');
-		// };
-
-		// info.addTo(map);
-
-		// function roundx(x){
-		// 	return Math.floor(x*1000)/(1000);
-		// }
-
-		// //manage legend
-		// legend = L.control({position: 'bottomright'});
-
-		// legend.onAdd = function (map) {
-
-		//     var div = L.DomUtil.create('div', 'info legend'),
-		//         grades = [-1.5, -1.0, -0.5, 0.5, 1.0, 1.5, 2],
-		//         labels = [];
-
-		//     // loop through our density intervals and generate a label with a colored square for each interval
-		//     for (var i = 0; i < grades.length; i++) {
-		//         div.innerHTML += '<i style="background:' + getColor(grades[i]) + '"></i> ';
-
-		//         if (!grades[i+1]){
-		//         	div.innerHTML += grades[i-1]  + '+<br>';
-		//         } else {
-		//         	div.innerHTML += "<= " + grades[i]  + '<br>';
-		//         }
-		//     }
-		//     return div;
-		// };
-
-		// legend.addTo(map);
 	 	window.dispatchEvent(new Event('resize'));
 	}
 
-	var markers,
-		geojsonPoints;
+	var markers, geojsonPoints;
 	
 	function addPointData(country, pointType){
 
@@ -843,7 +686,6 @@ $(document).ready(function(){
 		} 
 
 		console.log(country, pointType, start_year, end_year)
-
 
 		markers = new L.MarkerClusterGroup({
 			disableClusteringAtZoom: 10//8
@@ -895,22 +737,8 @@ $(document).ready(function(){
 		map.addLayer(markers);
 			window.dispatchEvent(new Event('resize'));
 
-
-
 	}
 
-	// // toggle map control when in grid or overlay mode
-	// function mapControlToggle(state){
-	// 	if (state == 1){
-	// 		map.scrollWheelZoom.enable();
-	// 		map.dragging.enable();
-	// 		map.doubleClickZoom.enable();
-	// 	} else {
-	// 		map.scrollWheelZoom.disable();
-	// 		map.dragging.disable();
-	// 		map.doubleClickZoom.disable();
-	// 	}
-	// }
 
 
 //--------------------------------------------------------------------------------------------------
