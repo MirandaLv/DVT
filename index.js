@@ -45,7 +45,7 @@ $(document).ready(function(){
 	 	$("#intro_variable1").text("$"+total);
 	 	$("#intro_variable2").text(percent + "%");
 
-	 	updateMapChart(form_data, type, sub);
+	 	countryMapChart(form_data, type, sub);
 	});
 
 
@@ -75,10 +75,13 @@ $(document).ready(function(){
 // **********************************************
 // ************ UPDATE COUNTRY INFO *************
 // **********************************************
+	
+	// turn line and info vars into objects
+	// create generic function to build info, lines, css, mapcharts (takes country name and dimensions / props as args)
 
 	// init map info lines
 	var continent_list,
-		line_Nepal,	line_Uganda, line_Malawi,
+		line_Nepal,	line_Uganda, line_Malawi, 
 		info_Nepal, info_Uganda, info_Malawi
 
 	// continent lookup list
@@ -91,20 +94,7 @@ $(document).ready(function(){
 	};
 
 	// initialize map info containers
-	info_Nepal = d3.select("#intro_map").append("div")
-		.attr("class", "map_info_container").attr("id","info_Nepal").attr("title", "Nepal")
-		.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;")
-		.html("<div class='map_info'><div class='map_title'><a>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div></div>");
-	
-	info_Uganda = d3.select("#intro_map").append("div")
-		.attr("class", "map_info_container").attr("id","info_Uganda").attr("title", "Uganda")
-		.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;")
-		.html("<div class='map_info'><div class='map_title'><a>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div></div>");
-
-	info_Malawi = d3.select("#intro_map").append("div")
-		.attr("class", "map_info_container").attr("id","info_Malawi").attr("title", "Malawi")
-		.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;")
-		.html("<div class='map_info'><div class='map_title'><a>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div></div>");
+	countryInfo("init");
 
     $('#info_Nepal .map_image').css({
         'background-image': 'url("/aiddata/imgs/nepal-outline.png")', 
@@ -130,7 +120,27 @@ $(document).ready(function(){
         'left': '35%'
     });
 
-	function countryInfo(){
+	// initialize map info containers
+	function countryInfo(call){
+
+		if (call == "init") {
+			info_Nepal = d3.select("#intro_map").append("div")
+				.attr("class", "map_info_container").attr("id","info_Nepal").attr("title", "Nepal")
+				.html("<div class='map_info'><div class='map_title'><a>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div></div>");
+			
+			info_Uganda = d3.select("#intro_map").append("div")
+				.attr("class", "map_info_container").attr("id","info_Uganda").attr("title", "Uganda")
+				.html("<div class='map_info'><div class='map_title'><a>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div></div>");
+
+			info_Malawi = d3.select("#intro_map").append("div")
+				.attr("class", "map_info_container").attr("id","info_Malawi").attr("title", "Malawi")
+				.html("<div class='map_info'><div class='map_title'><a>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div></div>");
+			
+			info_Senegal = d3.select("#intro_map").append("div")
+				.attr("class", "map_info_container").attr("id","info_Senegal").attr("title", "Senegal")
+				.html("<div class='map_info'><div class='map_title'><a>SENEGAL</a></div><div class='map_image'></div><div id='chart_Senegal' class='map_chart'></div></div>");
+		}
+
 		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;");
 		info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;");
 		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;");
@@ -140,27 +150,27 @@ $(document).ready(function(){
 
 		if (call == "init") {
 
-			line_Nepal = svg.append("line").attr("id","line_Nepal").attr("class", "map_line");
-			line_Uganda = svg.append("line").attr("id","line_Uganda").attr("class", "map_line");
-			line_Malawi = svg.append("line").attr("id","line_Malawi").attr("class", "map_line");
+			line_Nepal = svg.append("line").attr("id","line_Nepal").attr("class", "map_line")
+							   			   .attr("stroke", "black").attr("stroke-width", "1");
+			line_Uganda = svg.append("line").attr("id","line_Uganda").attr("class", "map_line")
+										    .attr("stroke", "black").attr("stroke-width", "1");
+			line_Malawi = svg.append("line").attr("id","line_Malawi").attr("class", "map_line")
+				   							.attr("stroke", "black").attr("stroke-width", "1");
 
 		}
 
 		// update map info lines
 		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3)
-				  .attr("x2", width/1.2).attr("y2", height/2.9)
-				  .attr("stroke", "black").attr("stroke-width", "1");
+				  .attr("x2", width/1.2).attr("y2", height/2.9);
 		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65)
-		           .attr("x2", width/1.5).attr("y2", height/2)
-				   .attr("stroke", "black").attr("stroke-width", "1");
+		           .attr("x2", width/1.5).attr("y2", height/2);
 		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43)
-		           .attr("x2", width/1.45).attr("y2", height/1.3)
-				   .attr("stroke", "black").attr("stroke-width", "1");
+		           .attr("x2", width/1.45).attr("y2", height/1.3);
 
 	}
 
 	// manages building and updating of map charts
-	function updateMapChart(form_data, type, sub){
+	function countryMapChart(form_data, type, sub){
 
 		var nepal_percent = form_data["Nepal"][type][sub];
 		buildMapChart('#chart_Nepal', nepal_percent);
