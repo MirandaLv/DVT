@@ -226,30 +226,6 @@ a:hover{
         position:absolute; 
     }
 
-    #info_Uganda .map_image{
-        background-image: url('/aiddata/imgs/uganda-outline.png'); 
-        width: 75%;
-        height: 75%;
-        top:10%;
-        left:15%;
-    }
-
-    #info_Nepal .map_image{
-        background-image: url('/aiddata/imgs/nepal-outline.png'); 
-        width:85%;
-        height:85%;
-        top:25%;
-        left:5%;
-    }
-
-    #info_Malawi .map_image{
-        background-image: url('/aiddata/imgs/malawi-outline.png'); 
-        width: 85%;
-        height: 85%;
-        top:5%;
-        left:35%;
-    }
-
     .map_chart{
         width:80px;
         height:80px;

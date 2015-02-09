@@ -39,6 +39,14 @@
             "description":"info"
         }
     },
+    "Senegal":{
+        "type":"country",
+        "title":"Senegal",
+        "link":"",
+        "data": {
+            "description":"info"
+        }
+    },
     "View Datasets":{
         "type":"data",
         "title":"View Datasets",
