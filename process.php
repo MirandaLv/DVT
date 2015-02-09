@@ -2,78 +2,88 @@
 
 $base = "/var/www/html/aiddata/";
 
-switch ($_POST['type']) {
+switch ($_POST['call']) {
 
-	//returns directory contents
-	case 'scan':
-		$path = $_POST['path'];
-		$dir = $base."DET/resources" . $path;
-		$rscan = scandir($dir);
-		$scan = array_diff($rscan, array('.', '..'));
-		$out = json_encode($scan);
-		echo $out;
-		break;
+	// // check if a file exists
+	// case 'exists':
+	// 	$name = $_POST['name'];
+	// 	if ( file_exists($base.$name) ) {
+	// 		echo "true";
+	// 	} else {
+	// 		echo "false";
+	// 	}
+	// 	break;
 
-	// create / get point geojson from csv data (ogr2ogr call)
-	case 'addPointData':
-		$country = $_POST["country"];
-		$type = $_POST["pointType"];
-		$min = $_POST["range_min"];
-		$max = $_POST["range_max"];
+	// //returns directory contents
+	// case 'scan':
+	// 	$path = $_POST['path'];
+	// 	$dir = $base."DET/resources" . $path;
+	// 	$rscan = scandir($dir);
+	// 	$scan = array_diff($rscan, array('.', '..'));
+	// 	$out = json_encode($scan);
+	// 	echo $out;
+	// 	break;
 
-		$dest =  $base."home/data/point/".$country."_".$type."_".$min."_".$max.".geojson";
-		$source = $base.'home/data/source/'.$country.'.vrt';
+	// // create / get point geojson from csv data (ogr2ogr call)
+	// case 'addPointData':
+	// 	$country = $_POST["country"];
+	// 	$type = $_POST["pointType"];
+	// 	$min = $_POST["range_min"];
+	// 	$max = $_POST["range_max"];
 
-		// build source csv / vrt
-		if ( !file_exists($source) ) {
+	// 	$dest =  $base."home/data/point/".$country."_".$type."_".$min."_".$max.".geojson";
+	// 	$source = $base.'home/data/source/'.$country.'.vrt';
 
-			// filter by sectory
+	// 	// build source csv / vrt
+	// 	if ( !file_exists($source) ) {
 
-			// unwind transactions
-			// filter by transaction year
-			// group
+	// 		// filter by sectory
 
-			// unwind locations
-			// export points
-		}
+	// 		// unwind transactions
+	// 		// filter by transaction year
+	// 		// group
 
-		// build geojson
-		if ( !file_exists($dest) ) {
+	// 		// unwind locations
+	// 		// export points
+	// 	}
 
-			if ($country == "Uganda") {
-				if ($type == "Health") {
-					$search = "ad_sector_name LIKE '%HEALTH%' OR ad_sector_name LIKE '%WATER%'";
-				} else {
-					$search = "ad_sector_name LIKE '%".strtoupper($type)."%'";
-				}
-			} else {
-				if ($type == "Health") {
-					$search = "ad_sector_name LIKE '%Health%' OR ad_sector_name LIKE '%Water Supply and Sanitation%'";
-				} else {
-					$search = "ad_sector_name LIKE '%".$type."%'";
-				}
-			}
+	// 	// build geojson
+	// 	if ( !file_exists($dest) ) {
 
-			if ($country != "Malawi"){
-				$search .= " AND (d_".$min." != '0'";
-				for ($i=$min+1;$i<=$max;$i++) {
-					$search .= " OR d_".$i." != '0'";
-				}
-				$search .= ")";
-			}
+	// 		if ($country == "Uganda") {
+	// 			if ($type == "Health") {
+	// 				$search = "ad_sector_name LIKE '%HEALTH%' OR ad_sector_name LIKE '%WATER%'";
+	// 			} else {
+	// 				$search = "ad_sector_name LIKE '%".strtoupper($type)."%'";
+	// 			}
+	// 		} else {
+	// 			if ($type == "Health") {
+	// 				$search = "ad_sector_name LIKE '%Health%' OR ad_sector_name LIKE '%Water Supply and Sanitation%'";
+	// 			} else {
+	// 				$search = "ad_sector_name LIKE '%".$type."%'";
+	// 			}
+	// 		}
 
-			$string = 'ogr2ogr -f GeoJSON -sql "SELECT * FROM '.$country.' WHERE '.$search.'" '.$dest.' '.$source;
+	// 		if ($country != "Malawi"){
+	// 			$search .= " AND (d_".$min." != '0'";
+	// 			for ($i=$min+1;$i<=$max;$i++) {
+	// 				$search .= " OR d_".$i." != '0'";
+	// 			}
+	// 			$search .= ")";
+	// 		}
 
-			file_put_contents('/var/www/html/aiddata/test.txt', $string);
+	// 		$string = 'ogr2ogr -f GeoJSON -sql "SELECT * FROM '.$country.' WHERE '.$search.'" '.$dest.' '.$source;
 
-			exec($string);
+	// 		file_put_contents('/var/www/html/aiddata/test.txt', $string);
 
-		} 
+	// 		exec($string);
 
-		$results = file_get_contents($dest);
-		echo $results;
+	// 	} 
+
+	// 	$results = file_get_contents($dest);
+	// 	echo $results;
 		
-		break;
+	// 	break;
 
 	// build / get geojson with extract values and new calculations (from R script)
 	// case 'addPolyData':

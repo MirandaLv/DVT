@@ -1,0 +1,25 @@
+body {
+    min-width: 900px;
+    padding:50px;
+    color: white;
+    background: linear-gradient(to right, rgba(88,108,128,0.85), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,0.85));
+    font-family: 'Open Sans', sans-serif;
+}
+
+a, a:hover, a:active, a:focus, a:visited, select{
+    /*outline: 0;
+    outline: none;
+    outline-style: none;
+    text-decoration: none;*/
+    color:red;
+}
+
+#title {
+    text-align: center;
+}
+
+#info {
+    text-align: center;
+    padding: 20px;
+}
+

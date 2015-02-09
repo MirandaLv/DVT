@@ -8,17 +8,19 @@ $(document).ready(function(){
 
 	// file paths (static)
 	var fp = {
-		'form_data': 			'data/form/form_data.json',
+		'form_data': 			'../data/form/form_data.json',
 		'carousel_items': 		'jcarousel.json',
-		'd3-world': 			'data/world/d3-world.json',
-		'world-country-names':  'data/world/world-country-names.tsv'
+		'd3-world': 			'../data/world/d3-world.json',
+		'world-country-names':  '../data/world/world-country-names.tsv'
 	};
 
 	// continent lookup list
 	var continent_list = {
 		'Nepal':'Asia',
 		'Uganda':'Africa',
-		'Malawi':'Africa'
+		'Malawi':'Africa',
+		'Timor-Leste':'Asia',
+		'Sudan':'Africa'
 	};
 
  	var form_data;
@@ -117,7 +119,7 @@ $(document).ready(function(){
 		}
 	);
 
-	// map info clicks
+	// map info clicks -- TEMP DISABLED
 	// $(".map_info").on("click", function(){
  //    	var sel_country = $(this).parent().attr("title");
 	//     mapClick(sel_country);
@@ -199,7 +201,7 @@ $(document).ready(function(){
 	 
 	//check if country is active (do we have data for it)
 	function countrySpecific(d, i) {
-	    if (d.name=='Uganda' || d.name == 'Malawi' || d.name == 'Nepal'){
+	    if ( continent_list[d.name] ){
 	    	return 'map_country map_countrySelected';
 	    } else {
 	    	return 'map_country';
@@ -240,11 +242,14 @@ $(document).ready(function(){
 				   // .html("<div class='map_title'><a href=''>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div");
 
 		// update map info lines
-		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9)
+		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3)
+				  .attr("x2", width/1.2).attr("y2", height/2.9)
 				  .attr("stroke", "black").attr("stroke-width", "1");
-		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2)
+		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65)
+		           .attr("x2", width/1.5).attr("y2", height/2)
 				   .attr("stroke", "black").attr("stroke-width", "1");
-		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3)
+		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43)
+		           .attr("x2", width/1.45).attr("y2", height/1.3)
 				   .attr("stroke", "black").attr("stroke-width", "1");
 	}
 
@@ -668,7 +673,7 @@ $(document).ready(function(){
  //       	// country = "nepal"
 	// 	$.ajax ({
 	//         url: "process.php",
-	//         data: {type: "addPolyData", country:country, polyType: type, sub: sub, start_year: start_year, end_year: end_year},
+	//         data: {call: "addPolyData", country:country, polyType: type, sub: sub, start_year: start_year, end_year: end_year},
 	//         dataType: "json",
 	//         type: "post",
 	//         async: false,
@@ -826,69 +831,71 @@ $(document).ready(function(){
 			map.removeLayer(markers);
 		}
 
+		var error;
+		readJSON('../data/form/sector_data/'+country+'_'+pointType+'.geojson', function (request, status, e) {
+			geojsonPoints = request;
+			error = e;
+		})
+
+		if (error) {
+			console.log(error);
+			return 1;
+		} 
+
 		console.log(country, pointType, start_year, end_year)
-		$.ajax ({
-	        url: "process.php",
-	        data: {type: "addPointData", country:country, pointType: pointType, range_min:start_year, range_max:end_year},
-	        dataType: "json",
-	        type: "post",
-	        async: false,
-	        success: function(geojsonContents) {
-				console.log(geojsonContents)
-				geojsonPoints = geojsonContents;
 
-				markers = new L.MarkerClusterGroup({
-					disableClusteringAtZoom: 10//8
-				});
 
-				var geojsonLayer = L.geoJson(geojsonContents, {
-					onEachFeature: function (feature, layer) {
-						var a = feature.properties;
+		markers = new L.MarkerClusterGroup({
+			disableClusteringAtZoom: 10//8
+		});
 
-						var popup = '';
+		var geojsonLayer = L.geoJson(geojsonPoints, {
+			onEachFeature: function (feature, layer) {
+				var a = feature.properties;
 
-						// popup += "PLACEHOLDER";
+				var popup = '';
 
-						// var popup = "<b>"+a.placename+"</b>";
-						// popup += "</br>Region: " + a.R_NAME
-						// popup += "</br>Zone: " + a.Z_NAME
-						// popup += "</br>District: " + a.D_NAME
-						// popup += "</br>Project Start: " + a.actual_start_date
-						// popup += "</br>Years: "
-						// var c = 0
-						// for (var y = start_year; y<=end_year; y++){
-						// 	if ( parseFloat(a["d_"+y]) > 0 ){
-						// 		if (c>0){ popup += ", "}
-						// 		popup += y
-						// 		c++							
-						// 	}
-						// }
-						popup += "</br>$USD: "
-						c = 0
-						for (var y = start_year; y<=end_year; y++){
-							if ( parseFloat(a["d_"+y]) > 0 ){
-								if (c>0){ popup += ", "}
-								popup += a["d_"+y]
-								c++							
-							}
-						}
-						popup += "</br>Donors: " + a.donor
+				// popup += "PLACEHOLDER";
 
-						layer.bindPopup(popup);
-					},
-					pointToLayer: function(feature, latlng) {
-				        return L.marker(latlng, {
-				            // radius: 5
-				        })
-				    }
-				});
+				// var popup = "<b>"+a.placename+"</b>";
+				// popup += "</br>Region: " + a.R_NAME
+				// popup += "</br>Zone: " + a.Z_NAME
+				// popup += "</br>District: " + a.D_NAME
+				// popup += "</br>Project Start: " + a.actual_start_date
+				// popup += "</br>Years: "
+				// var c = 0
+				// for (var y = start_year; y<=end_year; y++){
+				// 	if ( parseFloat(a["d_"+y]) > 0 ){
+				// 		if (c>0){ popup += ", "}
+				// 		popup += y
+				// 		c++							
+				// 	}
+				// }
+				popup += "</br>$USD: "
+				c = 0
+				for (var y = start_year; y<=end_year; y++){
+					if ( parseFloat(a["d_"+y]) > 0 ){
+						if (c>0){ popup += ", "}
+						popup += a["d_"+y]
+						c++							
+					}
+				}
+				popup += "</br>Donors: " + a.donor
 
-				markers.addLayer(geojsonLayer);
-				map.addLayer(markers);
-	 			window.dispatchEvent(new Event('resize'));
+				layer.bindPopup(popup);
+			},
+			pointToLayer: function(feature, latlng) {
+		        return L.marker(latlng, {
+		            // radius: 5
+		        })
+		    }
+		});
 
-	        }
-	    });
+		markers.addLayer(geojsonLayer);
+		map.addLayer(markers);
+			window.dispatchEvent(new Event('resize'));
+
+
 
 	}
 
