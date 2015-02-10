@@ -63,28 +63,43 @@ function buildCharts(country, start, end, points){
 			sum = parseFloat(a.transaction_sum);
 		}
 
-		donor_aid_pie.raw[ a[donor_field] ] +=  sum / parseInt(a[count_field]);
+        sum = ( isNaN(sum) ? 0 : sum );
+
+        // if ( sum > 0 ) {
+            // console.log(sum)
+            donor_aid_pie.raw[ a[donor_field] ] +=  sum / parseInt(a[count_field]);
+        // }
 	}
 
     // sort raw
     donor_aid_pie.sorted = [];
-    for (var item in donor_aid_pie.raw) {
-        donor_aid_pie.sorted.push([item, donor_aid_pie.raw[item]])
+    donor_aid_pie.keys = _.keys(donor_aid_pie.raw);
+    for (var i=0, ix=donor_aid_pie.keys.length; i<ix; i++) {
+        var key = donor_aid_pie.keys[i];
+        donor_aid_pie.sorted.push([key, donor_aid_pie.raw[key]])
     }
     donor_aid_pie.sorted.sort(function(a, b) {return b[1] - a[1]})
+
 
     // only use top x donors (defined by donor_aid_pie.limit), rest are group into "Others" category
     donor_aid_pie.data = [];
 	for (var i=0;i<donor_aid_pie.sorted.length;i++){
 
-        if ( i < donor_aid_pie.limit ) {
-            var point = donor_aid_pie.sorted[i];
-    		donor_aid_pie.data.push(point);
-        } else if ( i == donor_aid_pie.limit ) {
-            var point = [ 'Other', donor_aid_pie.sorted[i][1] ];
-            donor_aid_pie.data.push(point);         
-        } else {
-            donor_aid_pie.data[donor_aid_pie.limit][1] += donor_aid_pie.sorted[i][1]
+        if (donor_aid_pie.sorted[i][1] > 0) {
+            if ( i < donor_aid_pie.limit ) {
+                var point = donor_aid_pie.sorted[i];
+        		donor_aid_pie.data.push(point);
+            } else if ( i == donor_aid_pie.limit ) {
+                var point = [ 'Other', donor_aid_pie.sorted[i][1] ];
+                donor_aid_pie.data.push(point);         
+            } else {
+                var donor_count = i - donor_aid_pie.limit;
+                donor_aid_pie.data[donor_aid_pie.limit][0] = 'Other ('+ donor_count +')';
+                donor_aid_pie.data[donor_aid_pie.limit][1] += donor_aid_pie.sorted[i][1];
+
+                // console.log( donor_aid_pie.sorted[i][1] )
+                // console.log( donor_aid_pie.data[donor_aid_pie.limit][1] )
+            }
         }
 
 	}
