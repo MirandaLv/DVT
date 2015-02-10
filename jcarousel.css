@@ -46,7 +46,7 @@
 
     .jcarousel-tab-active #jcarousel-general{
         color: white;
-        background: rgb(150,150,150);
+        background: rgb(150,150,150); /*gray*/
     }
 
     .jcarousel-tab-active #jcarousel-country{

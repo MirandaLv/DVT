@@ -47,6 +47,14 @@
             "description":"info"
         }
     },
+    "Timor-Leste":{
+        "type":"country",
+        "title":"Timor-Leste",
+        "link":"",
+        "data": {
+            "description":"info"
+        }
+    },
     "View Datasets":{
         "type":"data",
         "title":"View Datasets",

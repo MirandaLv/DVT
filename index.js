@@ -76,110 +76,212 @@ $(document).ready(function(){
 // ************ UPDATE COUNTRY INFO *************
 // **********************************************
 	
-	// turn line and info vars into objects
-	// create generic function to build info, lines, css, mapcharts (takes country name and dimensions / props as args)
+	// procedure for adding a new country:
+	
+	// EXTERNAL
+	// run importMongo script
+	// add country to DET
+	// add country to jcarousel.json
+	
+	// INTERNAL
+	// add country to continent list
+	// add country object to countryDims and set x,y for info and line (requires trial and error to find good fit)
 
-	// init map info lines
+	// init
 	var continent_list,
-		line_Nepal,	line_Uganda, line_Malawi, 
-		info_Nepal, info_Uganda, info_Malawi
+		countryInfo = {},
+		countryLine = {},
+		countryDims = {
+			'Nepal': {
+				info: [1.2, 2.9],
+				line: [1.34, 2.3]
+			},
+			'Uganda': {
+				info: [1.5, 2.0],
+				line: [1.68, 1.65]
+			},
+			'Malawi': {
+				info: [1.45, 1.35],
+				line: [1.67, 1.43]
+			},
+			'Senegal': {
+				info: [2.6, 2.6],
+				line: [2.2, 2.0]
+			},
+			'Timor-Leste': {
+				info: [1.28, 1.12],
+				line: [1.17, 1.52]
+			}
+		};
+		// info_Nepal, info_Uganda, info_Malawi,
+		// line_Nepal,	line_Uganda, line_Malawi;
 
 	// continent lookup list
 	continent_list = {
 		'Nepal':'Asia',
 		'Uganda':'Africa',
 		'Malawi':'Africa',
-		// 'Timor-Leste':'Asia',
-		'Senegal':'Africa'
+		'Senegal':'Africa',
+		'Timor-Leste':'Asia',
 	};
 
 	// initialize map info containers
-	countryInfo("init");
+	buildCountryInfo("init");
 
-    $('#info_Nepal .map_image').css({
-        'background-image': 'url("/aiddata/imgs/nepal-outline.png")', 
-        'width': '85%',
-        'height': '85%',
-        'top': '25%',
-        'left': '5%'
-    });
+    // $('#info_Nepal .map_image').css({
+    //     'background-image': 'url("/aiddata/imgs/nepal-outline.png")', 
+    //     'width': '85%',
+    //     'height': '85%',
+    //     'top': '25%',
+    //     'left': '5%'
+    // });
 
-    $('#info_Uganda .map_image').css({
-        'background-image': 'url("/aiddata/imgs/uganda-outline.png")', 
-        'width': '75%',
-        'height': '75%',
-        'top': '10%',
-        'left': '15%'
-    });
+    // $('#info_Uganda .map_image').css({
+    //     'background-image': 'url("/aiddata/imgs/uganda-outline.png")', 
+    //     'width': '75%',
+    //     'height': '75%',
+    //     'top': '10%',
+    //     'left': '15%'
+    // });
 
-    $('#info_Malawi .map_image').css({
-        'background-image': 'url("/aiddata/imgs/malawi-outline.png")', 
-        'width': '85%',
-        'height': '85%',
-        'top': '5%',
-        'left': '35%'
-    });
+    // $('#info_Malawi .map_image').css({
+    //     'background-image': 'url("/aiddata/imgs/malawi-outline.png")', 
+    //     'width': '85%',
+    //     'height': '85%',
+    //     'top': '5%',
+    //     'left': '35%'
+    // });
+
+   
 
 	// initialize map info containers
-	function countryInfo(call){
+	function buildCountryInfo(call){
 
 		if (call == "init") {
-			info_Nepal = d3.select("#intro_map").append("div")
-				.attr("class", "map_info_container").attr("id","info_Nepal").attr("title", "Nepal")
-				.html("<div class='map_info'><div class='map_title'><a>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div></div>");
-			
-			info_Uganda = d3.select("#intro_map").append("div")
-				.attr("class", "map_info_container").attr("id","info_Uganda").attr("title", "Uganda")
-				.html("<div class='map_info'><div class='map_title'><a>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div></div>");
 
-			info_Malawi = d3.select("#intro_map").append("div")
-				.attr("class", "map_info_container").attr("id","info_Malawi").attr("title", "Malawi")
-				.html("<div class='map_info'><div class='map_title'><a>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div></div>");
+		// 	info_Nepal = d3.select("#intro_map").append("div")
+		// 		.attr("class", "map_info_container").attr("id","info_Nepal").attr("title", "Nepal")
+		// 		.html("<div class='map_info'><div class='map_title'><a>NEPAL</a></div><div class='map_image'></div><div id='chart_Nepal' class='map_chart'></div></div>");
 			
-			info_Senegal = d3.select("#intro_map").append("div")
-				.attr("class", "map_info_container").attr("id","info_Senegal").attr("title", "Senegal")
-				.html("<div class='map_info'><div class='map_title'><a>SENEGAL</a></div><div class='map_image'></div><div id='chart_Senegal' class='map_chart'></div></div>");
+		// 	info_Uganda = d3.select("#intro_map").append("div")
+		// 		.attr("class", "map_info_container").attr("id","info_Uganda").attr("title", "Uganda")
+		// 		.html("<div class='map_info'><div class='map_title'><a>UGANDA</a></div><div class='map_image'></div><div id='chart_Uganda' class='map_chart'></div></div>");
+
+		// 	info_Malawi = d3.select("#intro_map").append("div")
+		// 		.attr("class", "map_info_container").attr("id","info_Malawi").attr("title", "Malawi")
+		// 		.html("<div class='map_info'><div class='map_title'><a>MALAWI</a></div><div class='map_image'></div><div id='chart_Malawi' class='map_chart'></div></div>");
+			
+	    	var keys = _.keys(continent_list);
+	    	for (var i=0, ix=keys.length; i<ix; i++) {
+	    		var country = keys[i];
+	    		var html = '';
+
+	    		html += '<div class="map_info">';
+	    		html += '<div class="map_title"><a>'+country.toUpperCase()+'</a></div>';
+	    		// html += '<div class="map_image"></div>';
+	    		// html += '<div id="center_'+country+'" class="map_center"></div>';
+
+	    		html += '<div id="chart_'+country+'" class="map_chart"></div>';
+	    		html += '</div>';
+
+				countryInfo[country] = d3.select("#intro_map").append("div")
+						.attr("class", "map_info_container").attr("id","info_"+country).attr("title", country)
+						.html(html);
+			}
+
 		}
 
-		info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;");
-		info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;");
-		info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;");
+		// info_Nepal.attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;");
+		// info_Uganda.attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;");
+		// info_Malawi.attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.3 - 40) + "px;");
+
+		// countryInfo['Nepal'].attr("style", "left:" + (width/1.2 - 40) + "px; top:" + (height/2.9 - 40) + "px;");
+		// countryInfo['Uganda'].attr("style", "left:" + (width/1.5 - 40) + "px; top:" + (height/2 - 40) + "px;");
+		// countryInfo['Malawi'].attr("style", "left:" + (width/1.45 - 40) + "px; top:" + (height/1.35 - 40) + "px;");
+		// countryInfo['Senegal'].attr("style", "left:" + (width/2.6 - 40) + "px; top:" + (height/2.6 - 40) + "px;");
+		// countryInfo['Timor-Leste'].attr("style", "left:" + (width/1.28 - 40) + "px; top:" + (height/1.12 - 40) + "px;");
+
+    	var keys = _.keys(countryDims);
+    	for (var i=0, ix=keys.length; i<ix; i++) {
+    		var country = keys[i];
+			countryInfo[country].attr("style", "left:" + (width/ countryDims[country].info[0] - 40) + "px; top:" + (height/countryDims[country].info[1] - 40) + "px;");
+		}
+
+
 	}
 
-	function countryLines(call){
+	function buildCountryLines(call){
 
 		if (call == "init") {
 
-			line_Nepal = svg.append("line").attr("id","line_Nepal").attr("class", "map_line")
-							   			   .attr("stroke", "black").attr("stroke-width", "1");
-			line_Uganda = svg.append("line").attr("id","line_Uganda").attr("class", "map_line")
-										    .attr("stroke", "black").attr("stroke-width", "1");
-			line_Malawi = svg.append("line").attr("id","line_Malawi").attr("class", "map_line")
-				   							.attr("stroke", "black").attr("stroke-width", "1");
+			// line_Nepal = svg.append("line").attr("id","line_Nepal").attr("class", "map_line")
+			// 				   			   .attr("stroke", "black").attr("stroke-width", "1");
+			// line_Uganda = svg.append("line").attr("id","line_Uganda").attr("class", "map_line")
+			// 							    .attr("stroke", "black").attr("stroke-width", "1");
+			// line_Malawi = svg.append("line").attr("id","line_Malawi").attr("class", "map_line")
+			// 	   							.attr("stroke", "black").attr("stroke-width", "1");
+
+	    	var keys = _.keys(continent_list);
+	    	for (var i=0, ix=keys.length; i<ix; i++) {
+	    		var country = keys[i];
+				countryLine[country] = svg.append("line").attr("id","line_"+country).attr("class", "map_line")
+				   			   						     .attr("stroke", "black").attr("stroke-width", "1");
+			}
 
 		}
 
-		// update map info lines
-		line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3)
-				  .attr("x2", width/1.2).attr("y2", height/2.9);
-		line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65)
-		           .attr("x2", width/1.5).attr("y2", height/2);
-		line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43)
-		           .attr("x2", width/1.45).attr("y2", height/1.3);
+		// line_Nepal.attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9);
+		// line_Uganda.attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2);
+		// line_Malawi.attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.3);
 
+		// countryLine['Nepal'].attr("x1", width/1.34).attr("y1", height/2.3).attr("x2", width/1.2).attr("y2", height/2.9);
+		// countryLine['Uganda'].attr("x1", width/1.68).attr("y1", height/1.65).attr("x2", width/1.5).attr("y2", height/2);
+		// countryLine['Malawi'].attr("x1", width/1.67).attr("y1", height/1.43).attr("x2", width/1.45).attr("y2", height/1.35);
+		// countryLine['Senegal'].attr("x1", width/2.2).attr("y1", height/2.0).attr("x2", width/2.6).attr("y2", height/2.6);
+		// countryLine['Timor-Leste'].attr("x1", width/1.17).attr("y1", height/1.52).attr("x2", width/1.28).attr("y2", height/1.12);
+
+    	var keys = _.keys(countryDims);
+    	for (var i=0, ix=keys.length; i<ix; i++) {
+    		var country = keys[i];
+			countryLine[country].attr("x1", width/ countryDims[country].line[0] ).attr("y1", height/ countryDims[country].line[1] )
+								.attr("x2", width/ countryDims[country].info[0] ).attr("y2", height/ countryDims[country].info[1] );
+		}
 	}
 
 	// manages building and updating of map charts
 	function countryMapChart(form_data, type, sub){
 
-		var nepal_percent = form_data["Nepal"][type][sub];
-		buildMapChart('#chart_Nepal', nepal_percent);
+		var percent = {},
+			sector = {},
+			raw = {};
 
-		var uganda_percent = form_data["Uganda"][type][sub];
-		buildMapChart('#chart_Uganda', uganda_percent);
+		// percent['Nepal'] = form_data["Nepal"][type][sub];
+		// buildMapChart('#chart_Nepal', percent['Nepal']);
 
-		var malawi_percent = form_data["Malawi"][type][sub];
-		buildMapChart('#chart_Malawi', malawi_percent);
+		// percent['Uganda'] = form_data["Uganda"][type][sub];
+		// buildMapChart('#chart_Uganda', percent['Uganda']);
+
+		// percent['Malawi'] = form_data["Malawi"][type][sub];
+		// buildMapChart('#chart_Malawi', percent['Malawi']);
+
+		// percent['Senegal'] = form_data["Senegal"][type][sub];
+		// buildMapChart('#chart_Senegal', percent['Senegal']);
+
+		// percent['Timor-Leste'] = form_data["Timor-Leste"][type][sub];
+		// buildMapChart('#chart_Timor-Leste', percent['Timor-Leste']);
+
+		var keys = _.keys(continent_list);
+    	for (var i=0, ix=keys.length; i<ix; i++) {
+    		var country = keys[i];
+			percent[country] = form_data[country][type][sub];
+
+			sector[country] = 100 * form_data[country][type].total /  form_data[country].Total.total;
+
+			raw[country] = shortNum(form_data[country][type].total, 0, 1);
+
+			buildMapChart(country, percent[country], sector[country], raw[country]);
+		}
+
 	}
 
 // **********************************************
@@ -270,7 +372,7 @@ $(document).ready(function(){
    	 //   		mapClick(sel_country);
 	    // });
 
-	    countryLines("init");
+	    buildCountryLines("init");
 	}
 	 
 	//check if country is active (do we have data for it)
@@ -308,37 +410,64 @@ $(document).ready(function(){
 
 
 	    // update map info box positions
-	    countryInfo();
+	    buildCountryInfo();
 
 		// update map info lines
-		countryLines();
+		buildCountryLines();
 	}
 
 
-	//builds map charts
-    function buildMapChart(container, percent){
+	// builds map charts
+    function buildMapChart(country, percent, sector, raw){
 
+    	var container = '#chart_'+country;
+
+    	// build pie chart
 		var colors = Highcharts.getOptions().colors,
-	        categories = ['% '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html() +' areas', '%  '+ $("#intro_form_option_1>option:selected").html() +' aid in other areas'],
-	        data = [{
-	            y: percent,
-	            color: colors[0]
-	        }, {
-	            y: 100-percent,
-	            color: colors[1]
-	        }],
-	        browserData = [];
+			outerData, innerData;
+	        // categories = [
+					    //     '% '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html() +' areas', 
+					    //     '%  '+ $("#intro_form_option_1>option:selected").html() +' aid in other areas'
+					    //  ],
+	    //     data = [{
+	    //         y: percent,
+	    //         color: colors[0]
+	    //     }, {
+	    //         y: 100-percent,
+	    //         color: colors[1]
+	    //     }],
+	    //     mapChartSeriesData = [];
 
-	    // Build the data arrays
-	    for (var i = 0; i < data.length; i += 1) {
 
-	        // add browser data
-	        browserData.push({
-	            name: categories[i],
-	            y: data[i].y,
-	            color: data[i].color
-	        });
-	    }
+	    // // Build the data arrays
+	    // for (var i = 0; i < 2; i++) {
+
+	    //     mapChartSeriesData.push({
+	    //         name: categories[i],
+	    //         y: data[i].y,
+	    //         color: data[i].color
+	    //     });
+	    // }
+
+	    outerData = [{
+	    	name:  '% '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html() +' areas',
+            y: percent,
+            color: 'rgba(44,155,200,0.85)' // '#2c9bc8' // blue	
+	    },{
+			name: '%  aid in '+ $("#intro_form_option_1>option:selected").html() +' sectors',
+            y: Math.floor( (100-percent)*100 ) / 100,
+            color: colors[1]
+	    }]
+
+	    innerData = [{
+			name: '% all of aid in '+ $("#intro_form_option_1>option:selected").html() +' sector projects',
+            y: Math.floor( sector*100 ) / 100,
+            color: 'rgba(204,76,67,0.85)' // '#cc4345' //red
+	    },{
+			name: '% all aid in other sectors',
+            y: Math.floor( (100-sector)*100 ) / 100,
+            color: 'rgba(150,150,150,0.85)' // '#969696' // gray
+	    }]
 
 	    //chart obj
 	    var chart_options = {
@@ -393,9 +522,17 @@ $(document).ready(function(){
 	        },
 	        series: [ {
 	            name: 'Data',
-	            data: browserData,
-	            size: '220%',
-	            innerSize: '200%',
+	            data: outerData,
+	            size: '200%',
+	            innerSize: '180%',
+	            dataLabels: {
+	                enabled: false,
+	            }
+	        },
+	        {
+	            name: 'Center',
+	            data: innerData,
+	            size: '135%',
 	            dataLabels: {
 	                enabled: false,
 	            }
@@ -410,6 +547,12 @@ $(document).ready(function(){
 
 	    //render chart
 	    $(container).highcharts(chart_options);
+
+	    // add raw text
+	    // var html = raw;
+	    // $('#center_'+country).html( html );
+
+
 	}
 
 
@@ -564,11 +707,13 @@ $(document).ready(function(){
 
 
 	var grid_country = '',
-		old_country = '';
+		old_country = '',
+		country_type = '';
 
 	function mapClick(country){
 		old_country = grid_country;
     	grid_country = country;
+
 		$("#intro").hide();
 		$("#frontpage").hide();
 		$("#content").fadeIn("slow");
@@ -577,8 +722,20 @@ $(document).ready(function(){
 			map.remove();
 		}
 
+		switch (country) {
+			case 'Nepal':
+			case 'Uganda':
+			case 'Malawi':
+				country_type = 'old';
+				break;
+			case 'Senegal':
+			case 'Timor-Leste':
+				country_type = 'new';
+				break;
+		}
+
 		// if (old_country != grid_country){
-			$("#grid_logo div").css("background-image","url('/aiddata/imgs/"+country.toLowerCase()+"-outline.png')");
+			// $("#grid_logo div").css("background-image","url('/aiddata/imgs/"+country.toLowerCase()+"-outline.png')");
 			$("#grid_title, #grid_country").html(grid_country);
 			
 			mapInit();
@@ -640,7 +797,7 @@ $(document).ready(function(){
 		addPointData(grid_country, type);
 
 		// update charts
-	 	buildCharts(start_year, end_year, geojsonPoints, geojsonExtract);
+	 	buildCharts(start_year, end_year, geojsonPoints, country_type);
 
 	 	setTimeout(function(){ 
 	 		map.invalidateSize()
@@ -671,10 +828,11 @@ $(document).ready(function(){
 
 		map.setView([0,0], 1);
 
+		map.options.minZoom = 3;
 		map.options.maxZoom = 11;
 		// mapControlToggle(0);
 		
-	 	addCountry('../DET/resources/'+continent_list[grid_country].toLowerCase()+'/'+grid_country.toLowerCase()+'/shapefiles/Leaflet.geojson')
+	 	addCountry('../DET/resources/'+continent_list[grid_country].toLowerCase()+'/'+grid_country.toLowerCase()+'/shapefiles/ADM1/Leaflet.geojson')
 
 		//trigger initial form options
 		$("#grid_form_option_1").change();
@@ -693,6 +851,9 @@ $(document).ready(function(){
 	 		}
 	 		geojsonExtract = request;
 	 	})
+
+ 		// console.log(file)
+ 		// console.log(geojsonExtract)
 			
 		function style(feature) {
 		    return {
@@ -710,9 +871,10 @@ $(document).ready(function(){
 
 		map.addLayer(geojson, true);
 
+		// console.log(geojson.getBounds())
 		map.fitBounds( geojson.getBounds() );
 
-	 	window.dispatchEvent(new Event('resize'));
+	 	// window.dispatchEvent(new Event('resize'));
 	}
 	
 	function addPointData(country, pointType){
@@ -810,17 +972,18 @@ $(document).ready(function(){
 	};
 
 	//converts number to short num + string
-	function shortNum(num, dec){
+	function shortNum(num, dec, abbr){
+		abbr = ( abbr ? abbr : 0 )
 		var result;
 		var r = Math.pow(10, dec);
 	 	if (num > Math.pow(10,12)){
-	 		result = String(Math.floor(r * num / Math.pow(10,12)) / r) + " trillion";
+	 		result = String(Math.floor(r * num / Math.pow(10,12)) / r) + ( abbr == 1 ? "t" : " trillion" );
 	 	} else if (num > Math.pow(10,9)){
-	 		result = String(Math.floor(r * num / (Math.pow(10,9))) / r) + " billion";
+	 		result = String(Math.floor(r * num / (Math.pow(10,9))) / r) + ( abbr == 1 ? "b" : " billion" );
 	 	} else if (num > Math.pow(10,6)){
-	 		result = String(Math.floor(r * num / (Math.pow(10,6))) / r) + " million";
+	 		result = String(Math.floor(r * num / (Math.pow(10,6))) / r) + ( abbr == 1 ? "m" : " million" );
 	 	} else {
-	 		result = String(Math.floor(r * num / (Math.pow(10,3))) / r) + " thousand";
+	 		result = String(Math.floor(r * num / (Math.pow(10,3))) / r) + ( abbr == 1 ? "th" : " thousand" );
 	 	}
 	 	return result;
 	}

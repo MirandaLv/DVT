@@ -139,9 +139,7 @@
                   </div>
                </div>
             </li>
-            <li class="grid_container">
-               <div id="map"><!-- <div class="overlay_button"></div> --></div>
-            </li> 
+            <li class="grid_container"><div id="map"></div></li> 
             <!-- <li class="grid_container"><div id="chart1"></div></li> -->
             <li class="grid_container"><div id="chart2"></div></li>
             <li class="grid_container"><div id="chart3"></div></li>
@@ -151,13 +149,6 @@
 
       <div id="navbar_spacer"></div>
 
-   </div>
-
-   <!-- ================================================== -->
-
-
-   <div id="overlay">
-      <!-- <div id="overlay_content"></div> -->
    </div>
 
 
