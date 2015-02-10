@@ -33,19 +33,25 @@ function buildCharts(country, start, end, points){
 // ----------------------------------------------
 // build info
 
-	$("#info").html("Between " + start + " and " + end + " there are " + $("#grid_form_option_1").val() + " projects at " + points.features.length + " sites.");
+	$("#info1").html('Between ' + start + ' and ' + end + ' there are ' + $('#grid_form_option_1').val() + ' projects at ' + points.features.length + ' sites across '+country+'. Get the <a href="http://labs.aiddata.org/aiddata/home/datasets.php">raw data</a> or build you own subset of the data using our <a href="http://labs.aiddata.org/aiddata/DAT/">data access tool</a>.');
+
+    $("#info2").html('Want to explore the data more? Run a detailed analysis using the <a href="http://labs.aiddata.org/aiddata/DASH/">AidData DASH tool</a>. ');
 
 
 // ----------------------------------------------
-// build chart2
+// build donor aid pie chart
+    
+    var donor_aid_pie = {
+        limit: 10 // limit numbers of donors, rest are group into "Others" category
+    }
 
-	var data2prep = Object()
-
+    // build raw donor aid data from points geojson
+	donor_aid_pie.raw = {};
 	for ( var i=0, ix=points.features.length; i<ix; i++ ) {
 		var a = points.features[i].properties;
 
-		if ( !data2prep[ a[donor_field] ] ) {
-			data2prep[ a[donor_field] ] = 0.0;
+		if ( !donor_aid_pie.raw[ a[donor_field] ] ) {
+			donor_aid_pie.raw[ a[donor_field] ] = 0.0;
 		} 
 
 		var sum = 0;
@@ -57,36 +63,48 @@ function buildCharts(country, start, end, points){
 			sum = parseFloat(a.transaction_sum);
 		}
 
-		data2prep[ a[donor_field] ] +=  sum / parseInt(a[count_field]);
+		donor_aid_pie.raw[ a[donor_field] ] +=  sum / parseInt(a[count_field]);
 	}
 
-	var data2 = [],
-		keys = Object.keys(data2prep);
+    // sort raw
+    donor_aid_pie.sorted = [];
+    for (var item in donor_aid_pie.raw) {
+        donor_aid_pie.sorted.push([item, donor_aid_pie.raw[item]])
+    }
+    donor_aid_pie.sorted.sort(function(a, b) {return b[1] - a[1]})
 
-	for (var i=0;i<keys.length;i++){
+    // only use top x donors (defined by donor_aid_pie.limit), rest are group into "Others" category
+    donor_aid_pie.data = [];
+	for (var i=0;i<donor_aid_pie.sorted.length;i++){
 
-		var point = [ keys[i], data2prep[keys[i]] ];
-		data2.push(point);
+        if ( i < donor_aid_pie.limit ) {
+            var point = donor_aid_pie.sorted[i];
+    		donor_aid_pie.data.push(point);
+        } else if ( i == donor_aid_pie.limit ) {
+            var point = [ 'Other', donor_aid_pie.sorted[i][1] ];
+            donor_aid_pie.data.push(point);         
+        } else {
+            donor_aid_pie.data[donor_aid_pie.limit][1] += donor_aid_pie.sorted[i][1]
+        }
 
 	}
 
-
-    if (data2.length == 0){ 
+    // return if no data
+    if (donor_aid_pie.data.length == 0){ 
     	return 0;
     }
 
     var chart2 = {
         chart: {
-        	// width:500,
             plotBackgroundColor: null,
-            plotBorderWidth: 0,//null,
+            plotBorderWidth: 0,
             plotShadow: false,
             marginRight: 50,
-            backgroundColor: '#f37735'
+            backgroundColor: 'rgba(255,255,255,0)'//'#f37735'
 
         },
         title: {
-            text: 'Donor'
+            text: 'Top '+donor_aid_pie.limit+' Donors'
         },
         subtitle: {
             text: 'Commitments between ' + start + " and " + end
@@ -96,7 +114,10 @@ function buildCharts(country, start, end, points){
         },        
         credits:{
     		enabled:false
-    	},
+    	}, 
+        exporting: {
+            enabled: false
+        },
         plotOptions: {
             pie: {
                 allowPointSelect: true,
@@ -125,7 +146,7 @@ function buildCharts(country, start, end, points){
         series: [{
             type: 'pie',
             name: 'Donor',
-            data: data2
+            data: donor_aid_pie.data
         }]
     };
 
@@ -182,7 +203,7 @@ function buildCharts(country, start, end, points){
             // height: 700,
             spacingLeft: 10,
             marginRight: 100,
-            backgroundColor: '#ffc425'
+            backgroundColor: 'rgba(255,255,255,0)'//'#ffc425'
 
         },
         title: {
@@ -250,6 +271,9 @@ function buildCharts(country, start, end, points){
         },
         credits:{
         	enabled:false
+        }, 
+        exporting: {
+            enabled: false
         },
         series: [{
             name: 'Aid',

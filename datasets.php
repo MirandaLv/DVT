@@ -45,7 +45,7 @@
             <p class="description">AidData's Research Release 2.1 is a snapshot of the AidData's entire project-level database from  February 2012. This database includes over 1 million aid activities funded by more than 80 donors from the 1940s to present</p>
             <p class="link">Link: <a href="http://aiddata.org/aiddata-research-releases">Download</a></p>
          </div>  
-         <h3>PLAID Environmental Aid and Impact Codes dataset</h3>
+         <h3>PLAID Environmental Aid and Impact Codes Dataset</h3>
          <div>
             <p class="description">PLAID 1.9 was a precursor dataset to the modern AidData research releases and AidData web portal. Available here is the PLAID 1.9 dataset with environment codes used in Greening Aid?</p>
             <p class="link">Link: <a href="http://aiddata.org/aiddata-research-releases">Download</a></p>

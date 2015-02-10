@@ -98,7 +98,7 @@ $(document).ready(function(){
 			},
 			'Uganda': {
 				info: [1.5, 1.9],
-				line: [1.70, 1.66]
+				line: [1.67, 1.69]
 			},
 			'Malawi': {
 				info: [1.65, 1.15],
@@ -715,6 +715,8 @@ $(document).ready(function(){
 
 		$("#intro").hide();
 		$("#frontpage").hide();
+        $('html, body').animate({ scrollTop: 0 }, 0);
+
 		$("#content").fadeIn("slow");
 
 		if (old_country != ''){

@@ -102,6 +102,7 @@
 
       <div id="grid_back">Return to Home</div>
 
+<!-- 
       <div id="grid_container">
          <ul id="grid">
             <li class="grid_container">
@@ -140,12 +141,66 @@
                </div>
             </li>
             <li class="grid_container"><div id="map"></div></li> 
-            <!-- <li class="grid_container"><div id="chart1"></div></li> -->
             <li class="grid_container"><div id="chart2"></div></li>
             <li class="grid_container"><div id="chart3"></div></li>
             <li class="grid_container"><div id="info_container"><div id="info"></div></div></li>
          </ul>       
       </div> 
+-->
+
+
+         <div id="grid">
+
+            <div class="grid_container">
+               <div id="grid_banner">
+                  <div id="grid_logo_container"><div id="grid_logo"><div></div></div></div> 
+                  <div id="grid_title"></div>
+                 
+               </div>
+            </div>
+
+            <div class="grid_container">          
+               <div id="grid_form">
+                  <div class="form">
+                     <span>In </span>
+                     <span id="grid_country"></span>
+                     <span>, there was </span>
+                     <span id="grid_variable1" class="variable">$-</span>
+                     <span> of recorded</span>
+                     <select id="grid_form_option_1" >
+                        <option value="Agriculture">agricultural</option>
+                        <option value="Health">health</option>
+                        <option value="Education">educational</option>  
+                        <option value="Industry">industrial</option>              
+                     </select>
+                     <span> aid in the past decade.</span>
+                     <span> Projects in </span>
+                     <select id="grid_form_option_2" >
+                        <option value="ec_per">low income</option>               
+                        <option value="ag_per">low yield</option>
+                        <option value="ur_per">urban</option>              
+                     </select>
+                     <span> areas received </span>
+                     <span id="grid_variable2" class="variable">-%</span>
+                     <span> of that aid.</span>
+
+                  </div>
+               </div>
+            </div>
+
+            <div class="grid_container"><div id="map"></div></div> 
+
+            <div class="grid_container"><div id="chart2"></div></div>
+
+            <div class="grid_container"><div class="info_container"><div id="info1" class="info_text"></div></div></div>
+
+            <div class="grid_container"><div id="chart3"></div></div>
+
+            <div class="grid_container"><div class="info_container"><div id="info2" class="info_text"></div></div></div>
+
+
+         </div>       
+
 
       <div id="navbar_spacer"></div>
 
