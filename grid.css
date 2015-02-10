@@ -15,8 +15,8 @@
     font-size: 20px;
     background: green;
     position: fixed;
-    right: 10px;
-    top: 10px;
+    right: 5px;
+    top: 5px;
     z-index: 99999;
     padding-top: 2.5px;
     cursor: pointer;
@@ -49,7 +49,7 @@
         margin: 5px 5px 0 0; 
         padding: 1px; 
         float: left; 
-        width:49%;
+        width:99%;
         height: 400px; 
         font-size: 4em; 
         text-align: center; 
@@ -208,48 +208,3 @@
                 vertical-align: middle;
                 text-align: left;
             }
-
-
-/*----------------------------------------------------------------------------*/
-
-
-.overlay_button{
-    width: 25px;
-    height: 25px;
-    background: rgba(255,0,0,0.9);
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    z-index: 5;
-}
-
-.overlay_button:hover{
-    background: rgba(0,0,255,0.9);
-}
-
-
-#overlay{
-    display: none;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    position: fixed;
-    top:0%;
-    left:0%;
-    z-index: 999;
-}
-
-.overlay_active{
-    display: block;
-}
-
-.overlay_content{
-    text-align: center;
-    width:75%;
-    height: 75%;
-    z-index: 1000;
-    position: fixed;
-    top:12.5%;
-    left:12.5%;
-}
-

@@ -93,24 +93,24 @@ $(document).ready(function(){
 		countryLine = {},
 		countryDims = {
 			'Nepal': {
-				info: [1.2, 2.9],
-				line: [1.34, 2.3]
+				info: [1.3, 3.5],
+				line: [1.36, 2.35]
 			},
 			'Uganda': {
-				info: [1.5, 2.0],
-				line: [1.68, 1.65]
+				info: [1.5, 1.9],
+				line: [1.70, 1.66]
 			},
 			'Malawi': {
-				info: [1.45, 1.35],
+				info: [1.65, 1.15],
 				line: [1.67, 1.43]
 			},
 			'Senegal': {
 				info: [2.6, 2.6],
-				line: [2.2, 2.0]
+				line: [2.2, 1.99]
 			},
 			'Timor-Leste': {
-				info: [1.28, 1.12],
-				line: [1.17, 1.52]
+				info: [1.35, 1.4],
+				line: [1.175, 1.52]
 			}
 		};
 		// info_Nepal, info_Uganda, info_Malawi,
@@ -523,8 +523,8 @@ $(document).ready(function(){
 	        series: [ {
 	            name: 'Data',
 	            data: outerData,
-	            size: '200%',
-	            innerSize: '180%',
+	            size: '165%',
+	            innerSize: '150%',
 	            dataLabels: {
 	                enabled: false,
 	            }
@@ -532,7 +532,7 @@ $(document).ready(function(){
 	        {
 	            name: 'Center',
 	            data: innerData,
-	            size: '135%',
+	            size: '100%',
 	            dataLabels: {
 	                enabled: false,
 	            }
@@ -707,8 +707,7 @@ $(document).ready(function(){
 
 
 	var grid_country = '',
-		old_country = '',
-		country_type = '';
+		old_country = '';
 
 	function mapClick(country){
 		old_country = grid_country;
@@ -720,18 +719,6 @@ $(document).ready(function(){
 
 		if (old_country != ''){
 			map.remove();
-		}
-
-		switch (country) {
-			case 'Nepal':
-			case 'Uganda':
-			case 'Malawi':
-				country_type = 'old';
-				break;
-			case 'Senegal':
-			case 'Timor-Leste':
-				country_type = 'new';
-				break;
 		}
 
 		// if (old_country != grid_country){
@@ -765,7 +752,7 @@ $(document).ready(function(){
 
 	// init year range
 	start_year = 2005;
-	end_year = 2013;
+	end_year = 2014;
 
 	//init "grid" style functionallity
 	// $("#grid").sortable({
@@ -793,17 +780,18 @@ $(document).ready(function(){
 	 	var percent = form_data[grid_country][type][sub].toLocaleString();
 	 	$("#grid_variable2").text(percent + "%");
 
-	 	//update map
-		addPointData(grid_country, type);
+		if ( $(this).attr('id') == 'grid_form_option_1' ) {
+		 	//update map
+			addPointData(grid_country, type);
 
-		// update charts
-	 	buildCharts(start_year, end_year, geojsonPoints, country_type);
+			// update charts
+		 	buildCharts(grid_country, start_year, end_year, geojsonPoints);
 
-	 	setTimeout(function(){ 
-	 		map.invalidateSize()
-		 	window.dispatchEvent(new Event('resize'))
-	 	}, 2000);
- 
+		 	setTimeout(function(){ 
+		 		map.invalidateSize()
+			 	window.dispatchEvent(new Event('resize'))
+		 	}, 2000);
+	 	}
 	});
 
 	// return to landing page from country page
@@ -894,7 +882,7 @@ $(document).ready(function(){
 			return 1;
 		} 
 
-		console.log(country, pointType, start_year, end_year)
+		// console.log(country, pointType, start_year, end_year)
 
 		markers = new L.MarkerClusterGroup({
 			disableClusteringAtZoom: 10//8

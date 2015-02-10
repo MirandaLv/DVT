@@ -1,17 +1,43 @@
-function buildCharts(start, end, points, country_type){
+function buildCharts(country, start, end, points){
 
-	$("#info").html("Between " + start + " and " + end + " there are " + $("#grid_form_option_1").val() + " projects at " + points.features.length + " sites.");
+	// console.log(country);
+	// console.log(start);
+	// console.log(end);
+	// console.log(points);
+
+	var country_type;
+	switch (country) {
+		case 'Nepal':
+		case 'Uganda':
+		case 'Malawi':
+			country_type = 'old';
+			break;
+		case 'Senegal':
+		case 'Timor-Leste':
+			country_type = 'new';
+			break;
+	}
+
 	
 	var donor_field, count_field;
 
-	if ( country_type == 'old' ) {
-		donor_field = 'donor';
-		count_field = 'count';
-	} else {
+	// if ( country_type == 'old' ) {
+		// donor_field = 'donor';
+		// count_field = 'count';
+	// } else {
 		donor_field = 'donors';
 		count_field = 'location_count';
-	}
+	// }
 
+
+// ----------------------------------------------
+// build info
+
+	$("#info").html("Between " + start + " and " + end + " there are " + $("#grid_form_option_1").val() + " projects at " + points.features.length + " sites.");
+
+
+// ----------------------------------------------
+// build chart2
 
 	var data2prep = Object()
 
@@ -25,9 +51,8 @@ function buildCharts(start, end, points, country_type){
 		var sum = 0;
 
 		if (country_type == 'old') {
-			for (var j=start;j<=end;j++){
-				sum += ( parseFloat(a["d_"+j]) );
-			}
+			sum = parseFloat(a.total_commitments);
+			
 		} else {
 			sum = parseFloat(a.transaction_sum);
 		}
@@ -107,7 +132,8 @@ function buildCharts(start, end, points, country_type){
 	$('#chart2').highcharts( chart2 );
 
 
-
+// ----------------------------------------------
+// build chart3
 
 	var data3prep = Object()
 
@@ -123,9 +149,8 @@ function buildCharts(start, end, points, country_type){
 		var sum = 0
 
 		if (country_type == 'old') {
-			for (var j=start;j<=end;j++){
-				sum += ( parseFloat(a["d_"+j]) )
-			}
+            sum = parseFloat(a.total_commitments);
+
 		} else {
 			sum = parseFloat(a.transaction_sum)
 		}
