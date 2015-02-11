@@ -30,23 +30,18 @@
 
 /*----------------------------------------------------------------------------*/
 
-#grid_container{}
+.grid_container{
+    clear:both;
+}
 
     #grid{
         background: rgb(223,223,223);
         margin: 50px 5%;
     }
 
-    .grid_container{
-
-    }
-        .grid_container>div{
-            height: 100%;
-        }
-
         #grid_banner{
             width:100%;
-            height: 400px;
+            height: 250px;
             position: relative;
             font-size: 4em; 
             text-align: center; 
@@ -59,7 +54,7 @@
                 left:0;
                 color:black;
                 font-size: 200px; 
-                line-height: 400px;
+                line-height: 250px;
                 text-align: center;
                 vertical-align: center;
                 font-family: 'Abel', sans-serif;
@@ -122,7 +117,7 @@
 
         .info_container{
             width:100%;
-            height: 300px;
+            height: 200px;
             display: table;
             padding: 50px 100px;
             background: rgb(100,100,100);
@@ -133,7 +128,15 @@
                 text-align: left;
                 font-family: 'Oswald', sans-serif;
                 font-size: 40px; 
+                color:white;
             }
+                .info_text a {
+                    color: rgb(66,139,202);
+                }
+                .info_text a:hover {
+                    color: rgb(66,139,202);
+                    text-decoration: underline;
+                }
 
 
 /*----------------------------------------------------------------------------*/
@@ -266,6 +269,7 @@
 
         #map { 
             width: 100%;
+            height:400px;
             display:inline-block;
         }
 

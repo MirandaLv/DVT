@@ -42,7 +42,9 @@
                   <option value="Agriculture">agricultural</option>
                   <option value="Health">health</option>
                   <option value="Education">educational</option>  
-                  <option value="Industry">industrial</option>                            
+                  <option value="Industry">industrial</option> 
+                  <option value="Water">water</option>                            
+                           
                </select>
                <span> aid in the last decade.</span>
 
@@ -153,7 +155,7 @@
 
             <div class="grid_container">
                <div id="grid_banner">
-                  <div id="grid_logo_container"><div id="grid_logo"><div></div></div></div> 
+                  <!-- <div id="grid_logo_container"><div id="grid_logo"><div></div></div></div>  -->
                   <div id="grid_title"></div>
                  
                </div>
@@ -171,7 +173,8 @@
                         <option value="Agriculture">agricultural</option>
                         <option value="Health">health</option>
                         <option value="Education">educational</option>  
-                        <option value="Industry">industrial</option>              
+                        <option value="Industry">industrial</option>   
+                        <option value="Water">water</option>                            
                      </select>
                      <span> aid in the past decade.</span>
                      <span> Projects in </span>
@@ -190,14 +193,9 @@
 
             <div class="grid_container"><div id="map"></div></div> 
 
-            <div class="grid_container"><div id="chart2"></div></div>
+            <div id="grid_temp">
 
-            <div class="grid_container"><div class="info_container"><div id="info1" class="info_text"></div></div></div>
-
-            <div class="grid_container"><div id="chart3"></div></div>
-
-            <div class="grid_container"><div class="info_container"><div id="info2" class="info_text"></div></div></div>
-
+            </div>
 
          </div>       
 
@@ -245,9 +243,11 @@
 
    <script src="/aiddata/libs/jquery.jcarousel.min.js"></script>
 
-   <script src="charts.js"></script>
+   <!-- // <script src="charts.js"></script> -->
 
    <script src="index.js"></script> 
+
+
 
 
 </body>

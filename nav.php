@@ -52,56 +52,51 @@
 
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Access <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-              <li class="dropdown-header">Data Access</li>
+
+              <li class="dropdown-header">Get Data</li>
               <li><a href="/aiddata/DET/www/det.php">Data Extraction Tool (DET) </a></li>
-              <li><a href="/aiddata/DET_TEST/www/det.php">DET_TEST</a></li>
               <li><a href="/aiddata/PET">Point Extraction Tool (PET)</a></li>
               <li><a href="/aiddata/DAT">Data Access Tool (DAT)</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Data Upload</li>
-              <li><a href="/aiddata/DET/AMU/home">Application Management Utility for DET</a></li>
-              <li><a href="/aiddata/DET_TEST/AMU/home">AMU for DET_TEST</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Visualizations</li>
-              <li><a href="/aiddata/DASH">DASH</a></li>
-              <li><a href="/aiddata/MAT">Map Analysis Tool</a></li>
-              <li><a href="/aiddata/DVT/leaflet_05">Data Visualization Tool</a></li>
-              <li><a href="/aiddata/DVT3/www">DVT3</a></li>
-              <li><a href="/aiddata/grid/www">Grid</a></li>
+              <li><a href="/aiddata/home/datasets.php">AidData Datasets</a></li>
+
           </ul>
         </li>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Media <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Analysis <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-              <li class="dropdown-header">Papers</li>
-              <li><a href="#">Paper About Stuff. Author</a></li>
-              <li><a href="#">Paper About Stuff. Author</a></li>
+
+              <li class="dropdown-header">Internal</li>
+              <li><a href="/aiddata/DASH">DASH</a></li>
               <li class="divider"></li>
-              <li class="dropdown-header">Articles</li>
+
+
+              <li class="dropdown-header">External</li>
+              <li><a href="/aiddata/CCB/test">Center for Conservation Biology</a></li>
+
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Awareness <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+
+              <li class="dropdown-header">Media</li>
+              <li><a href="#">Paper About Stuff. Author</a></li>
               <li><a href="#">Article on Site. Author</a></li>
-              <li><a href="#">Article on Site. Author</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Other</li>
               <li><a href="#">Blog Post About Things</a></li>
               <li><a href="#">Link to Event</a></li>
-          </ul>
-        </li>
+              <li class="divider"></li>
 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
               <li class="dropdown-header">Research</li>
               <li><a href="#">Evaluating the Impact of Open Aid Data</a></li>
               <li class="divider"></li>
-              <li class="dropdown-header">Tools</li>
-              <li><a href="/aiddata/CCB/test">Center for Conservation Biology</a></li>
-              <li><a href="/aiddata/STC/www">Save the Children</a></li>
-              <li class="divider"></li>
+
               <li class="dropdown-header">Outreach</li>
               <li><a href="#">New Data Collection Methods</a></li>
+
           </ul>
         </li>
 
