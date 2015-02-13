@@ -202,6 +202,7 @@ $(document).ready(function(){
 					$(this).attr("class", updateClass);
 				}
 			});
+			$(this).find('.highcharts-tooltip').css('z-index','999');
 		}, function(){
 			var title = $(this).parent().attr("title")
 			$(".map_countrySelected").each(function(){
@@ -209,6 +210,8 @@ $(document).ready(function(){
 					$(this).attr("class", "map_country map_countrySelected");
 				}
 			});
+			$(this).find('.highcharts-tooltip').css('z-index','0');
+
 		}
 	);
 
@@ -396,8 +399,9 @@ $(document).ready(function(){
 	        	hideDelay: 0.5,
 	        	pointFormat: '<b>{point.y}</b>',
 	            valueSuffix: '%',
+	            useHTML: true,
 	            positioner: function () {
-	                return { x: -30, y: -60 };
+	                return { x: -40, y: -60 };
 	            },
 	        },
 	        series: [ {

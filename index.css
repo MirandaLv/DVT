@@ -252,18 +252,23 @@ a:hover{
         position: absolute;
         top:2.5px;
         left:2.5px;
-        /*z-index: 1;*/
+        z-index: 1;
     }
 
         .highcharts-container,
         .highcharts-container svg {
             overflow: visible !important;
-            position: inherit !important;
+            /*position: inherit !important;*/
+            z-index: 0 !important;
+        }
+
+        .highcharts-container:hover { 
+            /*z-index: 99 !important; */
         }
 
         .highcharts-tooltip {
             /*position: relative;*/
-            /*z-index: 99;*/
+            z-index: 99 !important;
         }
 
 
