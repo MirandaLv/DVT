@@ -31,7 +31,16 @@ $(document).ready(function(){
  			return 1;
  		}
  		builder_data = request;
+
+ 		$('.form_option_2').each(function () {
+ 			var html = '';
+ 			for (var i=0, ix=builder_data.raster_data.length; i<ix; i++) {
+ 				html += '<option value="per_'+builder_data.raster_data[i].name+'">'+builder_data.raster_data[i].form+'</option>'
+ 			}
+ 			$(this).html(html);
+ 		})
  	})
+
 
 	//--------------------------------------------------
 	// form
@@ -46,15 +55,13 @@ $(document).ready(function(){
 	 	$("#grid_form_option_1").val(type);
 	 	$("#grid_form_option_2").val(sub);
 
-	 	var total = form_data["Global"][type]["total"];
-	 	var percent = form_data["Global"][type][sub];
+	 	var total = ( form_data["Global"][type]["total"] ? '$' + shortNum(form_data["Global"][type]["total"],2) : 'No Data' );
+	 	var percent = ( form_data["Global"][type][sub] ? form_data["Global"][type][sub] + '%' : 'No Data' );
 	 	
-	 	total = shortNum(total, 2);
+	 	$("#intro_variable1").text(total);
+	 	$("#intro_variable2").text(percent);
 
-	 	$("#intro_variable1").text("$"+total);
-	 	$("#intro_variable2").text(percent + "%");
-
-	 	countryMapChart(form_data, type, sub);
+	 	countryMapChart(type, sub);
 	});
 
 
@@ -100,39 +107,7 @@ $(document).ready(function(){
 	// init
 	var countryInfo = {},
 		countryLine = {},
-		countryData =builder_data.country_data
-		// countryData = {
-		// 	'Nepal': {
-		// 		info: [1.3, 3.5],
-		// 		line: [1.36, 2.35],
-		// 		continent: 'Asia',
-		// 		type: 'old'
-		// 	},
-		// 	'Uganda': {
-		// 		info: [1.5, 1.9],
-		// 		line: [1.67, 1.69],
-		// 		continent: 'Africa',
-		// 		type: 'old'
-		// 	},
-		// 	'Malawi': {
-		// 		info: [1.65, 1.15],
-		// 		line: [1.67, 1.43],
-		// 		continent: 'Africa',
-		// 		type: 'old'
-		// 	},
-		// 	'Senegal': {
-		// 		info: [2.6, 2.6],
-		// 		line: [2.2, 1.99],
-		// 		continent: 'Africa',
-		// 		type: 'new'
-		// 	},
-		// 	'Timor-Leste': {
-		// 		info: [1.35, 1.4],
-		// 		line: [1.175, 1.52],
-		// 		continent: 'Asia',
-		// 		type: 'new'
-		// 	}
-		// };
+		countryData = builder_data.country_data;
 
 	// initialize map info containers
 	buildCountryInfo("init");
@@ -165,7 +140,7 @@ $(document).ready(function(){
     	var keys = _.keys(countryData);
     	for (var i=0, ix=keys.length; i<ix; i++) {
     		var country = keys[i];
-			countryInfo[country].attr("style", "left:" + (width/ countryData[country].info[0] - 40) + "px; top:" + (height/countryData[country].info[1] - 40) + "px;");
+			countryInfo[country].attr("style", "left:" + (width * countryData[country].info[0] - 40) + "px; top:" + (height * countryData[country].info[1] - 40) + "px;");
 		}
 
 
@@ -187,28 +162,27 @@ $(document).ready(function(){
     	var keys = _.keys(countryData);
     	for (var i=0, ix=keys.length; i<ix; i++) {
     		var country = keys[i];
-			countryLine[country].attr("x1", width/ countryData[country].line[0] ).attr("y1", height/ countryData[country].line[1] )
-								.attr("x2", width/ countryData[country].info[0] ).attr("y2", height/ countryData[country].info[1] );
+			countryLine[country].attr("x1", width * countryData[country].line[0] ).attr("y1", height * countryData[country].line[1] )
+								.attr("x2", width * countryData[country].info[0] ).attr("y2", height * countryData[country].info[1] );
 		}
 	}
 
 	// manages building and updating of map charts
-	function countryMapChart(form_data, type, sub){
+	function countryMapChart(type, sub){
 
-		var percent = {},
+		var area = {},
 			sector = {},
 			raw = {};
 
 		var keys = _.keys(countryData);
     	for (var i=0, ix=keys.length; i<ix; i++) {
     		var country = keys[i];
-			percent[country] = form_data[country][type][sub];
+
+			area[country] = form_data[country][type][sub];
 
 			sector[country] = 100 * form_data[country][type].total /  form_data[country].Total.total;
 
-			raw[country] = shortNum(form_data[country][type].total, 0, 1);
-
-			buildMapChart(country, percent[country], sector[country], raw[country]);
+			buildMapChart(country, area[country], sector[country]);
 		}
 
 	}
@@ -347,7 +321,7 @@ $(document).ready(function(){
 
 
 	// builds map charts
-    function buildMapChart(country, percent, sector, raw){
+    function buildMapChart(country, area, sector){
 
     	var container = '#chart_'+country;
 
@@ -356,12 +330,12 @@ $(document).ready(function(){
 			outerData, innerData;
 
 	    outerData = [{
-	    	name:  '% '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html() +' areas',
-            y: percent,
+	    	name:  '% '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html(),
+            y: area,
             color: 'rgba(44,155,200,0.85)' // '#2c9bc8' // blue	
 	    },{
 			name: '% '+ $("#intro_form_option_1>option:selected").html() +' aid in other areas',
-            y: Math.floor( (100-percent)*100 ) / 100,
+            y: Math.floor( (100-area)*100 ) / 100,
             color: colors[1]
 	    }]
 
@@ -674,14 +648,11 @@ $(document).ready(function(){
 		$("#intro_form_option_1").change();
 		
 	 	// update form
-	 	var total = form_data[grid_country][type]["total"];
+	 	var total = ( form_data[grid_country][type]["total"] ? '$' + shortNum(form_data[grid_country][type]["total"],2) : 'No Data' );
+	 	var percent = ( form_data[grid_country][type][sub] ? form_data[grid_country][type][sub] + '%' : 'No Data' );
 	 	
-	 	total = shortNum(total,2);
-
-	 	$("#grid_variable1").text("$"+total);
-
-	 	var percent = form_data[grid_country][type][sub].toLocaleString();
-	 	$("#grid_variable2").text(percent + "%");
+	 	$("#grid_variable1").text(total);
+	 	$("#grid_variable2").text(percent);
 
 		if ( $(this).attr('id') == 'grid_form_option_1' ) {
 		 	//update map
@@ -921,6 +892,28 @@ $(document).ready(function(){
 
         var form_summary_column = {};
 
+        form_summary_column.series = [{
+                name: 'Sector',
+                data: [ form_data[country]['Agriculture']['total'], form_data[country]['Education']['total'], form_data[country]['Health']['total'], form_data[country]['Industry']['total'], form_data[country]['Water']['total'] ],
+                pointPadding: 0.2,
+                pointPlacement: 0.0
+            }, {
+                name: builder_data.raster_data[0].form,
+                data: [ form_data[country]['Agriculture']['tot_'+builder_data.raster_data[0].name], form_data[country]['Education']['tot_'+builder_data.raster_data[0].name], form_data[country]['Health']['tot_'+builder_data.raster_data[0].name], form_data[country]['Industry']['tot_'+builder_data.raster_data[0].name], form_data[country]['Water']['tot_'+builder_data.raster_data[0].name] ],
+                pointPadding: 0.45,
+                pointPlacement: -0.1
+            }, {
+                name:  builder_data.raster_data[1].form,
+                data: [ form_data[country]['Agriculture']['tot_'+builder_data.raster_data[1].name], form_data[country]['Education']['tot_'+builder_data.raster_data[1].name], form_data[country]['Health']['tot_'+builder_data.raster_data[1].name], form_data[country]['Industry']['tot_'+builder_data.raster_data[1].name], form_data[country]['Water']['tot_'+builder_data.raster_data[1].name] ],
+                pointPadding: 0.45,
+                pointPlacement: 0.0,
+            }, {
+                name:  builder_data.raster_data[2].form,
+                data: [ form_data[country]['Agriculture']['tot_'+builder_data.raster_data[2].name], form_data[country]['Education']['tot_'+builder_data.raster_data[2].name], form_data[country]['Health']['tot_'+builder_data.raster_data[2].name], form_data[country]['Industry']['tot_'+builder_data.raster_data[2].name], form_data[country]['Water']['tot_'+builder_data.raster_data[2].name] ],
+                pointPadding: 0.45,
+                pointPlacement: 0.1,
+            }]
+
         form_summary_column.chart = {
             chart: {
                 type: 'column',
@@ -966,27 +959,7 @@ $(document).ready(function(){
                     borderWidth: 0
                 }
             },
-            series: [{
-                name: 'Sector',
-                data: [ form_data[country]['Agriculture']['total'], form_data[country]['Education']['total'], form_data[country]['Health']['total'], form_data[country]['Industry']['total'], form_data[country]['Water']['total'] ],
-                pointPadding: 0.2,
-                pointPlacement: 0.0
-            }, {
-                name: 'Low Income Areas',
-                data: [ form_data[country]['Agriculture']['ec_tot'], form_data[country]['Education']['ec_tot'], form_data[country]['Health']['ec_tot'], form_data[country]['Industry']['ec_tot'], form_data[country]['Water']['ec_tot'] ],
-                pointPadding: 0.45,
-                pointPlacement: -0.1
-            }, {
-                name: 'Low Yield Areas',
-                data: [ form_data[country]['Agriculture']['ag_tot'], form_data[country]['Education']['ag_tot'], form_data[country]['Health']['ag_tot'], form_data[country]['Industry']['ag_tot'], form_data[country]['Water']['ag_tot'] ],
-                pointPadding: 0.45,
-                pointPlacement: 0.0,
-            }, {
-                name: 'Urban Areas',
-                data: [ form_data[country]['Agriculture']['ur_tot'], form_data[country]['Education']['ur_tot'], form_data[country]['Health']['ur_tot'], form_data[country]['Industry']['ur_tot'], form_data[country]['Water']['ur_tot'] ],
-                pointPadding: 0.45,
-                pointPlacement: 0.1,
-            }]
+            series: form_summary_column.series
         };
 
 	    // ----------------------------------------------

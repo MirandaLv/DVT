@@ -47,11 +47,11 @@
             text-align: center; 
         }
             #grid_title{
-                float:left;
+                /*float:left;*/
                 width: 100%; 
-                position:absolute;
+              /*  position:absolute;
                 top:0;
-                left:0;
+                left:0;*/
                 color:black;
                 font-size: 150px; 
                 line-height: 250px;
@@ -62,7 +62,6 @@
                 text-decoration: underline;
                 -moz-text-decoration-color: green;
                 text-decoration-color: green;
-                z-index: 2;
             }
             #grid_logo_container{
                 width:100%;
