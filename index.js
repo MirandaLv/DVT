@@ -49,19 +49,19 @@ $(document).ready(function(){
 
 	$("#intro_form select").on("change", function(){
 
-	 	var type = $('#intro_form_option_1').val();
-	 	var sub = $('#intro_form_option_2').val();
+	 	var f_sector = $('#intro_form_option_1').val();
+	 	var f_aoi = $('#intro_form_option_2').val();
 
-	 	$("#grid_form_option_1").val(type);
-	 	$("#grid_form_option_2").val(sub);
+	 	$("#grid_form_option_1").val(f_sector);
+	 	$("#grid_form_option_2").val(f_aoi);
 
-	 	var total = ( form_data["Global"][type]["total"] ? '$' + shortNum(form_data["Global"][type]["total"],2) : 'No Data' );
-	 	var percent = ( form_data["Global"][type][sub] ? form_data["Global"][type][sub] + '%' : 'No Data' );
+	 	var total = ( form_data["Global"][f_sector]["total"] ? '$' + shortNum(form_data["Global"][f_sector]["total"],2) : 'No Data' );
+	 	var percent = ( form_data["Global"][f_sector][f_aoi] ? form_data["Global"][f_sector][f_aoi] + '%' : 'No Data' );
 	 	
 	 	$("#intro_variable1").text(total);
 	 	$("#intro_variable2").text(percent);
 
-	 	countryMapChart(type, sub);
+	 	countryMapChart(f_sector, f_aoi);
 	});
 
 
@@ -168,7 +168,7 @@ $(document).ready(function(){
 	}
 
 	// manages building and updating of map charts
-	function countryMapChart(type, sub){
+	function countryMapChart(f_sector, f_aoi){
 
 		var area = {},
 			sector = {},
@@ -178,11 +178,13 @@ $(document).ready(function(){
     	for (var i=0, ix=keys.length; i<ix; i++) {
     		var country = keys[i];
 
-			area[country] = form_data[country][type][sub];
 
-			sector[country] = 100 * form_data[country][type].total /  form_data[country].Total.total;
+			sector[country] = 100 * form_data[country][f_sector].total /  form_data[country].Total.total;
 
-			buildMapChart(country, area[country], sector[country]);
+			area[country] = form_data[country][f_sector][f_aoi];
+
+
+			buildMapChart(country, sector[country], area[country]);
 		}
 
 	}
@@ -324,7 +326,7 @@ $(document).ready(function(){
 
 
 	// builds map charts
-    function buildMapChart(country, area, sector){
+    function buildMapChart(country, sector, area){
 
     	var container = '#chart_'+country;
 
@@ -332,6 +334,7 @@ $(document).ready(function(){
 		var colors = Highcharts.getOptions().colors,
 			outerData, innerData;
 
+		// aoi
 	    outerData = [{
 	    	name:  '% '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html(),
             y: area,
@@ -342,6 +345,22 @@ $(document).ready(function(){
             color: colors[1]
 	    }]
 
+	    // check for no_data flag in builder_data.json
+	    console.log(builder_data['no_data'][country][$("#intro_form_option_1").val()])
+	    console.log($("#intro_form_option_2").val().substr(4))
+	    if ( builder_data['no_data'][country][$("#intro_form_option_1").val()][$("#intro_form_option_2").val().substr(4)] == true) {
+		    outerData = [{
+		    	name:  'nodata',
+	            y: 0,
+	            color: 'black' 
+		    },{
+	    	name:  '% of '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html() +' <br>which we do not have reliable data on',
+	            y: 100,
+	            color: colors[3]
+		    }]
+	    }
+
+	    // sector
 	    innerData = [{
 			name: '% all of aid in '+ $("#intro_form_option_1>option:selected").html() +' sector projects',
             y: Math.floor( sector*100 ) / 100,
@@ -644,23 +663,23 @@ $(document).ready(function(){
 	$("#grid_form select").on("change", function(){
 
 		// get type and subtype
-	 	var type = $('#grid_form_option_1').val();
-	 	var sub = $('#grid_form_option_2').val();
+	 	var f_sector = $('#grid_form_option_1').val();
+	 	var f_aoi = $('#grid_form_option_2').val();
 
-		$("#intro_form_option_1").val(type);
-		$("#intro_form_option_2").val(sub);
+		$("#intro_form_option_1").val(f_sector);
+		$("#intro_form_option_2").val(f_aoi);
 		$("#intro_form_option_1").change();
 		
 	 	// update form
-	 	var total = ( form_data[grid_country][type]["total"] ? '$' + shortNum(form_data[grid_country][type]["total"],2) : 'No Data' );
-	 	var percent = ( form_data[grid_country][type][sub] ? form_data[grid_country][type][sub] + '%' : 'No Data' );
+	 	var total = ( form_data[grid_country][f_sector]["total"] ? '$' + shortNum(form_data[grid_country][f_sector]["total"],2) : 'No Data' );
+	 	var percent = ( form_data[grid_country][f_sector][f_aoi] ? form_data[grid_country][f_sector][f_aoi] + '%' : 'No Data' );
 	 	
 	 	$("#grid_variable1").text(total);
 	 	$("#grid_variable2").text(percent);
 
 		if ( $(this).attr('id') == 'grid_form_option_1' ) {
 		 	//update map
-			addPointData(grid_country, type);
+			addPointData(grid_country, f_sector);
 
 			// update charts
 		 	buildCharts(grid_country, start_year, end_year, geojsonPoints, countryData[grid_country].type);
