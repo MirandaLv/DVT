@@ -15,26 +15,30 @@ $(document).ready(function(){
 // landing page
 //--------------------------------------------------------------------------------------------------
 	
-	// file related vars
+	// ---------------
+	// vars init
+
+	// files
 	var fp,
 		carousel_init,
 		carousel_items,
  		form_data, 
  		builder_data;
 
-	// home map related vars
+	// home map
 	var margin, width, mapRatio, height, projection, path, svg,
 		countryInfo, countryLine, countryData;
 
-	// grid related vars
+	// grid
 	var old_country, grid_country,
 		start_year, end_year,
 		map, tiles, 
 		geojson, geojsonExtract,
 		markers, geojsonPoints;
 
+	// ---------------
+	// files init
 
-	// file paths
 	fp = {
 		'builder_data':         '../data/form/builder_data.json', 
 		'form_data': 			'../data/form/form_data.json',
@@ -77,6 +81,8 @@ $(document).ready(function(){
  		})
  	})
 
+	// ---------------
+	// home map init
 
 	margin = {top: 0, left: 0, bottom: 0, right: 0};
    	mapRatio = .448;
@@ -100,6 +106,8 @@ $(document).ready(function(){
 	// resize map when window size changes
 	d3.select(window).on("resize", sizeChange);
 	
+	// ---------------
+	// grid init
 
 	old_country = '';
 	grid_country = '';
@@ -108,6 +116,8 @@ $(document).ready(function(){
 	start_year = 2005;
 	end_year = 2014;
 
+	// ---------------
+	// hash checker
 
     // check hashtag on change and on page load
     $(window).on('hashchange', function () {
@@ -247,7 +257,6 @@ $(document).ready(function(){
 		path = d3.geo.path()
 		    .projection(projection);
 
-
 		if (call == "init") {
 
 			svg = d3.select("#intro_map").append("svg")
@@ -267,7 +276,6 @@ $(document).ready(function(){
 			// update map info/lines
 			buildCountryLines();
 		    buildCountryInfo();
-
 		}
 	}
 
@@ -296,9 +304,7 @@ $(document).ready(function(){
 			}
 
 			countryInfo[country].attr("style", "left:" + (width * countryData[country].info[0] - 40) + "px; top:" + (height * countryData[country].info[1] - 40) + "px;");
-
 		}
-		
 	}
 
 	// builds the lines connecting map countries to info boxes
@@ -833,7 +839,6 @@ $(document).ready(function(){
 	    // ----------------------------------------------
 	    // build form summary pie chart
 
-
         var form_summary_pie = {};
 
         form_summary_pie.chart = {
@@ -1232,13 +1237,11 @@ $(document).ready(function(){
                 name: 'Aid',
                 type: 'column',
                 yAxis: 1,
-                data: data3a//,
-
-
+                data: data3a
             }, {
                 name: 'Projects',
                 type: 'column',
-                data: data3b//,
+                data: data3b
             }]
         };
 
@@ -1287,7 +1290,7 @@ $(document).ready(function(){
 
 
 //--------------------------------------------------------------------------------------------------
-// misc functions
+// general functions
 //--------------------------------------------------------------------------------------------------
 
 
@@ -1324,6 +1327,10 @@ $(document).ready(function(){
 	 	}
 	 	return result;
 	}
+
+//--------------------------------------------------------------------------------------------------
+// hash functions
+//--------------------------------------------------------------------------------------------------
 
 	function checkHash() {
 		var hash = window.location.hash;
