@@ -36,7 +36,7 @@
 
     #grid{
         background: rgb(223,223,223);
-        margin: 50px 5%;
+        /*margin: 50px 0%;*/
     }
 
         #grid_banner{

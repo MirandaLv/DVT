@@ -1,13 +1,41 @@
 $(document).ready(function(){
 
 
+// procedure for adding a new country:
+
+// run importMongo script
+// add country to DET
+// add country to jcarousel.json
+// add country object to builder_data.json 
+// - set x,y (0-1, percent of width/height) for info and line (requires trial and error to find good fit)
+// - add continent and type (old for pre-senegal, new for senegal format)
+
+
 //--------------------------------------------------------------------------------------------------
 // landing page
 //--------------------------------------------------------------------------------------------------
+	
+	// file related vars
+	var fp,
+		carousel_init,
+		carousel_items,
+ 		form_data, 
+ 		builder_data;
+
+	// home map related vars
+	var margin, width, mapRatio, height, projection, path, svg,
+		countryInfo, countryLine, countryData;
+
+	// grid related vars
+	var old_country, grid_country,
+		start_year, end_year,
+		map, tiles, 
+		geojson, geojsonExtract,
+		markers, geojsonPoints;
 
 
-	// file paths (static)
-	var fp = {
+	// file paths
+	fp = {
 		'builder_data':         '../data/form/builder_data.json', 
 		'form_data': 			'../data/form/form_data.json',
 		'carousel_items': 		'jcarousel.json',
@@ -15,7 +43,16 @@ $(document).ready(function(){
 		'world-country-names':  '../data/world/world-country-names.tsv'
 	};
 
- 	var form_data;
+	carousel_init = true;
+
+	readJSON(fp["carousel_items"],  function (request, status, error){
+ 		if (error){
+ 			console.log(error);
+ 			return 1;
+ 		}
+ 		carousel_items = request;
+ 	})
+
  	readJSON(fp["form_data"], function (request, status, error){
  		if (error){
  			console.log(error);
@@ -24,7 +61,6 @@ $(document).ready(function(){
  		form_data = request;
  	})
 
- 	var builder_data;
  	readJSON(fp["builder_data"], function (request, status, error){
  		if (error){
  			console.log(error);
@@ -35,11 +71,48 @@ $(document).ready(function(){
  		$('.form_option_2').each(function () {
  			var html = '';
  			for (var i=0, ix=builder_data.raster_data.length; i<ix; i++) {
- 				html += '<option value="per_'+builder_data.raster_data[i].name+'">'+builder_data.raster_data[i].form+'</option>'
+ 				html += '<option value="per_'+builder_data.raster_data[i].name+'" '+( builder_data.raster_data[i].name == "Urban-Area" ? "selected" : "" )+'>'+builder_data.raster_data[i].form+'</option>'
  			}
  			$(this).html(html);
  		})
  	})
+
+
+	margin = {top: 0, left: 0, bottom: 0, right: 0};
+   	mapRatio = .448;
+
+   	// initialize map size
+   	sizeChange("init")
+
+	countryInfo = {};
+	countryLine = {};
+	countryData = builder_data.country_data;
+
+	// initialize info boxes at start
+	buildCountryInfo("init");
+
+	// load countries and names
+	queue()
+	    .defer(d3.json, fp["d3-world"])
+	    .defer(d3.tsv, fp["world-country-names"])
+	    .await(ready);
+
+	// resize map when window size changes
+	d3.select(window).on("resize", sizeChange);
+	
+
+	old_country = '';
+	grid_country = '';
+
+	// init year range
+	start_year = 2005;
+	end_year = 2014;
+
+
+    // check hashtag on change and on page load
+    $(window).on('hashchange', function () {
+    	checkHash();
+    });
 
 
 	//--------------------------------------------------
@@ -70,130 +143,6 @@ $(document).ready(function(){
 	//--------------------------------------------------
 
 
-	var margin = {top: 0, left: 0, bottom: 0, right: 0},
-	   	width = parseInt(d3.select('#intro_map').style('width')),
-	   	width = width - margin.left - margin.right,
-	   	mapRatio = .448,
-	   	height = width * mapRatio;
-
-	var projection = d3.geo.equirectangular()
-		.scale(width / 6.2)
-		.translate([ width / 2, width / 3.7]);
-
-	var path = d3.geo.path()
-	    .projection(projection);
-
-	var svg = d3.select("#intro_map").append("svg")
-	    .attr("width", width)
-	    .attr("height", height);
-
-
-// **********************************************
-// ************ UPDATE COUNTRY INFO *************
-// **********************************************
-	
-	// procedure for adding a new country:
-	
-	// EXTERNAL
-	// run importMongo script
-	// add country to DET
-	// add country to jcarousel.json
-	
-	// INTERNAL
-	// add country object to countryData 
-	// - set x,y for info and line (requires trial and error to find good fit)
-	// - add continent and type (old for pre-senegal, new for senegal format)
-
-	// init
-	var countryInfo = {},
-		countryLine = {},
-		countryData = builder_data.country_data;
-
-	// initialize map info containers
-	buildCountryInfo("init");
-
-	// initialize map info containers
-	function buildCountryInfo(call){
-
-		if (call == "init") {
-	
-	    	var keys = _.keys(countryData);
-	    	for (var i=0, ix=keys.length; i<ix; i++) {
-	    		var country = keys[i];
-	    		var html = '';
-
-	    		html += '<div class="map_info">';
-	    		html += '<div class="map_title"><a>'+country.toUpperCase()+'</a></div>';
-	    		// html += '<div class="map_image"></div>';
-	    		// html += '<div id="center_'+country+'" class="map_center"></div>';
-
-	    		html += '<div id="chart_'+country+'" class="map_chart"></div>';
-	    		html += '</div>';
-
-				countryInfo[country] = d3.select("#intro_map").append("div")
-						.attr("class", "map_info_container").attr("id","info_"+country).attr("title", country)
-						.html(html);
-			}
-
-		}
-
-    	var keys = _.keys(countryData);
-    	for (var i=0, ix=keys.length; i<ix; i++) {
-    		var country = keys[i];
-			countryInfo[country].attr("style", "left:" + (width * countryData[country].info[0] - 40) + "px; top:" + (height * countryData[country].info[1] - 40) + "px;");
-		}
-
-
-	}
-
-	function buildCountryLines(call){
-
-		if (call == "init") {
-
-	    	var keys = _.keys(countryData);
-	    	for (var i=0, ix=keys.length; i<ix; i++) {
-	    		var country = keys[i];
-				countryLine[country] = svg.append("line").attr("id","line_"+country).attr("class", "map_line")
-				   			   						     .attr("stroke", "black").attr("stroke-width", "1");
-			}
-
-		}
-
-    	var keys = _.keys(countryData);
-    	for (var i=0, ix=keys.length; i<ix; i++) {
-    		var country = keys[i];
-			countryLine[country].attr("x1", width * countryData[country].line[0] ).attr("y1", height * countryData[country].line[1] )
-								.attr("x2", width * countryData[country].info[0] ).attr("y2", height * countryData[country].info[1] );
-		}
-	}
-
-	// manages building and updating of map charts
-	function countryMapChart(f_sector, f_aoi){
-
-		var area = {},
-			sector = {},
-			raw = {};
-
-		var keys = _.keys(countryData);
-    	for (var i=0, ix=keys.length; i<ix; i++) {
-    		var country = keys[i];
-
-
-			sector[country] = 100 * form_data[country][f_sector].total /  form_data[country].Total.total;
-
-			area[country] = form_data[country][f_sector][f_aoi];
-
-
-			buildMapChart(country, sector[country], area[country]);
-		}
-
-	}
-
-// **********************************************
-// **********************************************
-// **********************************************
-
-
 	//link map info popups to map elements
 	$(".map_info").hover(
 		function(){
@@ -217,25 +166,15 @@ $(document).ready(function(){
 		}
 	);
 
-	// map info clicks -- TEMP DISABLED
+	// map info clicks
 	$(".map_info").on("click", function(){
     	var sel_country = $(this).parent().attr("title");
-	    mapClick(sel_country);
+	    loadCountryPage(sel_country);
     });
-
-
-	// load countries and names
-	queue()
-	    .defer(d3.json, fp["d3-world"])
-	    .defer(d3.tsv, fp["world-country-names"])
-	    .await(ready);
-
-	// resize map when window size changes
-	d3.select(window).on("resize", sizeChange);
-	
   
 	// build map
 	function ready(error, world, names) {
+
 		var countries = topojson.feature(world, world.objects.countries).features;
 
 		countries.forEach(function(d) {
@@ -254,7 +193,7 @@ $(document).ready(function(){
 	   
 		a = d3.selectAll(".map_countrySelected");
 	   
-		//link map elements to map info popups
+		// link map elements to map info popups
 		a.on("mouseenter", function(){
 			var title = $(this).attr("title");
 			$(".map_info").each(function(){
@@ -274,16 +213,18 @@ $(document).ready(function(){
 			})
 		});
 
-		// map element clicks -- TEMP DISABLED
+		// map element clicks
 	    a.on("click", function(){
 	        var sel_country = $(this).attr("title");
-   	   		mapClick(sel_country);
+   	   		loadCountryPage(sel_country);
 	    });
 
+		// initialize lines after map loads
 	    buildCountryLines("init");
+
 	}
 	 
-	//check if country is active (do we have data for it)
+	// check if country is in builder_data.json
 	function countrySpecific(d, i) {
 	    if ( countryData[d.name] ){
 	    	return 'map_country map_countrySelected';
@@ -292,38 +233,110 @@ $(document).ready(function(){
 	    }
 	}
 
-	// manage map and map info resizing
-	function sizeChange(){
+	// manage map, info, line resizing (and init)
+	function sizeChange(call){
 
-	    // adjust when the window size changes
-	    width = parseInt(d3.select('#intro_map').style('width'));
-	    width = width - margin.left - margin.right;
-	    height = width * mapRatio;
+	   	width = parseInt(d3.select('#intro_map').style('width'));
+	   	width = width - margin.left - margin.right;
+	   	height = width * mapRatio;
 
-	    // update projection
-	    projection
-	        .translate([width / 2, width / 3.7])
-	        .scale(width /6.2);
+		projection = d3.geo.equirectangular()
+			.scale(width / 6.2)
+			.translate([ width / 2, width / 3.7]);
 
-	    path = d3.geo.path()
-	    	.projection(projection);
-
-	    // resize the map container
-	    svg
-	        .style('width', width + 'px')
-	        .style('height', height + 'px');
-
-	    // resize the map
-	    svg.selectAll('.map_country').attr('d', path);
+		path = d3.geo.path()
+		    .projection(projection);
 
 
-	    // update map info box positions
-	    buildCountryInfo();
+		if (call == "init") {
 
-		// update map info lines
-		buildCountryLines();
+			svg = d3.select("#intro_map").append("svg")
+			    .attr("width", width)
+			    .attr("height", height);
+
+		} else {
+
+		    // resize the map container
+		    svg
+		        .style('width', width + 'px')
+		        .style('height', height + 'px');
+
+		    // resize the map
+		    svg.selectAll('.map_country').attr('d', path);
+
+			// update map info/lines
+			buildCountryLines();
+		    buildCountryInfo();
+
+		}
 	}
 
+	// build map country info boxes
+	function buildCountryInfo(call){
+	
+    	var keys = _.keys(countryData);
+    	for (var i=0, ix=keys.length; i<ix; i++) {
+    		var country = keys[i];
+
+			if (call == "init") {
+
+	    		var html = '';
+
+	    		html += '<div class="map_info">';
+	    		html += '<div class="map_title"><a>'+country.toUpperCase()+'</a></div>';
+	    		// html += '<div class="map_image"></div>';
+	    		// html += '<div id="center_'+country+'" class="map_center"></div>';
+
+	    		html += '<div id="chart_'+country+'" class="map_chart"></div>';
+	    		html += '</div>';
+
+				countryInfo[country] = d3.select("#intro_map").append("div")
+						.attr("class", "map_info_container").attr("id","info_"+country).attr("title", country)
+						.html(html);
+			}
+
+			countryInfo[country].attr("style", "left:" + (width * countryData[country].info[0] - 40) + "px; top:" + (height * countryData[country].info[1] - 40) + "px;");
+
+		}
+		
+	}
+
+	// builds the lines connecting map countries to info boxes
+	function buildCountryLines(call){
+
+    	var keys = _.keys(countryData);
+    	for (var i=0, ix=keys.length; i<ix; i++) {
+    		var country = keys[i];
+
+			if (call == "init") {
+
+				countryLine[country] = svg.append("line").attr("id","line_"+country).attr("class", "map_line")
+				   			   						     .attr("stroke", "black").attr("stroke-width", "1");
+			}
+
+			countryLine[country].attr("x1", width * countryData[country].line[0] ).attr("y1", height * countryData[country].line[1] )
+								.attr("x2", width * countryData[country].info[0] ).attr("y2", height * countryData[country].info[1] );
+		}
+	}
+
+	// manages building and updating of map charts
+	function countryMapChart(f_sector, f_aoi){
+
+		var area = {},
+			sector = {},
+			raw = {};
+
+		var keys = _.keys(countryData);
+    	for (var i=0, ix=keys.length; i<ix; i++) {
+    		var country = keys[i];
+
+			sector[country] = 100 * form_data[country][f_sector].total /  form_data[country].Total.total;
+
+			area[country] = form_data[country][f_sector][f_aoi];
+
+			buildMapChart(country, sector[country], area[country]);
+		}
+	}
 
 	// builds map charts
     function buildMapChart(country, sector, area){
@@ -346,8 +359,10 @@ $(document).ready(function(){
 	    }]
 
 	    // check for no_data flag in builder_data.json
-	    console.log(builder_data['no_data'][country][$("#intro_form_option_1").val()])
-	    console.log($("#intro_form_option_2").val().substr(4))
+
+	    // console.log(builder_data['no_data'][country][$("#intro_form_option_1").val()])
+	    // console.log($("#intro_form_option_2").val().substr(4))
+
 	    if ( builder_data['no_data'][country][$("#intro_form_option_1").val()][$("#intro_form_option_2").val().substr(4)] == true) {
 		    outerData = [{
 		    	name:  'nodata',
@@ -457,18 +472,6 @@ $(document).ready(function(){
 	// carousel and tabs
 	//--------------------------------------------------
 
-
-	var carousel_items;
-	readJSON(fp["carousel_items"],  function (request, status, error){
- 		if (error){
- 			console.log(error);
- 			return 1;
- 		}
- 		carousel_items = request;
- 	})
- 	// console.log(carousel_items);
-
-	var carousel_init = true;
 
     // manage tab selection
     $(".jcarousel-tab-container").on("click", function(){
@@ -592,57 +595,9 @@ $(document).ready(function(){
 
         $(".jcarousel-country a").on("click", function(){
             var sel_country = $(this).attr("title");
-            mapClick(sel_country);
+            loadCountryPage(sel_country);
         });
     }
-
-
-	//--------------------------------------------------
-	// load country page
-	//--------------------------------------------------
-
-
-	var grid_country = '',
-		old_country = '';
-
-	var start_year, end_year,
-		map, tiles, 
-		geojson, geojsonExtract,
-		markers, geojsonPoints;
-
-	// init year range
-	start_year = 2005;
-	end_year = 2014;
-
-	function mapClick(country){
-		old_country = grid_country;
-    	grid_country = country;
-
-		$("#intro").hide();
-		$("#frontpage").hide();
-        $('html, body').animate({ scrollTop: 0 }, 0);
-
-		$("#content").fadeIn("slow");
-
-		$(".map_countrySelected").each(function(){
-			if ($(this).attr("title")==country){
-				$(this).attr("class", "map_country map_countrySelected");
-			}
-		});
-
-		if (old_country != ''){
-			map.remove();
-		}
-
-		// if (old_country != grid_country){
-			// $("#grid_logo div").css("background-image","url('/aiddata/imgs/"+country.toLowerCase()+"-outline.png')");
-			$("#grid_title, #grid_country").html(grid_country);
-			
-			mapInit();
-		// }
-
-		window.dispatchEvent(new Event('resize'));
-	}
 
 
 	//--------------------------------------------------
@@ -654,10 +609,67 @@ $(document).ready(function(){
     $("#jcarousel-general").parent().trigger("click");
 
 
-	//--------------------------------------------------------------------------------------------------
-	// grid
-	//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
+// transitions
+//--------------------------------------------------------------------------------------------------
+
 		
+	function loadCountryPage(country, call){
+		old_country = grid_country;
+    	grid_country = country;
+
+		$("#intro").hide();
+		$("#content").show();
+        $('html, body').animate({ scrollTop: 0 }, 0);
+
+        if ( !call || call != 1 ) {
+			var stateObj = { page: "home" };
+			window.history.pushState(stateObj, "AidData Labs Home Page", "#"+country);
+		}
+	 	window.document.title = 'AidData Labs - '+country;
+
+		$(".map_countrySelected").each(function(){
+			if ($(this).attr("title") == country){
+				$(this).attr("class", "map_country map_countrySelected");
+			}
+		});
+
+		if (old_country != grid_country) {
+			if (map && old_country != ''){
+				map.remove();
+			}
+			$("#grid_title, #grid_country").html(grid_country);
+			mapInit();
+		}
+
+		window.dispatchEvent(new Event('resize'));
+	}
+
+
+	function loadHomePage(call) {
+		$("#content").hide();
+		$("#intro").show();
+        $('html, body').animate({ scrollTop: 0 }, 0);
+
+        if ( !call || call != 1 ) {
+			var stateObj = { page: "country" };
+			window.history.pushState(stateObj, "AidData Labs Home Page", "#home");
+		}
+		window.document.title = 'AidData Labs - v.Alpha';
+
+		window.dispatchEvent(new Event('resize'));
+	}
+
+
+//--------------------------------------------------------------------------------------------------
+// grid page
+//--------------------------------------------------------------------------------------------------
+
+	// grid page back button 
+	$("#grid_back").on("click", function(){
+
+		loadHomePage();
+	});
 
 	// natural form
 	$("#grid_form select").on("change", function(){
@@ -690,15 +702,6 @@ $(document).ready(function(){
 		 	}, 2000);
 	 	}
 	});
-
-	// return to landing page from country page
-	$("#grid_back").on("click", function(){
-		$("#content").hide();
-		$("#intro").show();
-		$("#frontpage").show();
-		window.dispatchEvent(new Event('resize'));
-	});
-
 
 	// initialize leaflet map and trigger initial form options
 	function mapInit(){
@@ -755,7 +758,6 @@ $(document).ready(function(){
 
 		map.addLayer(geojson, true);
 
-		// console.log(geojson.getBounds())
 		map.fitBounds( geojson.getBounds() );
 
 	 	// window.dispatchEvent(new Event('resize'));
@@ -1159,7 +1161,7 @@ $(document).ready(function(){
                 backgroundColor: 'rgba(255,255,255,0)'//'#ffc425'
             },
             title: {
-                text: 'Donor Aid and Numbers of Projects'
+                text: $('#grid_form_option_1').val()+' Sector Donor Aid and Numbers of Projects'
             },
             subtitle: {
                 text: '('+start+' - '+end+')'
@@ -1322,6 +1324,20 @@ $(document).ready(function(){
 	 	}
 	 	return result;
 	}
+
+	function checkHash() {
+		var hash = window.location.hash;
+		// console.log(hash)
+
+	    if ( hash != '' && hash != '#' && hash != '#home' && countryData[hash.substr(1)] ) {
+	    	var country = hash.substr(1);
+	    	loadCountryPage(country, 1);
+	    } else if (hash == '#home' || hash == '') {
+	    	loadHomePage(1);
+	    }
+	}
+
+    checkHash()
 
 
 });

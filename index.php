@@ -3,7 +3,7 @@
 
 <head>
    <meta charset="UTF-8">
-   <title>AidData R&D - v.Alpha</title> 
+   <title>AidData Labs - v.Alpha</title> 
 
    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
@@ -39,8 +39,8 @@
                <span id="intro_variable1" class="variable">$-</span>
                <span> of recorded</span>
                <select id="intro_form_option_1" class="form_option_1">
-                  <option value="Agriculture">agricultural</option>
                   <option value="Health">health</option>
+                  <option value="Agriculture">agricultural</option>
                   <option value="Education">educational</option>  
                   <option value="Industry">industrial</option> 
                   <option value="Water">water</option>                            
@@ -49,9 +49,7 @@
 
                <span> Projects in </span>
                <select id="intro_form_option_2" class="form_option_2">
-<!--                   <option value="ec_per">low income</option>    
-                  <option value="ag_per">low yield</option>         
-                  <option value="ur_per">urban</option>      -->          
+                     <!-- items added to AOI list in index.js using builder_data.json file -->
                </select>
                <span> received </span>
                <span id="intro_variable2" class="variable">-%</span>
@@ -81,7 +79,7 @@
             <div class="jcarousel-wrapper">
                <div class="jcarousel">
                   <ul>
-                     <!-- items added to carousel in index.js using carousel JSON file -->
+                     <!-- items added to carousel in index.js using jcarousel.json file -->
                   </ul>
                </div>
 
@@ -131,9 +129,7 @@
                   <span> aid in the past decade.</span>
                   <span> Projects in </span>
                   <select id="grid_form_option_2" class="form_option_2">
-<!--                      <option value="ec_per">low income</option>               
-                     <option value="ag_per">low yield</option>
-                     <option value="ur_per">urban</option>   -->            
+                     <!-- items added to AOI list in index.js using builder_data.json file -->         
                   </select>
                   <span> received </span>
                   <span id="grid_variable2" class="variable">-%</span>
@@ -151,9 +147,9 @@
 
       </div>       
 
-      <div id="navbar_spacer"></div>
+      <!-- <div id="navbar_spacer"></div> -->
 
-   </div>
+   </div> <!-- /#content -->
 
 
 <!--==================================================================================================== -->
@@ -197,8 +193,6 @@
    <!-- // <script src="charts.js"></script> -->
 
    <script src="index.js"></script> 
-
-
 
 
 </body>

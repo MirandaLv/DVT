@@ -17,7 +17,12 @@ body {
     /*padding-bottom: 50px;*/
     color: white;
     /*background: linear-gradient(to right, #1e5799 0%,#657d9b 0%,#526b80 19%,#526b80 48%,#526b80 74%,#657d9b 100%);*/
-    background: linear-gradient(to right, rgba(88,108,128,0.85), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,0.85));
+    /*background: linear-gradient(to right, rgba(88,108,128,0.85), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,1), rgba(88,108,128,0.85));*/
+
+    /*background:  rgb(88,108,128);*/
+    background: rgb(223,223,223);
+    /*background: rgb(100,100,100);*/
+
     /*font-family: 'Raleway', sans-serif;*/
     font-family: 'Open Sans', sans-serif;
 }
@@ -310,17 +315,6 @@ a:hover{
 #intro_carousel{} /* USE jcarousel.css*/
 
 
-/*---------------------------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------------------------*/
-
-#frontpage{
-    width: 90%;
-    padding-top: 50px;
-}
-
 /* -------------------------------------------------- */
 /*content*/
-
 #content{} /* USE grid.css */
-
-
