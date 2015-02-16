@@ -42,7 +42,7 @@
                   <option value="Health">health</option>
                   <option value="Agriculture">agricultural</option>
                   <option value="Education">educational</option>  
-                  <option value="Industry">industrial</option> 
+                  <option value="Energy">energy</option> 
                   <option value="Water">water</option>                            
                </select>
                <span> aid in the last decade.</span>
@@ -123,7 +123,7 @@
                      <option value="Agriculture">agricultural</option>
                      <option value="Health">health</option>
                      <option value="Education">educational</option>  
-                     <option value="Industry">industrial</option>   
+                     <option value="Energy">energy</option>   
                      <option value="Water">water</option>                            
                   </select>
                   <span> aid in the past decade.</span>

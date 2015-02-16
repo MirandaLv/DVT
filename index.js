@@ -898,9 +898,9 @@ $(document).ready(function(){
 	                    color: ( $('#grid_form_option_1').val() == 'Health' ? 'rgba(204,76,67,0.85)' : Highcharts.Color( Highcharts.getOptions().colors[7] ).brighten((2 - 3) / 7).get() )
 	                },
 	                {
-	                    name:'Industry',
-	                    y:form_data[country]['Industry']['total'],
-	                    color: ( $('#grid_form_option_1').val() == 'Industry' ? 'rgba(204,76,67,0.85)' : Highcharts.Color( Highcharts.getOptions().colors[7] ).brighten((3 - 3) / 7).get() )
+	                    name:'Energy',
+	                    y:form_data[country]['Energy']['total'],
+	                    color: ( $('#grid_form_option_1').val() == 'Energy' ? 'rgba(204,76,67,0.85)' : Highcharts.Color( Highcharts.getOptions().colors[7] ).brighten((3 - 3) / 7).get() )
 	                },
 	                {
 	                    name:'Water',
@@ -924,22 +924,22 @@ $(document).ready(function(){
 
         form_summary_column.series = [{
                 name: 'Sector',
-                data: [ form_data[country]['Agriculture']['total'], form_data[country]['Education']['total'], form_data[country]['Health']['total'], form_data[country]['Industry']['total'], form_data[country]['Water']['total'] ],
+                data: [ form_data[country]['Agriculture']['total'], form_data[country]['Education']['total'], form_data[country]['Health']['total'], form_data[country]['Energy']['total'], form_data[country]['Water']['total'] ],
                 pointPadding: 0.2,
                 pointPlacement: 0.0
             }, {
                 name: builder_data.raster_data[0].form,
-                data: [ form_data[country]['Agriculture']['tot_'+builder_data.raster_data[0].name], form_data[country]['Education']['tot_'+builder_data.raster_data[0].name], form_data[country]['Health']['tot_'+builder_data.raster_data[0].name], form_data[country]['Industry']['tot_'+builder_data.raster_data[0].name], form_data[country]['Water']['tot_'+builder_data.raster_data[0].name] ],
+                data: [ form_data[country]['Agriculture']['tot_'+builder_data.raster_data[0].name], form_data[country]['Education']['tot_'+builder_data.raster_data[0].name], form_data[country]['Health']['tot_'+builder_data.raster_data[0].name], form_data[country]['Energy']['tot_'+builder_data.raster_data[0].name], form_data[country]['Water']['tot_'+builder_data.raster_data[0].name] ],
                 pointPadding: 0.45,
                 pointPlacement: -0.1
             }, {
                 name:  builder_data.raster_data[1].form,
-                data: [ form_data[country]['Agriculture']['tot_'+builder_data.raster_data[1].name], form_data[country]['Education']['tot_'+builder_data.raster_data[1].name], form_data[country]['Health']['tot_'+builder_data.raster_data[1].name], form_data[country]['Industry']['tot_'+builder_data.raster_data[1].name], form_data[country]['Water']['tot_'+builder_data.raster_data[1].name] ],
+                data: [ form_data[country]['Agriculture']['tot_'+builder_data.raster_data[1].name], form_data[country]['Education']['tot_'+builder_data.raster_data[1].name], form_data[country]['Health']['tot_'+builder_data.raster_data[1].name], form_data[country]['Energy']['tot_'+builder_data.raster_data[1].name], form_data[country]['Water']['tot_'+builder_data.raster_data[1].name] ],
                 pointPadding: 0.45,
                 pointPlacement: 0.0,
             }, {
                 name:  builder_data.raster_data[2].form,
-                data: [ form_data[country]['Agriculture']['tot_'+builder_data.raster_data[2].name], form_data[country]['Education']['tot_'+builder_data.raster_data[2].name], form_data[country]['Health']['tot_'+builder_data.raster_data[2].name], form_data[country]['Industry']['tot_'+builder_data.raster_data[2].name], form_data[country]['Water']['tot_'+builder_data.raster_data[2].name] ],
+                data: [ form_data[country]['Agriculture']['tot_'+builder_data.raster_data[2].name], form_data[country]['Education']['tot_'+builder_data.raster_data[2].name], form_data[country]['Health']['tot_'+builder_data.raster_data[2].name], form_data[country]['Energy']['tot_'+builder_data.raster_data[2].name], form_data[country]['Water']['tot_'+builder_data.raster_data[2].name] ],
                 pointPadding: 0.45,
                 pointPlacement: 0.1,
             }]
@@ -959,7 +959,7 @@ $(document).ready(function(){
                     'Agriculture Aid',
                     'Education Aid',
                     'Health Aid',
-                    'Industry Aid',
+                    'Energy Aid',
                     'Water Aid',
                     'Other Aid'
                 ]
