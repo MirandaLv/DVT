@@ -163,7 +163,7 @@ $(document).ready(function(){
 					$(this).attr("class", updateClass);
 				}
 			});
-			$(this).find('.highcharts-tooltip').css('z-index','999');
+			// $(this).find('.highcharts-tooltip').css('z-index','999');
 		}, function(){
 			var title = $(this).parent().attr("title")
 			$(".map_countrySelected").each(function(){
@@ -171,7 +171,7 @@ $(document).ready(function(){
 					$(this).attr("class", "map_country map_countrySelected");
 				}
 			});
-			$(this).find('.highcharts-tooltip').css('z-index','0');
+			// $(this).find('.highcharts-tooltip').css('z-index','0');
 
 		}
 	);

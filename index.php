@@ -35,7 +35,7 @@
          <div id="intro_form">
             <div class="form">
                
-               <span>In AidData partner countries, there was </span>
+               <span>In <img id="intro_form_logo" src="/aiddata/imgs/aiddata_notag.png" height=80> partner countries, there was </span>
                <span id="intro_variable1" class="variable">$-</span>
                <span> of recorded</span>
                <select id="intro_form_option_1" class="form_option_1">
