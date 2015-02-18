@@ -105,9 +105,7 @@
 
          <div class="grid_container">
             <div id="grid_banner">
-               <!-- <div id="grid_logo_container"><div id="grid_logo"><div></div></div></div>  -->
                <div id="grid_title"></div>
-              
             </div>
          </div>
 

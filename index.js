@@ -302,8 +302,9 @@ $(document).ready(function(){
 						.attr("class", "map_info_container").attr("id","info_"+country).attr("title", country)
 						.html(html);
 			}
-
-			countryInfo[country].attr("style", "left:" + (width * countryData[country].info[0] - 40) + "px; top:" + (height * countryData[country].info[1] - 40) + "px;");
+			if ( countryInfo[country] ) {
+				countryInfo[country].attr("style", "left:" + (width * countryData[country].info[0] - 40) + "px; top:" + (height * countryData[country].info[1] - 40) + "px;");
+			}
 		}
 	}
 
@@ -320,8 +321,10 @@ $(document).ready(function(){
 				   			   						     .attr("stroke", "black").attr("stroke-width", "1");
 			}
 
-			countryLine[country].attr("x1", width * countryData[country].line[0] ).attr("y1", height * countryData[country].line[1] )
-								.attr("x2", width * countryData[country].info[0] ).attr("y2", height * countryData[country].info[1] );
+			if ( countryLine[country] ) {
+				countryLine[country].attr("x1", width * countryData[country].line[0] ).attr("y1", height * countryData[country].line[1] )
+									.attr("x2", width * countryData[country].info[0] ).attr("y2", height * countryData[country].info[1] );
+			}
 		}
 	}
 
@@ -355,11 +358,11 @@ $(document).ready(function(){
 
 		// aoi
 	    outerData = [{
-	    	name:  '% '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html(),
+	    	name:  '% '+ $("#intro_form_option_1>option:selected").html() +' aid in <br>'+ $("#intro_form_option_2>option:selected").html(),
             y: area,
             color: 'rgba(44,155,200,0.85)' // '#2c9bc8' // blue	
 	    },{
-			name: '% '+ $("#intro_form_option_1>option:selected").html() +' aid in other areas',
+			name: '% '+ $("#intro_form_option_1>option:selected").html() +' aid in <br>other areas',
             y: Math.floor( (100-area)*100 ) / 100,
             color: colors[1]
 	    }]
@@ -375,7 +378,9 @@ $(document).ready(function(){
 	            y: 0,
 	            color: 'black' 
 		    },{
-	    	name:  '% of '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html() +' <br>which we do not have reliable data on',
+		    	name: 'nodata',
+		    	// name: 'No reliable data on '+ $("#intro_form_option_2>option:selected").html() +' <br>is available for '+country ,
+	    		// name:  '% of '+ $("#intro_form_option_1>option:selected").html() +' aid in '+ $("#intro_form_option_2>option:selected").html() +' <br>which we do not have reliable data on',
 	            y: 100,
 	            color: colors[3]
 		    }]
@@ -383,11 +388,11 @@ $(document).ready(function(){
 
 	    // sector
 	    innerData = [{
-			name: '% all of aid in '+ $("#intro_form_option_1>option:selected").html() +' sector projects',
+			name: '% all of aid in <br>'+ $("#intro_form_option_1>option:selected").html() +' sector projects',
             y: Math.floor( sector*100 ) / 100,
             color: 'rgba(204,76,67,0.85)' // '#cc4345' //red
 	    },{
-			name: '% all aid in other sector projects',
+			name: '% all aid in <br>other sector projects',
             y: Math.floor( (100-sector)*100 ) / 100,
             color: 'rgba(150,150,150,0.85)' // '#969696' // gray
 	    }]
@@ -440,6 +445,24 @@ $(document).ready(function(){
 	        	pointFormat: '<b>{point.y}</b>',
 	            valueSuffix: '%',
 	            useHTML: true,
+	            style: {
+	            	fontSize: '10px'
+	            },
+	            formatter: function () {
+	            	// console.log(this)
+	            	var html = '<div>';
+	            	var html = ''
+	            	if (this.key == 'nodata' && this.y == 100) {
+
+	            		html += 'No reliable data on <br>'+ $("#intro_form_option_2>option:selected").html()
+	            	} else {
+
+	            		html += '<b>' + this.y + '</b>' + this.key + ''
+
+	            	}
+	            	html += '</div>';
+	            	return html
+	            },
 	            positioner: function () {
 	                return { x: -40, y: -60 };
 	            },
@@ -698,14 +721,6 @@ $(document).ready(function(){
 		if ( $(this).attr('id') == 'grid_form_option_1' ) {
 		 	//update map
 			addPointData(grid_country, f_sector);
-
-			// update charts
-		 	buildCharts(grid_country, start_year, end_year, geojsonPoints, countryData[grid_country].type);
-
-		 	setTimeout(function(){ 
-		 		map.invalidateSize()
-			 	window.dispatchEvent(new Event('resize'))
-		 	}, 2000);
 	 	}
 	});
 
@@ -722,6 +737,7 @@ $(document).ready(function(){
 
 		map.setView([0,0], 1);
 
+		map.scrollWheelZoom.disable();
 		map.options.minZoom = 3;
 		map.options.maxZoom = 11;
 		
@@ -743,11 +759,16 @@ $(document).ready(function(){
 	 			return 1;
 	 		}
 	 		geojsonExtract = request;
-	 	})
 
- 		// console.log(file)
- 		// console.log(geojsonExtract)
-			
+			geojson = L.geoJson(geojsonExtract, {
+			    style: style
+			});
+
+			map.addLayer(geojson, true);
+			map.fitBounds( geojson.getBounds() );
+		 	window.dispatchEvent(new Event('resize'));
+	 	}, true)
+				
 		function style(feature) {
 		    return {
 		        fillColor: '#31a354', 
@@ -758,15 +779,6 @@ $(document).ready(function(){
 		    };
 		}
 
-		geojson = L.geoJson(geojsonExtract, {
-		    style: style
-		});
-
-		map.addLayer(geojson, true);
-
-		map.fitBounds( geojson.getBounds() );
-
-	 	// window.dispatchEvent(new Event('resize'));
 	}
 	
 	function addPointData(country, pointType){
@@ -775,52 +787,51 @@ $(document).ready(function(){
 			map.removeLayer(markers);
 		}
 
-		var error;
-		readJSON('../data/form/sector_data/'+country+'_'+pointType+'.geojson', function (request, status, e) {
+		readJSON('../data/form/sector_data/'+country+'_'+pointType+'.geojson', function (request, status, error) {
+			if (error) {
+				console.log(error);
+				return 1;
+			} 
 			geojsonPoints = request;
-			error = e;
-		})
 
-		if (error) {
-			console.log(error);
-			return 1;
-		} 
+			markers = new L.MarkerClusterGroup({
+				disableClusteringAtZoom: 10//8
+			});
 
-		// console.log(country, pointType, start_year, end_year)
+			var geojsonLayer = L.geoJson(geojsonPoints, {
+				onEachFeature: function (feature, layer) {
+					var a = feature.properties;
 
-		markers = new L.MarkerClusterGroup({
-			disableClusteringAtZoom: 10//8
-		});
+					var popup = '';
+					var commitments_field = ( countryData[grid_country].type == 'old' ? 'total_commitments' : 'transaction_sum' );
 
-		var geojsonLayer = L.geoJson(geojsonPoints, {
-			onEachFeature: function (feature, layer) {
-				var a = feature.properties;
+					popup += '<i><b>' + a.place_name + '<b></i>'
+					popup += "</br><b>Project ID:</b> " + a.project_id;
+					popup += "</br><b>Geoname ID:</b> " + a.geoname_id;
 
-				var popup = '';
-				var commitments_field = ( countryData[grid_country].type == 'old' ? 'total_commitments' : 'transaction_sum' );
+					popup += "</br><b>Commitments:</b> " + parseInt(a[commitments_field]).toLocaleString();
 
+					popup += "</br><b>Donors:</b> " + a.donors;
 
-				// popup += "</br>Region: " + a.R_NAME
-				// popup += "</br>Zone: " + a.Z_NAME
-				// popup += "</br>District: " + a.D_NAME
-				// popup += "</br>Project Start: " + a.actual_start_date
+					layer.bindPopup(popup);
+				},
+				pointToLayer: function(feature, latlng) {
+			        return L.marker(latlng, {
+			            // radius: 5
+			        })
+			    }
+			});
 
-				popup += "</br><b>Commitments:</b> " + parseInt(a[commitments_field]).toLocaleString();
+			markers.addLayer(geojsonLayer);
+			map.addLayer(markers);
 
-				popup += "</br><b>Donors:</b> " + a.donors;
+	 		map.invalidateSize()
+		 	window.dispatchEvent(new Event('resize'))
 
-				layer.bindPopup(popup);
-			},
-			pointToLayer: function(feature, latlng) {
-		        return L.marker(latlng, {
-		            // radius: 5
-		        })
-		    }
-		});
+			// update charts
+		 	buildCharts(grid_country, start_year, end_year, geojsonPoints, countryData[grid_country].type);
 
-		markers.addLayer(geojsonLayer);
-		map.addLayer(markers);
-			window.dispatchEvent(new Event('resize'));
+		}, true)
 
 	}
 
@@ -996,7 +1007,7 @@ $(document).ready(function(){
 	    // build donor aid pie chart
         
         var donor_aid_pie = {
-            limit: 10 // limit numbers of donors, rest are group into "Others" category
+            limit: 5 // limit numbers of donors, rest are group into an additional "Others(n)" category
         };
 
         // build raw donor aid data from points geojson
@@ -1077,7 +1088,8 @@ $(document).ready(function(){
                 text: 'Based on commitments between ' + start + " and " + end
             },
             tooltip: {
-                pointFormat: '${point.y:,.2f} '
+                pointFormat: '${point.y:,.2f} ',
+                useHTML: true
             },        
             credits:{
         		enabled:false
@@ -1094,15 +1106,19 @@ $(document).ready(function(){
                         // format: '<b>{point.name}</b>: {point.percentage:.1f}%',
                         
                         formatter: function(){
-    	                    if (this.point.name.length > 20){
-    	                        return this.point.name.substr(0,20) + "... " + round(this.percentage,1) + "%";
+                        	var first_donor = this.point.name.indexOf('|');
+    	                    if (first_donor != -1){
+    	                        return this.point.name.substr(0, first_donor) + "... " + round(this.percentage,1) + "%";
     	                    }else{
     	                         return this.point.name + " " + round(this.percentage,1) + "%";   
     	                    }  
 
+							// return round(this.percentage,1) + "%";
+
     	                    function round(x,y){
     	                    	return Math.floor(x*10*y)/(10*y)
-    	                    }                      
+    	                    }        
+
     	                },
                         style: {
                             color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
@@ -1120,15 +1136,18 @@ $(document).ready(function(){
 	    // ----------------------------------------------
 	    // build donor project count and aid column chart
 
-    	var data3prep = Object()
+    	var donor_aid_column = {
+    		limit:5
+    	};
 
+    	donor_aid_column.raw = {};
     	for (var i=0;i<points.features.length;i++){
     		var a = points.features[i].properties
 
-    		if (!data3prep[ a[donor_field] ]){
-    			data3prep[ a[donor_field] ] = Object()
-    			data3prep[ a[donor_field] ].aid = 0
-    			data3prep[ a[donor_field] ].projects = 0
+    		if ( !donor_aid_column.raw[ a[donor_field] ] ) {
+    			donor_aid_column.raw[ a[donor_field] ] = {};
+    			donor_aid_column.raw[ a[donor_field] ].aid = 0
+    			donor_aid_column.raw[ a[donor_field] ].projects = 0
     		} 
 
     		var sum = 0
@@ -1137,26 +1156,65 @@ $(document).ready(function(){
                 sum = parseFloat(a.total_commitments);
 
     		} else {
-    			sum = parseFloat(a.transaction_sum)
+    			sum = parseFloat(a.transaction_sum);
     		}
-    		data3prep[ a[donor_field] ].aid +=  sum / parseInt(a[count_field])
-    		data3prep[ a[donor_field] ].projects += 1
+
+    		donor_aid_column.raw[ a[donor_field] ].aid +=  sum / parseInt(a[count_field]);
+    		donor_aid_column.raw[ a[donor_field] ].projects += 1;
     	}
 
-    	var data3a = Array()
-    	var data3b = Array()
-    	var keys = Object.keys(data3prep)
+    	donor_aid_column.keys = _.keys(donor_aid_column.raw);
 
-    	for (var i=0;i<keys.length;i++){
+        donor_aid_column.sorted = [];
+        for (var i=0, ix=donor_aid_column.keys.length; i<ix; i++) {
+            var key = donor_aid_column.keys[i];
+            donor_aid_column.sorted.push([key, donor_aid_column.raw[key].aid, donor_aid_column.raw[key].projects])
+        }
+        donor_aid_column.sorted.sort(function(a, b) {return b[1] - a[1]})
 
-    		var point1 = [ keys[i], Math.floor( 100 * data3prep[keys[i]].aid ) / 100 ]
-    		data3a.push(point1)
 
-    		var point2 = [ keys[i], data3prep[keys[i]].projects ]
-    		data3b.push(point2)
+    	donor_aid_column.aid = [];
+    	donor_aid_column.projects = [];
+		donor_aid_column.categories = [];
+
+    	for (var i=0;i<donor_aid_column.keys.length;i++){
+            if ( i < donor_aid_column.limit ) {
+
+	    		donor_aid_column.categories.push(donor_aid_column.sorted[i][0]);
+
+	    		var point1 = Math.floor( 100 * donor_aid_column.sorted[i][1] ) / 100;
+	    		donor_aid_column.aid.push(point1);
+
+	    		var point2 =donor_aid_column.sorted[i][2];
+	    		donor_aid_column.projects.push(point2);
+
+            } else if ( i == donor_aid_column.limit ) {
+
+	    		donor_aid_column.categories.push('Other (1)');
+
+                var point1 =  Math.floor( 100 * donor_aid_column.sorted[i][1] ) / 100;
+	    		donor_aid_column.aid.push(point1);
+
+                var point2 = donor_aid_column.sorted[i][2];
+	    		donor_aid_column.projects.push(point2);
+
+
+            } else {
+
+                var donor_count = i - donor_aid_column.limit;
+
+                donor_aid_column.categories[donor_aid_column.limit] = 'Other ('+ donor_count +')';
+
+                donor_aid_column.aid[donor_aid_column.limit][0] = 'Other ('+ donor_count +')';
+                donor_aid_column.aid[donor_aid_column.limit][1] += donor_aid_column.sorted[i][1];
+
+                donor_aid_column.projects[donor_aid_column.limit][0] = 'Other ('+ donor_count +')';
+                donor_aid_column.projects[donor_aid_column.limit][1] += donor_aid_column.sorted[i][2];
+			}
+        
     	}
 
-        var chart3 = {
+        donor_aid_column.chart = {
             chart: {
             	// width:500,
                 zoomType: '',
@@ -1166,13 +1224,13 @@ $(document).ready(function(){
                 backgroundColor: 'rgba(255,255,255,0)'//'#ffc425'
             },
             title: {
-                text: $('#grid_form_option_1').val()+' Sector Donor Aid and Numbers of Projects'
+                text: 'Top '+donor_aid_column.limit+' '+$('#grid_form_option_1').val()+' Donors: Aid and Numbers of Projects'
             },
             subtitle: {
                 text: '('+start+' - '+end+')'
             },
             xAxis: {
-                categories: Object.keys(data3prep),
+                categories: donor_aid_column.categories,
             	labels:{
     	          	rotation: -45,
     	        	// style: {
@@ -1187,20 +1245,7 @@ $(document).ready(function(){
                     }
     	        }
             },
-            yAxis: [{ // Primary yAxis
-                labels: {
-                    format: '{value}',
-                    style: {
-                        color: Highcharts.getOptions().colors[1]
-                    }
-                },
-                title: {
-                    text: 'Projects',
-                    style: {
-                        color: Highcharts.getOptions().colors[1]
-                    }
-                }
-            }, { // Secondary yAxis
+            yAxis: [{
                 title: {
                     text: 'Aid',
                     style: {
@@ -1208,9 +1253,22 @@ $(document).ready(function(){
                     }
                 },
                 labels: {
-                    format: '{value}',
+                    format: '{value}'/1000000,
                     style: {
                         color: Highcharts.getOptions().colors[0]
+                    }
+                }
+            }, {
+                title: {
+                    text: 'Projects',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                labels: {
+                    format: '{value}',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
                     }
                 },
                 opposite: true
@@ -1236,12 +1294,13 @@ $(document).ready(function(){
             series: [{
                 name: 'Aid',
                 type: 'column',
-                yAxis: 1,
-                data: data3a
+                // yAxis: 1,
+                data: donor_aid_column.aid
             }, {
                 name: 'Projects',
                 type: 'column',
-                data: data3b
+                yAxis: 1,
+                data: donor_aid_column.projects
             }]
         };
 
@@ -1259,7 +1318,13 @@ $(document).ready(function(){
         $('#grid_temp').append(html);
 
         $('#grid_temp').append('<div class="grid_container" ><div id="form_summary_pie" style="width:35%;float:left;"></div><div id="form_summary_column" style="width:65%;float:right;"></div></div>');
+        // if ( $('#form_summary_pie').highcharts() ) {
+        // 	$('#form_summary_pie').highcharts().destroy()
+        // }
         $('#form_summary_pie').highcharts( form_summary_pie.chart );
+        // if ( $('#form_summary_column').highcharts() ) {
+        // 	 $('#form_summary_column').highcharts().destroy()
+        // }
         $('#form_summary_column').highcharts( form_summary_column.chart );
 
         html = '';
@@ -1269,6 +1334,9 @@ $(document).ready(function(){
         $('#grid_temp').append(html);
 
         $('#grid_temp').append('<div class="grid_container"><div id="donor_aid_pie"></div></div>');
+        // if ( $('#donor_aid_pie').highcharts() ) {
+        // 	$('#donor_aid_pie').highcharts().destroy()
+        // }
         $('#donor_aid_pie').highcharts( donor_aid_pie.chart );
 
         html = '';
@@ -1277,8 +1345,11 @@ $(document).ready(function(){
         html += '</div></div></div>';
         $('#grid_temp').append(html);
 
-        $('#grid_temp').append('<div class="grid_container"><div id="chart3"></div></div>');
-        $('#chart3').highcharts( chart3 );
+        $('#grid_temp').append('<div class="grid_container"><div id="donor_aid_column"></div></div>');
+        // if ( $('#donor_aid_column').highcharts() ) {
+        // 	$('#donor_aid_column').highcharts().destroy()
+        // }
+        $('#donor_aid_column').highcharts( donor_aid_column.chart );
 
         html = '';
         html += '<div class="grid_container"><div class="info_container"><div class="info_text">';
@@ -1295,12 +1366,13 @@ $(document).ready(function(){
 
 
 	//read in a json file and return object
-	function readJSON(file, callback) {
+	function readJSON(file, callback, async) {
+		async = ( async && async == true ? true : false );
 		$.ajax({
 			type: "GET",
 			dataType: "json",
 			url: file,
-			async: false,
+			async: async,
 		    success: function (request) {
 		      	callback(request, "good", 0)
 		    },    
