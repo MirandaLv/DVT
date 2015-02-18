@@ -923,7 +923,7 @@ $(document).ready(function(){
         var form_summary_column = {};
 
         form_summary_column.series = [{
-                name: 'Sector',
+                name: 'sector total',
                 data: [ form_data[country]['Agriculture']['total'], form_data[country]['Education']['total'], form_data[country]['Health']['total'], form_data[country]['Energy']['total'], form_data[country]['Water']['total'] ],
                 pointPadding: 0.2,
                 pointPlacement: 0.0
@@ -980,7 +980,7 @@ $(document).ready(function(){
                 enabled: false
             },
             tooltip: {
-                shared: true
+                shared: false
             },
             plotOptions: {
                 column: {
