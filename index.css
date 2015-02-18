@@ -102,11 +102,11 @@ select:-moz-focusring {
             cursor: pointer;
         }
 
-        .form_option_1 {
+        .form .form_option_1 {
             color: rgb(204,76,67); /*red*/     
         }
 
-        .form_option_2 {
+        .form .form_option_2 {
             color:rgb(44,155,200); /*blue*/
 
         }
