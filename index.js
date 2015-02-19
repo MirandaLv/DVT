@@ -1004,65 +1004,94 @@ $(document).ready(function(){
         };
 
 	    // ----------------------------------------------
-	    // build donor aid pie chart
+	    // process data for donor aid pie chart and donor aid column chart
         
-        var donor_aid_pie = {
-            limit: 5 // limit numbers of donors, rest are group into an additional "Others(n)" category
-        };
+        var donor_limit = 5, // limit numbers of donors, rest are group into an additional "Others(n)" category
+        	donor_aid_pie = {},
+        	donor_aid_column = {};
 
         // build raw donor aid data from points geojson
-    	donor_aid_pie.raw = {};
+        donor_aid_pie.raw = {};
+
     	for ( var i=0, ix=points.features.length; i<ix; i++ ) {
     		var a = points.features[i].properties;
 
     		if ( !donor_aid_pie.raw[ a[donor_field] ] ) {
-    			donor_aid_pie.raw[ a[donor_field] ] = 0.0;
+    			donor_aid_pie.raw[ a[donor_field] ] = {};
+    			donor_aid_pie.raw[ a[donor_field] ].aid = 0.0;
+    			donor_aid_pie.raw[ a[donor_field] ].projects = 0.0;
     		} 
 
     		var sum = 0;
-
     		if (country_type == 'old') {
     			sum = parseFloat(a.total_commitments);
     			
     		} else {
     			sum = parseFloat(a.transaction_sum);
     		}
-
             sum = ( isNaN(sum) ? 0 : sum );
 
-            // if ( sum > 0 ) {
-                // console.log(sum)
-                donor_aid_pie.raw[ a[donor_field] ] +=  sum / parseInt(a[count_field]);
-            // }
+            donor_aid_pie.raw[ a[donor_field] ].aid +=  sum / parseInt(a[count_field]);
+            donor_aid_pie.raw[ a[donor_field] ].projects += 1;
     	}
 
         // sort raw
-        donor_aid_pie.sorted = [];
         donor_aid_pie.keys = _.keys(donor_aid_pie.raw);
+        donor_aid_pie.sorted = [];
+
         for (var i=0, ix=donor_aid_pie.keys.length; i<ix; i++) {
             var key = donor_aid_pie.keys[i];
-            donor_aid_pie.sorted.push([key, donor_aid_pie.raw[key]])
+            donor_aid_pie.sorted.push([key, donor_aid_pie.raw[key].aid, donor_aid_pie.raw[key].projects])
         }
         donor_aid_pie.sorted.sort(function(a, b) {return b[1] - a[1]})
 
-        // only use top x donors (defined by donor_aid_pie.limit), rest are group into "Others" category
+        // only use top x donors (defined by donor_limit), rest are group into "Others" category
         donor_aid_pie.data = [];
+
+    	donor_aid_column.aid = [];
+    	donor_aid_column.projects = [];
+		donor_aid_column.categories = [];
+
     	for (var i=0;i<donor_aid_pie.sorted.length;i++){
 
             if (donor_aid_pie.sorted[i][1] > 0) {
-                if ( i < donor_aid_pie.limit ) {
+                if ( i < donor_limit ) {
                     var point = donor_aid_pie.sorted[i];
             		donor_aid_pie.data.push(point);
-                } else if ( i == donor_aid_pie.limit ) {
-                    var point = [ 'Other', donor_aid_pie.sorted[i][1] ];
-                    donor_aid_pie.data.push(point);         
-                } else {
-                    var donor_count = i - donor_aid_pie.limit;
-                    donor_aid_pie.data[donor_aid_pie.limit][0] = 'Other ('+ donor_count +')';
-                    donor_aid_pie.data[donor_aid_pie.limit][1] += donor_aid_pie.sorted[i][1];
 
-                    // console.log( donor_aid_pie.sorted[i][1] )
-                    // console.log( donor_aid_pie.data[donor_aid_pie.limit][1] )
+		    		donor_aid_column.categories.push(donor_aid_pie.sorted[i][0]);
+
+		    		var point1 = Math.floor( 100 * donor_aid_pie.sorted[i][1] ) / 100;
+		    		donor_aid_column.aid.push(point1);
+
+		    		var point2 =donor_aid_pie.sorted[i][2];
+		    		donor_aid_column.projects.push(point2);
+
+                } else if ( i == donor_limit ) {
+                    var point = [ 'Other (1)', donor_aid_pie.sorted[i][1] ];
+                    donor_aid_pie.data.push(point);      
+
+		    		donor_aid_column.categories.push('Other (1)');
+
+	                var point1 =  Math.floor( 100 * donor_aid_pie.sorted[i][1] ) / 100;
+		    		donor_aid_column.aid.push(point1);
+
+	                var point2 = donor_aid_pie.sorted[i][2];
+		    		donor_aid_column.projects.push(point2);
+
+                } else {
+                    var donor_count = i - donor_limit;
+                    donor_aid_pie.data[donor_limit][0] = 'Other ('+ donor_count +')';
+                    donor_aid_pie.data[donor_limit][1] += donor_aid_pie.sorted[i][1];
+
+	                donor_aid_column.categories[donor_limit] = 'Other ('+ donor_count +')';
+
+	                donor_aid_column.aid[donor_limit][0] = 'Other ('+ donor_count +')';
+	                donor_aid_column.aid[donor_limit][1] += donor_aid_pie.sorted[i][1];
+
+	                donor_aid_column.projects[donor_limit][0] = 'Other ('+ donor_count +')';
+	                donor_aid_column.projects[donor_limit][1] += donor_aid_pie.sorted[i][2];
+
                 }
             }
     	}
@@ -1071,6 +1100,9 @@ $(document).ready(function(){
         if (donor_aid_pie.data.length == 0){ 
         	return 0;
         }
+
+	    // ----------------------------------------------
+	    // build donor aid pie chart
 
         donor_aid_pie.chart = {
             chart: {
@@ -1082,7 +1114,7 @@ $(document).ready(function(){
 
             },
             title: {
-                text: 'Top '+donor_aid_pie.limit+' '+$('#grid_form_option_1').val()+' Donors'
+                text: 'Top '+donor_limit+' '+$('#grid_form_option_1').val()+' Donors'
             },
             subtitle: {
                 text: 'Based on commitments between ' + start + " and " + end
@@ -1135,84 +1167,6 @@ $(document).ready(function(){
 
 	    // ----------------------------------------------
 	    // build donor project count and aid column chart
-
-    	var donor_aid_column = {
-    		limit:5
-    	};
-
-    	donor_aid_column.raw = {};
-    	for (var i=0;i<points.features.length;i++){
-    		var a = points.features[i].properties
-
-    		if ( !donor_aid_column.raw[ a[donor_field] ] ) {
-    			donor_aid_column.raw[ a[donor_field] ] = {};
-    			donor_aid_column.raw[ a[donor_field] ].aid = 0
-    			donor_aid_column.raw[ a[donor_field] ].projects = 0
-    		} 
-
-    		var sum = 0
-
-    		if (country_type == 'old') {
-                sum = parseFloat(a.total_commitments);
-
-    		} else {
-    			sum = parseFloat(a.transaction_sum);
-    		}
-
-    		donor_aid_column.raw[ a[donor_field] ].aid +=  sum / parseInt(a[count_field]);
-    		donor_aid_column.raw[ a[donor_field] ].projects += 1;
-    	}
-
-    	donor_aid_column.keys = _.keys(donor_aid_column.raw);
-
-        donor_aid_column.sorted = [];
-        for (var i=0, ix=donor_aid_column.keys.length; i<ix; i++) {
-            var key = donor_aid_column.keys[i];
-            donor_aid_column.sorted.push([key, donor_aid_column.raw[key].aid, donor_aid_column.raw[key].projects])
-        }
-        donor_aid_column.sorted.sort(function(a, b) {return b[1] - a[1]})
-
-
-    	donor_aid_column.aid = [];
-    	donor_aid_column.projects = [];
-		donor_aid_column.categories = [];
-
-    	for (var i=0;i<donor_aid_column.keys.length;i++){
-            if ( i < donor_aid_column.limit ) {
-
-	    		donor_aid_column.categories.push(donor_aid_column.sorted[i][0]);
-
-	    		var point1 = Math.floor( 100 * donor_aid_column.sorted[i][1] ) / 100;
-	    		donor_aid_column.aid.push(point1);
-
-	    		var point2 =donor_aid_column.sorted[i][2];
-	    		donor_aid_column.projects.push(point2);
-
-            } else if ( i == donor_aid_column.limit ) {
-
-	    		donor_aid_column.categories.push('Other (1)');
-
-                var point1 =  Math.floor( 100 * donor_aid_column.sorted[i][1] ) / 100;
-	    		donor_aid_column.aid.push(point1);
-
-                var point2 = donor_aid_column.sorted[i][2];
-	    		donor_aid_column.projects.push(point2);
-
-
-            } else {
-
-                var donor_count = i - donor_aid_column.limit;
-
-                donor_aid_column.categories[donor_aid_column.limit] = 'Other ('+ donor_count +')';
-
-                donor_aid_column.aid[donor_aid_column.limit][0] = 'Other ('+ donor_count +')';
-                donor_aid_column.aid[donor_aid_column.limit][1] += donor_aid_column.sorted[i][1];
-
-                donor_aid_column.projects[donor_aid_column.limit][0] = 'Other ('+ donor_count +')';
-                donor_aid_column.projects[donor_aid_column.limit][1] += donor_aid_column.sorted[i][2];
-			}
-        
-    	}
 
         donor_aid_column.chart = {
             chart: {

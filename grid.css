@@ -10,10 +10,10 @@
 /*----------------------------------------------------------------------------*/
 
 #grid_back{
-    width:100px;
-    height: 50px;
+    width:40px;
+    height: 40px;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     vertical-align: center;
     text-align: center;
     color: white;
@@ -22,18 +22,31 @@
     font-size: 20px;
     background: green;
     position: fixed;
-    left: 5px;
-    top: 5px;
+    left: -10px;
+    top: -10px;
     z-index: 99999;
     padding-top: 2.5px;
     cursor: pointer;
 }
 
-    #grid_back:hover{
-        -moz-box-shadow:    inset 0 0 10px #000000;
-        -webkit-box-shadow: inset 0 0 10px #000000;
-        box-shadow:         inset 0 0 10px #000000;
+#grid_back:hover {
+/*    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;*/
+}
+    
+    #grid_back_icon {
+        position: fixed;
+        /*top: 25;
+        left: 25;*/
+        margin-left: -7px;
+        margin-top: 4px;
     }
+
+    #grid_back:hover #grid_back_icon {
+        color:blue;
+    }
+
 
 /*----------------------------------------------------------------------------*/
 

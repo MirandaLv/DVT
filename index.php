@@ -47,7 +47,7 @@
                </select>
                <span> aid in the last decade.</span>
 
-               <span> Projects in </span>
+               <span> Projects in areas with </span>
                <select id="intro_form_option_2" class="form_option_2">
                      <!-- items added to AOI list in index.js using builder_data.json file -->
                </select>
@@ -99,7 +99,7 @@
 
    <div id="content">
 
-      <div id="grid_back">Return to Home</div>
+      <div id="grid_back" title="Return to Home"><span id="grid_back_icon" class="glyphicon glyphicon-home"></span></div>
 
       <div id="grid">
 
