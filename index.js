@@ -75,7 +75,7 @@ $(document).ready(function(){
  		$('.form_option_2').each(function () {
  			var html = '';
  			for (var i=0, ix=builder_data.raster_data.length; i<ix; i++) {
- 				html += '<option value="per_'+builder_data.raster_data[i].name+'" '+( builder_data.raster_data[i].name == "Urban-Area" ? "selected" : "" )+'>'+builder_data.raster_data[i].form+'</option>'
+ 				html += '<option value="'+builder_data.raster_data[i].name+'" data-folder="'+builder_data.raster_data[i].folder+'" data-file="'+builder_data.raster_data[i].file+'" '+( builder_data.raster_data[i].name == "Urban-Area" ? "selected" : "" )+'>'+builder_data.raster_data[i].form+'</option>'
  			}
  			$(this).html(html);
  		})
@@ -137,6 +137,8 @@ $(document).ready(function(){
 
 	 	$("#grid_form_option_1").val(f_sector);
 	 	$("#grid_form_option_2").val(f_aoi);
+
+	 	f_aoi = 'per_' + f_aoi;
 
 	 	var total = ( form_data["Global"][f_sector]["total"] ? '$' + shortNum(form_data["Global"][f_sector]["total"],2) : 'No Data' );
 	 	var percent = ( form_data["Global"][f_sector][f_aoi] ? form_data["Global"][f_sector][f_aoi] + '%' : 'No Data' );
@@ -372,7 +374,7 @@ $(document).ready(function(){
 	    // console.log(builder_data['no_data'][country][$("#intro_form_option_1").val()])
 	    // console.log($("#intro_form_option_2").val().substr(4))
 
-	    if ( builder_data['no_data'][country][$("#intro_form_option_1").val()][$("#intro_form_option_2").val().substr(4)] == true) {
+	    if ( builder_data['no_data'][country][$("#intro_form_option_1").val()][$("#intro_form_option_2").val()] == true) {
 		    outerData = [{
 		    	name:  'nodata',
 	            y: 0,
@@ -685,6 +687,7 @@ $(document).ready(function(){
 			window.history.pushState(stateObj, "AidData Labs Home Page", "#home");
 		}
 		window.document.title = 'AidData Labs - v.Alpha';
+		$("#intro_form_option_1").change();
 
 		window.dispatchEvent(new Event('resize'));
 	}
@@ -709,7 +712,8 @@ $(document).ready(function(){
 
 		$("#intro_form_option_1").val(f_sector);
 		$("#intro_form_option_2").val(f_aoi);
-		$("#intro_form_option_1").change();
+
+		f_aoi = 'per_' + f_aoi;
 		
 	 	// update form
 	 	var total = ( form_data[grid_country][f_sector]["total"] ? '$' + shortNum(form_data[grid_country][f_sector]["total"],2) : 'No Data' );
@@ -718,10 +722,13 @@ $(document).ready(function(){
 	 	$("#grid_variable1").text(total);
 	 	$("#grid_variable2").text(percent);
 
+	 	//update map
 		if ( $(this).attr('id') == 'grid_form_option_1' ) {
-		 	//update map
 			addPointData(grid_country, f_sector);
 	 	}
+		if ( $(this).attr('id') == 'grid_form_option_2' ) {
+			addPolyData();
+	 	}	 	
 	});
 
 	// initialize leaflet map and trigger initial form options
@@ -741,10 +748,12 @@ $(document).ready(function(){
 		map.options.minZoom = 3;
 		map.options.maxZoom = 11;
 		
-	 	addCountry('../DET/resources/'+countryData[grid_country].continent.toLowerCase()+'/'+grid_country.toLowerCase()+'/shapefiles/ADM1/Leaflet.geojson')
+	 	// addCountry('../DET/resources/'+countryData[grid_country].continent.toLowerCase()+'/'+grid_country.toLowerCase()+'/shapefiles/ADM1/Leaflet.geojson')
 
 		//trigger initial form options
+		$("#grid_form_option_2").change();
 		$("#grid_form_option_1").change();
+
 	}
 
 	function addCountry(file){
@@ -775,14 +784,76 @@ $(document).ready(function(){
 		        weight: 1,
 		        opacity: 1,
 		        color: 'black',
-		        fillOpacity: 0.75
+		        fillOpacity: 0.1
 		    };
 		}
 
 	}
-	
-	function addPointData(country, pointType){
 
+	function findGeoJSON() {
+		var file;
+  		process({call: 'find', continent: countryData[grid_country].continent.toLowerCase(), country: grid_country.toLowerCase(), folder: $('#grid_form_option_2').find(':selected').data('folder') }, function (result) {
+			
+			if ( result == false ){
+				file = false;
+			} else {
+				file =  '../DET/resources/'+countryData[grid_country].continent.toLowerCase()+'/'+grid_country.toLowerCase()+'/cache/geojsons/'+result; 
+    		}
+    	})
+		return file;
+	}
+
+	function addPolyData() {
+
+		if (map.hasLayer(geojson)){
+			map.removeLayer(geojson);
+		}
+
+		var file = findGeoJSON();
+		console.log(file)
+		if ( file == false || $('#grid_form_option_2').val().indexOf('Urban') > -1  ) {
+	 		addCountry('../DET/resources/'+countryData[grid_country].continent.toLowerCase()+'/'+grid_country.toLowerCase()+'/shapefiles/ADM1/Leaflet.geojson');
+			return;
+		}
+
+		readJSON(file, function (request, status, error){
+	 		if (error){
+	 			console.log(error);
+	 			return 1;
+	 		}
+	 		geojsonExtract = request;
+
+			geojson = L.geoJson(geojsonExtract, {
+			    style: style
+			});
+
+			map.addLayer(geojson, true);
+			map.fitBounds( geojson.getBounds() );
+		 	window.dispatchEvent(new Event('resize'));
+	 	}, true)
+
+		function getColor(d) {
+			
+			var thresh_val = builder_data.thresh_data[grid_country][$('#grid_form_option_1').val()][$('#grid_form_option_2').val()];
+			// console.log(thresh_val)
+		    return d >= thresh_val ? '#a1d99b' : '#de2d26' ; 
+		}
+
+		function style(feature) {
+			var full_file = $('#grid_form_option_2').find(':selected').data('file');
+			var name_file = full_file.substr(0, full_file.indexOf('.'));
+		    return {
+		        fillColor: getColor( parseFloat(feature.properties[name_file]) ), 
+		        weight: 1,
+		        opacity: 1,
+		        color: 'black',
+		        fillOpacity: 0.75
+		    };
+		}		
+	}
+	
+	function addPointData(country, pointType) {
+		
 		if (map.hasLayer(markers)){
 			map.removeLayer(markers);
 		}
@@ -1178,7 +1249,7 @@ $(document).ready(function(){
                 backgroundColor: 'rgba(255,255,255,0)'//'#ffc425'
             },
             title: {
-                text: 'Top '+donor_aid_column.limit+' '+$('#grid_form_option_1').val()+' Donors: Aid and Numbers of Projects'
+                text: 'Top '+donor_limit+' '+$('#grid_form_option_1').val()+' Donors: Aid and Numbers of Projects'
             },
             subtitle: {
                 text: '('+start+' - '+end+')'
@@ -1335,6 +1406,20 @@ $(document).ready(function(){
 		    }
 		});
 	};
+
+	// generic ajax call to process.php
+	function process(data, callback) {
+		$.ajax ({
+	        url: "process.php",
+	        data: data,
+	        dataType: "json",
+	        type: "post",
+	        async: false,
+	        success: function (result) {
+			    callback(result);
+			}
+	    });
+	}
 
 	//converts number to short num + string
 	function shortNum(num, dec, abbr){
