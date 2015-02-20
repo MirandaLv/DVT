@@ -33,7 +33,8 @@ $(document).ready(function(){
 	var old_country, grid_country,
 		start_year, end_year,
 		map, tiles, 
-		geojson, geojsonExtract,
+		geojson, geojsonCountry,
+		poly, geojsonPoly, info,
 		markers, geojsonPoints;
 
 	// ---------------
@@ -762,14 +763,19 @@ $(document).ready(function(){
 			map.removeLayer(geojson);
 		}
 
+		if (map.hasLayer(poly)) {
+			map.removeLayer(poly);
+			info.removeFrom(map);
+		}
+
 		readJSON(file, function (request, status, error){
 	 		if (error){
 	 			console.log(error);
 	 			return 1;
 	 		}
-	 		geojsonExtract = request;
+	 		geojsonCountry = request;
 
-			geojson = L.geoJson(geojsonExtract, {
+			geojson = L.geoJson(geojsonCountry, {
 			    style: style
 			});
 
@@ -780,11 +786,11 @@ $(document).ready(function(){
 				
 		function style(feature) {
 		    return {
-		        fillColor: '#31a354', 
+		        fillColor: '#40E0D0', 
 		        weight: 1,
 		        opacity: 1,
 		        color: 'black',
-		        fillOpacity: 0.1
+		        fillOpacity: 0.25
 		    };
 		}
 
@@ -805,43 +811,124 @@ $(document).ready(function(){
 
 	function addPolyData() {
 
-		if (map.hasLayer(geojson)){
+		if (map.hasLayer(geojson)) {
 			map.removeLayer(geojson);
 		}
 
+		if (map.hasLayer(poly)) {
+			map.removeLayer(poly);
+			info.removeFrom(map);
+		}
+
 		var file = findGeoJSON();
-		console.log(file)
-		if ( file == false || $('#grid_form_option_2').val().indexOf('Urban') > -1  ) {
+		// console.log(file)
+
+		if ( file == false /*|| $('#grid_form_option_2').val().indexOf('Urban') > -1*/  ) {
 	 		addCountry('../DET/resources/'+countryData[grid_country].continent.toLowerCase()+'/'+grid_country.toLowerCase()+'/shapefiles/ADM1/Leaflet.geojson');
 			return;
 		}
+
+		var full_file = $('#grid_form_option_2').find(':selected').data('file');
+		var name_file = full_file.substr(0, full_file.indexOf('.'));
+		var poly_nodata = builder_data.no_data[grid_country][$('#grid_form_option_1').val()][$('#grid_form_option_2').val()];
 
 		readJSON(file, function (request, status, error){
 	 		if (error){
 	 			console.log(error);
 	 			return 1;
 	 		}
-	 		geojsonExtract = request;
+	 		geojsonPoly = request;
 
-			geojson = L.geoJson(geojsonExtract, {
-			    style: style
+			poly = L.geoJson(geojsonPoly, {
+			    style: style,
+		    	onEachFeature: onEachFeature
 			});
 
-			map.addLayer(geojson, true);
-			map.fitBounds( geojson.getBounds() );
+			map.addLayer(poly, true);
+			map.fitBounds( poly.getBounds() );
+
+//----------------------------------
+
+			function onEachFeature(feature, layer) {
+			    layer.on({
+			        mouseover: mouseoverFeature,
+			        mouseout: mouseoutFeature,
+			    });
+			}
+
+			function mouseoverFeature(e) {
+			    var layer = e.target;
+
+			    layer.setStyle({
+			        weight: 4
+			    });
+
+			    if (!L.Browser.ie && !L.Browser.opera) {
+			        layer.bringToFront();
+			    }
+
+	   		    info.update(e.target.feature.properties);
+			}
+
+			function mouseoutFeature(e) {
+
+			    var layer = e.target;
+
+			    layer.setStyle({
+			        weight: 1
+			    });
+
+			    // geojson.resetStyle(layer);
+			    info.update();
+			}
+
+			info = L.control({
+				position:'bottomleft'
+			});
+
+			info.onAdd = function (map) {
+			    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+			    this.update();
+			    return this._div;
+			};
+
+			// method that we will use to update the control based on feature properties passed
+			info.update = function(props) {
+
+				var html =  '';
+
+				if (props) {
+					html += '<b>' + props["NAME_2"] +'</b><br />'; 
+			        
+					html +=  $('#grid_form_option_2').val() +' : '+ ( poly_nodata ? 'No Data' : roundxy(props[name_file],3) ) + '<br>';
+				
+				} else {
+					html = 'Hover over a feature';
+				}
+
+			    this._div.innerHTML = html;
+			}
+
+
+			info.addTo(map);
+
+//--------------------------------------
 		 	window.dispatchEvent(new Event('resize'));
 	 	}, true)
 
 		function getColor(d) {
 			
+			if ( poly_nodata ) {
+
+				return '#A9A9A9';
+			} 
+
 			var thresh_val = builder_data.thresh_data[grid_country][$('#grid_form_option_1').val()][$('#grid_form_option_2').val()];
 			// console.log(thresh_val)
-		    return d >= thresh_val ? '#a1d99b' : '#de2d26' ; 
+		    return d >= thresh_val ? '#de2d26' : '#a1d99b' ; 
 		}
 
 		function style(feature) {
-			var full_file = $('#grid_form_option_2').find(':selected').data('file');
-			var name_file = full_file.substr(0, full_file.indexOf('.'));
 		    return {
 		        fillColor: getColor( parseFloat(feature.properties[name_file]) ), 
 		        weight: 1,
@@ -1211,16 +1298,13 @@ $(document).ready(function(){
                         formatter: function(){
                         	var first_donor = this.point.name.indexOf('|');
     	                    if (first_donor != -1){
-    	                        return this.point.name.substr(0, first_donor) + "... " + round(this.percentage,1) + "%";
+    	                        return this.point.name.substr(0, first_donor) + "... " + roundxy(this.percentage,1) + "%";
     	                    }else{
-    	                         return this.point.name + " " + round(this.percentage,1) + "%";   
+    	                         return this.point.name + " " + roundxy(this.percentage,1) + "%";   
     	                    }  
 
-							// return round(this.percentage,1) + "%";
-
-    	                    function round(x,y){
-    	                    	return Math.floor(x*10*y)/(10*y)
-    	                    }        
+							// return roundxy(this.percentage,1) + "%";
+    
 
     	                },
                         style: {
@@ -1437,6 +1521,12 @@ $(document).ready(function(){
 	 		result = String(Math.floor(r * num / (Math.pow(10,3))) / r) + ( abbr == 1 ? "th" : " thousand" );
 	 	}
 	 	return result;
+	}
+
+	function roundxy(x,y) {
+		y = ( y == undefined ? 3 : y );
+		var pow = Math.pow(10,y);
+		return Math.floor(x*pow)/(pow);
 	}
 
 //--------------------------------------------------------------------------------------------------

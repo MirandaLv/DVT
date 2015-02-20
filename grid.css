@@ -16,7 +16,7 @@
     border-radius: 10px;
     vertical-align: center;
     text-align: center;
-    color: white;
+    color: black;
     font-family: 'Abel', sans-serif;
     line-height: 20px;
     font-size: 20px;
@@ -30,9 +30,11 @@
 }
 
 #grid_back:hover {
-/*    -moz-box-shadow:    inset 0 0 10px #000000;
-    -webkit-box-shadow: inset 0 0 10px #000000;
-    box-shadow:         inset 0 0 10px #000000;*/
+    /*background: rgb(0,255,255);*/
+
+    -moz-box-shadow:    inset 0 0 5px #FFF;
+    -webkit-box-shadow: inset 0 0 5px #FFF;
+    box-shadow:         inset 0 0 5px #FFF;
 }
     
     #grid_back_icon {
@@ -44,7 +46,7 @@
     }
 
     #grid_back:hover #grid_back_icon {
-        color:blue;
+        color: white;
     }
 
 
@@ -132,7 +134,7 @@
             margin-bottom: -5px;
         }
 
-  /*          .legend {
+   /*         .legend {
                 width: 100px;
                 line-height: 20px;
                 color: #555;
@@ -144,7 +146,7 @@
                 margin-right: 8px;
                 opacity: 0.7;
             }
-
+*/
             .info {
                 padding: 6px 8px;
                 font: 14px/16px Arial, Helvetica, sans-serif;
@@ -156,7 +158,7 @@
             .info h4 {
                 margin: 0 0 5px;
                 color: #777;
-            }*/
+            }
 
             .geocode-cluster{
                 background: #9FE5F8;background:rgba(159, 229, 248, 0.5);border:1px solid black;border:1px solid rgba(0, 0, 0, 0.5);border-radius:50%;
