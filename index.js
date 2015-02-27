@@ -474,7 +474,7 @@ $(document).ready(function(){
 	            name: 'Data',
 	            data: outerData,
 	            size: '165%',
-	            innerSize: '150%',
+	            innerSize: '70%',
 	            dataLabels: {
 	                enabled: false,
 	            }
